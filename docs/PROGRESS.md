@@ -61,9 +61,9 @@ Praktický průvodce (metoda ověřování, vstup, lety, peníze, SIM, pojiště
 **GitHub Pages není zapnuté.** Potřeba: `Settings → Pages → Build and deployment → Source: GitHub Actions`. Potom jde deploy spustit ručně přes `workflow_dispatch`. Veřejná URL proto **není ověřená** — workflow je připravené, ale nasazení neproběhlo.
 
 ### Obsahové doplňky (aplikace bez nich funguje)
-1. **Ceny, které chybí** — největší díra je balíček loopu na 4 dny (máme jen hladinu pro 3denní). Dál ubytování v Tam Cốc a na Cát Bà, průvodce na trek, lezení, plavba po Nho Quế. Všechno je vedené v „Co zatím nevíme" (Průvodce → Varianty) s konkrétním dalším krokem.
-2. **Konkrétní podniky místo kategorií** — hotpot v Sa Pě, bylinková koupel, kozí restaurace v Ninh Bình a seafood na Cát Bà jsou zatím kategorie s doloženými kandidáty, ne jeden ověřený podnik. Chce to otevřít zdroje a vybrat.
-3. **Ověřené piny** — většina míst má `area-fallback`, tedy mapa otevírá vyhledání. Kde se podaří najít důvěryhodný pin, přepnout na `approximate`/`exact`.
+1. **Čtyři položky rozpočtu bez ceny** — průvodce na trek 27. 9., lezení u Cát Bà, plavba po Nho Quế a cestovní pojištění. U dvou dalších (Tam Cốc, Cát Bà) známe jen jednu hranici. Všechno je vedené v „Co zatím nevíme" (Průvodce → Varianty) s konkrétním dalším krokem.
+2. **Ověřené piny** — většina míst má `area-fallback`, takže mapa otevírá vyhledání názvu místo souřadnic. Kde se podaří najít důvěryhodný pin, přepnout na `approximate` nebo `exact`.
+3. **Otevírací doby** — u části podniků chybí (Hotpot Center, Quang Minh, bary v Sa Pě, jídelny v Hanoji). Jsou to údaje, které se dají zjistit v mapě.
 
 ### Technické
 4. **WebKit** není v prostředí k dispozici (`/opt/pw-browsers` má jen Chromium), takže na Safari to odzkoušené není.
@@ -77,10 +77,12 @@ Data vznikla v prostředí, kde byl web dostupný **jen přes vyhledávání** �
 
 Důsledek v datech: **žádná cena nemá stupeň `verified`** a test to vynucuje (`tests/unit/data.test.ts` → „netvrdí ověřeno tam, kde zdroj nebyl otevřen"). U každé ceny je klikací odkaz, aby to šlo potvrdit. V aplikaci je to vysvětlené v kartě „Jak jsme tohle ověřovali" (Průvodce → Praktické).
 
-Kdyby další session měla plný přístup na web: nejcennější je otevřít zdroje u cen a povýšit je na `verified`, doplnit chybějící ceny a najít ověřené piny.
+Kdyby další session měla plný přístup na web: nejcennější je otevřít zdroje u cen a povýšit je na `verified`, doplnit zbývající čtyři ceny a najít ověřené piny.
 
 ---
 
 ## Další konkrétní krok
 
-Doplnit chybějící ceny z bodu 1 — začít balíčkem loopu, protože je to největší položka rozpočtu a zároveň nejdůležitější rezervace celé cesty. Postup je popsaný ve výběru „S kým jedeme loop" (Průvodce → Rejstřík, nebo krok 21. 9. → Briefing): položit všem třem operátorům stejné otázky a doplnit odpovědi do `src/data/services.ts` a `src/data/budget.ts`.
+Zjistit cenu průvodce na trek 27. 9. — je to jediná placená položka toho dne a poslední chybějící cena, která se dá dohledat bez poptávky. Postup je u služby „Průvodce na trek v údolí Mường Hoa" (Průvodce → Rejstřík).
+
+Potom otevírací doby podniků, které je nemají — jsou to rychlé doplňky z mapy a v praxi rozhodují o tom, jestli se někam vůbec dostaneme.
