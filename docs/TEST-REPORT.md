@@ -11,16 +11,16 @@
 | Kontrola | Výsledek |
 |---|---|
 | TypeScript (`npm run typecheck`) | ✅ bez chyb |
-| Datové a unit testy (`npm test`) | ✅ 65 / 65 |
-| End-to-end (`npx playwright test`) | ✅ 24 / 24 (mobil + desktop) |
+| Datové a unit testy (`npm test`) | ✅ 67 / 67 |
+| End-to-end (`npx playwright test`) | ✅ 28 / 28 (mobil + desktop) |
 | Produkční build | ✅ precache 34 položek, 1,1 MB |
 | Vizuální diagnostika 390 / 768 / 1440 px | ✅ bez nálezů |
 
 ---
 
-## Datové a unit testy — 65 testů
+## Datové a unit testy — 67 testů
 
-`tests/unit/data.test.ts` (31)
+`tests/unit/data.test.ts` (33)
 
 - Přesně **18 pobytových dnů**, bez duplicit a bez chybějícího kalendářního dne.
 - Souvislé indexy 1–18.
@@ -35,7 +35,8 @@
 - Každá viditelná cena má **měnu, jednotku a stupeň jistoty**; `min ≤ max`; cena bez hodnoty musí mít poznámku, co s tím.
 - **Žádná cena nemá stupeň `verified`** — test to vynucuje, viz poznámka o metodě níž.
 - Ceny se zdrojem mají i datum kontroly.
-- Rozpočet nezapočítává balíčky dvakrát.
+- Rozpočet nezapočítává balíčky dvakrát; položka bez ceny to říká místo předstírané nuly a musí mít vysvětlení.
+- Každý přesun mezi oblastmi vede na dopravní detail se dvěma variantami, právě jednou doporučenou, plánem B, časem ode dveří ke dveřím, nástupem, výstupem a kapacitou pro čtyři se zavazadly.
 - Kurz má zdroj i datum.
 - Zdroje mají datum kontroly, platné URL a uvádějí, co podpírají.
 - Souřadnice leží v severním Vietnamu (chytilo by prohozené lat/lng).
@@ -55,7 +56,7 @@
 
 ---
 
-## End-to-end — 24 testů (12 scénářů × 2 viewporty)
+## End-to-end — 28 testů (14 scénářů × 2 viewporty)
 
 ### Průchod itinerářem (`tests/e2e/itinerary.spec.ts`)
 
@@ -66,6 +67,8 @@
 5. **Deep linky a zpět.** Přímý vstup na detail funguje; `goBack()` vrátí správný den.
 6. **Fallbacky.** Neznámé ID místa, neexistující den i neznámá adresa ukážou srozumitelný stav s cestou dál, ne prázdnou obrazovku.
 7. **Hledání bez diakritiky.** „ha giang", „hanoi", „ta van", „dong van", „pho" najdou; nesmysl nenajde nic.
+8. **Chyba v jedné části.** Vyvolaná chyba při vykreslování nezhasne celou aplikaci — error boundary ukáže srozumitelný stav s cestou dál, ne bílou stránku.
+9. **Bez JavaScriptu.** V kontextu s vypnutým JS se zobrazí fallback s termínem cesty, trasou a datem návratu do Prahy.
 
 ### Offline a izolace (`tests/e2e/offline.spec.ts`)
 

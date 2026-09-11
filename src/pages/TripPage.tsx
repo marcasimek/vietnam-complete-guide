@@ -144,21 +144,26 @@ function Budget() {
     return [...m.entries()]
   }, [])
 
-  const known = budgetLines.filter((l) => l.min !== null && !l.includedIn)
-  const unknown = budgetLines.filter((l) => l.min === null && !l.includedIn)
+  // Položka se počítá, jen když má aspoň jednu hranici a není už v balíčku.
+  const known = budgetLines.filter((l) => (l.min !== null || l.max !== null) && !l.includedIn)
+  const unknown = budgetLines.filter((l) => l.min === null && l.max === null && !l.includedIn)
+  const oneSided = known.filter((l) => l.min === null || l.max === null)
   const fx = trip.exchange.find((e) => e.from === 'VND')!
   const usdFx = trip.exchange.find((e) => e.from === 'USD')!
 
   const toCzk = (v: number, c: string) => (c === 'VND' ? v * fx.rate : c === 'USD' ? v * usdFx.rate : v)
-  const perPersonMin = known.reduce((a, l) => a + toCzk((l.basis === 'total' ? (l.min ?? 0) / 4 : l.min ?? 0), l.currency), 0)
-  const perPersonMax = known.reduce((a, l) => a + toCzk((l.basis === 'total' ? (l.max ?? 0) / 4 : l.max ?? 0), l.currency), 0)
+  const perPerson = (v: number, basis: BudgetLine['basis']) => (basis === 'total' ? v / 4 : v)
+  // Chybějící hranici doplníme tou druhou — jinak by jednostranný rozsah součet zkreslil dolů.
+  const perPersonMin = known.reduce((a, l) => a + toCzk(perPerson(l.min ?? l.max ?? 0, l.basis), l.currency), 0)
+  const perPersonMax = known.reduce((a, l) => a + toCzk(perPerson(l.max ?? l.min ?? 0, l.basis), l.currency), 0)
   const czk = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 })
+  const num = new Intl.NumberFormat('cs-CZ')
 
   return (
     <>
       <Callout tone="warn" title="Tohle není celkový rozpočet cesty">
-        Sečíst jde jen to, co má cenu. {unknown.length} z {budgetLines.length} položek zatím cenu nemá —
-        největší z nich je balíček loopu. Dokud nebude, je jakýkoli „celkový odhad“ jen číslo.
+        Sečíst jde jen to, co má cenu. {unknown.length} z {budgetLines.length} položek zatím cenu nemá.
+        Dokud nebudou doplněné, je jakýkoli „celkový odhad“ jen číslo.
       </Callout>
 
       <div className="budgetsum">
@@ -167,6 +172,12 @@ function Budget() {
           <p className="budgetsum__value">{czk.format(perPersonMin)} – {czk.format(perPersonMax)} Kč</p>
           <p className="xsmall muted">na osobu · bez mezinárodních letenek · bez {unknown.length} položek bez ceny</p>
         </div>
+        {oneSided.length ? (
+          <p className="xsmall muted">
+            U {oneSided.length} {oneSided.length === 1 ? 'položky' : oneSided.length < 5 ? 'položek' : 'položek'} známe jen jednu hranici („od“ nebo „do“).
+            Do součtu se za chybějící hranici dosadila ta známá — skutečný rozptyl bude širší.
+          </p>
+        ) : null}
         <p className="xsmall muted budgetsum__fx">
           Přepočet podle kurzu uloženého {formatDayLong(fx.checkedOn)} {fx.checkedOn.slice(0, 4)}:{' '}
           1 USD = {new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 2 }).format(usdFx.rate)} Kč,{' '}
@@ -182,11 +193,7 @@ function Budget() {
                 <div className="budgetrow__head">
                   <span className="budgetrow__label">{l.label}</span>
                   <span className="budgetrow__amount">
-                    {l.includedIn
-                      ? <span className="chip chip--jade">v balíčku</span>
-                      : l.min === null
-                        ? <span className="chip chip--coral">cena chybí</span>
-                        : `${new Intl.NumberFormat('cs-CZ').format(l.min)}${l.max && l.max !== l.min ? `–${new Intl.NumberFormat('cs-CZ').format(l.max)}` : ''} ${l.currency}`}
+                    {l.includedIn ? <span className="chip chip--jade">v balíčku</span> : budgetAmount(l, num)}
                   </span>
                 </div>
                 <p className="xsmall muted">
@@ -216,6 +223,16 @@ function Budget() {
 }
 
 // ---------------------------------------------------------------------------
+
+/** „250 000 VND", „od 60 USD", „do 432 USD" nebo poctivé „cena chybí". */
+function budgetAmount(l: BudgetLine, num: Intl.NumberFormat) {
+  if (l.min === null && l.max === null) return <span className="chip chip--coral">cena chybí</span>
+  if (l.min !== null && l.max !== null) {
+    return l.min === l.max ? `${num.format(l.min)} ${l.currency}` : `${num.format(l.min)}–${num.format(l.max)} ${l.currency}`
+  }
+  if (l.min !== null) return `od ${num.format(l.min)} ${l.currency}`
+  return `do ${num.format(l.max!)} ${l.currency}`
+}
 
 function Saved() {
   const { state } = useUserState()

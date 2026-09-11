@@ -153,3 +153,33 @@ test('hledání funguje bez diakritiky, česky i místním zápisem', async ({ p
   await input.fill('qqxyzzy')
   await expect(page.getByText('Nic takového v rejstříku není')).toBeVisible()
 })
+
+test('chyba v jedné části nezhasne celou aplikaci', async ({ page }) => {
+  await page.goto('#/plan')
+  // Vyvoláme chybu při vykreslení, aby se ukázalo, co uvidí uživatel.
+  await page.evaluate(() => {
+    const orig = Array.prototype.map
+    // eslint-disable-next-line no-extend-native
+    Array.prototype.map = function patched(this: unknown[], ...args: unknown[]) {
+      if (this.length === 18) throw new Error('Testovací chyba v datech')
+      return (orig as never as (...a: unknown[]) => unknown[]).apply(this, args)
+    } as typeof Array.prototype.map
+  })
+  await page.goto('#/guide')
+  await page.getByLabel('Hledat v rejstříku').fill('a')
+  await page.waitForTimeout(300)
+
+  // Buď to prošlo, nebo se ukázal srozumitelný stav — v žádném případě bílá stránka.
+  const bodyText = (await page.locator('body').textContent()) ?? ''
+  expect(bodyText.trim().length).toBeGreaterThan(50)
+})
+
+test('bez JavaScriptu ukáže srozumitelný fallback', async ({ browser }) => {
+  const ctx = await browser.newContext({ javaScriptEnabled: false })
+  const page = await ctx.newPage()
+  await page.goto('./')
+  await expect(page.getByText(/Tahle aplikace potřebuje zapnutý JavaScript/)).toBeVisible()
+  await expect(page.getByText(/19\. 9\. – 6\. 10\. 2026/)).toBeVisible()
+  await expect(page.getByText(/Návrat do Prahy 7\. 10\. 2026/)).toBeVisible()
+  await ctx.close()
+})

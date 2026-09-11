@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import './styles/fonts.css'
 import './styles/global.css'
 import { App } from './App'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { UserStateProvider } from './state/UserStateContext'
 import { initServiceWorker } from './state/swRegistration'
 
@@ -15,10 +16,12 @@ if (!rootEl) throw new Error('Chybí #root')
 
 createRoot(rootEl).render(
   <StrictMode>
-    <HashRouter>
-      <UserStateProvider>
-        <App />
-      </UserStateProvider>
-    </HashRouter>
+    <ErrorBoundary where="celá aplikace">
+      <HashRouter>
+        <UserStateProvider>
+          <App />
+        </UserStateProvider>
+      </HashRouter>
+    </ErrorBoundary>
   </StrictMode>,
 )

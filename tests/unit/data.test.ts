@@ -302,6 +302,22 @@ describe('ceny a jistota', () => {
     }
   })
 
+  it('rozpočtová položka bez ceny to říká, místo aby předstírala nulu', () => {
+    for (const l of budgetLines) {
+      if (l.min === null && l.max === null) {
+        // Neznámá cena musí mít vysvětlení nebo být v balíčku — ne prázdné místo.
+        expect(l.note ?? l.includedIn, `${l.id}: chybí vysvětlení, proč cenu neznáme`).toBeTruthy()
+      }
+      if (l.min !== null && l.max !== null) {
+        expect(l.min, `${l.id}: min > max`).toBeLessThanOrEqual(l.max)
+      }
+      if (l.min !== null || l.max !== null) {
+        expect(l.currency, `${l.id}: cena bez měny`).toBeTruthy()
+        expect(['per-person', 'total']).toContain(l.basis)
+      }
+    }
+  })
+
   it('rozpočet nezapočítává balíčky dvakrát', () => {
     const included = budgetLines.filter((l) => l.includedIn)
     expect(included.length).toBeGreaterThan(0)

@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { AppShell } from './components/AppShell'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { PlanPage } from './pages/PlanPage'
 import { DayPage } from './pages/DayPage'
 import { ItemPage } from './pages/ItemPage'
@@ -32,6 +33,7 @@ export function App() {
   return (
     <AppShell>
       <ScrollManager />
+      <ErrorBoundary where="obsah stránky">
       <Routes>
         <Route path="/" element={<Navigate to="/plan" replace />} />
         <Route path="/plan" element={<PlanPage />} />
@@ -46,6 +48,7 @@ export function App() {
         <Route path="/trip" element={<TripPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </ErrorBoundary>
     </AppShell>
   )
 }

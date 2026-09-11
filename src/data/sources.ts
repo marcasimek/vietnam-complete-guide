@@ -692,6 +692,33 @@ export const sources: Source[] = [
     checkedOn: '2026-09-11',
     supports: ['Yummy na 144 Núi Ngọc', 'Hải Yến na 8 Núi Ngọc', 'ulice Núi Ngọc jako hlavní jídelní osa mimo nábřeží'],
   },
+  {
+    id: 'src-priceline-tamcoc-horizon',
+    title: 'Tam Coc Horizon Bungalow — ceny a vybavení',
+    url: 'https://www.priceline.com/hotel-deals/en-us/P5000000445/H109792004/tam-coc-horizon-bungalow.ssp',
+    publisher: 'Priceline',
+    kind: 'transport-platform',
+    checkedOn: '2026-09-11',
+    supports: ['cena od cca 60 USD za pokoj/noc', 'bazén s výhledem, zahrada, kola pro hosty, restaurace'],
+  },
+  {
+    id: 'src-ta-little-vietnam-catba',
+    title: 'Little Vietnam Hotel & Restaurant, Cát Bà',
+    url: 'https://www.tripadvisor.com/Hotel_Review-g737051-d23521801-Reviews-Little_Vietnam_Hotel_Restaurant_Cat_Ba_Island-Cat_Ba_Hai_Phong.html',
+    publisher: 'Tripadvisor',
+    kind: 'review',
+    checkedOn: '2026-09-11',
+    supports: ['adresa 36 Núi Ngọc, Cát Bà', 'dvouhvězdičkový hotel s restaurací a barem'],
+  },
+  {
+    id: 'src-ta-moon-catba',
+    title: 'The Moon Boutique Hotel Cat Ba — ceny a recenze',
+    url: 'https://www.tripadvisor.com/Hotel_Review-g737051-d26835413-Reviews-The_Moon_Boutique_Hotel_Cat_Ba-Cat_Ba_Hai_Phong.html',
+    publisher: 'Tripadvisor',
+    kind: 'review',
+    checkedOn: '2026-09-11',
+    supports: ['cena od cca 72 USD za pokoj/noc', 'tříhvězdičkový butikový hotel se snídaní, kousek od pláže i centra'],
+  },
 ]
 
 export const sourceById = new Map(sources.map((s) => [s.id, s]))
