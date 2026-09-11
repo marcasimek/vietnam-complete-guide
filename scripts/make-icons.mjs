@@ -3,6 +3,18 @@
  * Zdroj i výstup jsou v repu — žádná externí služba a žádná binární závislost navíc.
  */
 import { chromium } from '@playwright/test'
+
+import { existsSync } from 'node:fs'
+
+/**
+ * Chromium: použij předinstalované, pokud na téhle mašině je; jinak nech
+ * Playwright sáhnout po svém staženém buildu. Skript tak funguje i mimo
+ * prostředí, ve kterém projekt vznikal.
+ */
+const SANDBOX_CHROMIUM = '/opt/pw-browsers/chromium'
+const chromiumPath =
+  process.env.CHROMIUM_PATH ?? (existsSync(SANDBOX_CHROMIUM) ? SANDBOX_CHROMIUM : undefined)
+const launchOptions = chromiumPath ? { executablePath: chromiumPath } : {}
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
@@ -16,7 +28,7 @@ const targets = [
   { svg: 'public/icons/maskable.svg', out: 'public/icons/maskable-512.png', size: 512 },
 ]
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium' })
+const browser = await chromium.launch(launchOptions)
 for (const t of targets) {
   const svg = readFileSync(resolve(root, t.svg), 'utf8')
   const page = await browser.newPage({ viewport: { width: t.size, height: t.size }, deviceScaleFactor: 1 })

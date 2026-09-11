@@ -1,4 +1,15 @@
 import { defineConfig, devices } from '@playwright/test'
+import { existsSync } from 'node:fs'
+
+/**
+ * Vývojové prostředí, ve kterém projekt vznikal, má Chromium předinstalované
+ * na pevné cestě. Na GitHub runneru tam ale nic není — Playwright si stahuje
+ * vlastní. Proto cestu nastavujeme jen tehdy, když opravdu existuje.
+ */
+const SANDBOX_CHROMIUM = '/opt/pw-browsers/chromium'
+const chromiumPath =
+  process.env.CHROMIUM_PATH ?? (existsSync(SANDBOX_CHROMIUM) ? SANDBOX_CHROMIUM : undefined)
+const launchOptions = chromiumPath ? { executablePath: chromiumPath } : {}
 
 const PORT = 4173
 const BASE = `http://localhost:${PORT}/vietnam-complete-guide/`
@@ -27,7 +38,7 @@ export default defineConfig({
       name: 'mobile-chromium',
       use: {
         ...devices['Pixel 7'],
-        launchOptions: { executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium' },
+        launchOptions,
       },
     },
     {
@@ -35,7 +46,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1440, height: 900 },
-        launchOptions: { executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium' },
+        launchOptions,
       },
     },
   ],

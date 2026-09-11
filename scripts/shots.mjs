@@ -4,6 +4,18 @@
  * malé dotykové cíle, useknuté texty).
  */
 import { chromium } from '@playwright/test'
+
+import { existsSync } from 'node:fs'
+
+/**
+ * Chromium: použij předinstalované, pokud na téhle mašině je; jinak nech
+ * Playwright sáhnout po svém staženém buildu. Skript tak funguje i mimo
+ * prostředí, ve kterém projekt vznikal.
+ */
+const SANDBOX_CHROMIUM = '/opt/pw-browsers/chromium'
+const chromiumPath =
+  process.env.CHROMIUM_PATH ?? (existsSync(SANDBOX_CHROMIUM) ? SANDBOX_CHROMIUM : undefined)
+const launchOptions = chromiumPath ? { executablePath: chromiumPath } : {}
 import { mkdirSync } from 'node:fs'
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:4173/vietnam-complete-guide/'
@@ -33,7 +45,7 @@ const SCREENS = [
 ]
 
 mkdirSync(OUT, { recursive: true })
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium' })
+const browser = await chromium.launch(launchOptions)
 const problems = []
 
 for (const vp of VIEWPORTS) {
