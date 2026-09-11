@@ -21,10 +21,11 @@ export const day20260927: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
+      placeIds: ['place-muong-hoa-valley', 'place-lao-chai'],
       detail: [
-        'Většina trekových tras začíná svozem z centra Sa Py dolů do údolí, typicky k Lao Chải. Zpátky nahoru se pak jede autem.',
+        'Většina trekových tras začíná svozem z centra Sa Py dolů do údolí, typicky k Lao Chải. Zpátky nahoru se pak jede autem — stoupat zpět po svých po celodenní chůzi nedává smysl.',
+        'Průvodce z místní komunity (Sapa Sisters a podobné) je doložený kandidát. Identitu a cenu je potřeba ověřit.',
       ],
-      placeIds: ['place-muong-hoa-valley'],
       tags: ['transport', 'trek'],
     },
     {
@@ -106,7 +107,8 @@ export const day20260928: Day = {
       status: 'optional',
       detail: [
         'Tři možnosti, mezi kterými se vybírá jedna: lanovka na Fansipan, organizovaný canyoning, nebo prostě volnější den v Sa Pě.',
-        'Pokud 26. 9. odpadl coaster, tohle je den, kdy ho dohnat — otevírá se v 9:00.',
+        'Pokud 26. 9. odpadl coaster kvůli dešti nebo pozdnímu příjezdu, tohle je den, kdy ho dohnat — otevírá se v 9:00 a je to na dvě hodiny.',
+        'Ať padne cokoli, musí to skončit s rezervou. Večer jedeme na vlak a ten nepočká.',
       ],
       placeIds: ['place-alpine-coaster-sapa'],
       caveats: [
@@ -134,10 +136,17 @@ export const day20260928: Day = {
       order: 3,
       dayPart: 'evening',
       status: 'main',
+      transportLegId: 'leg-sapa-laocai',
+      placeIds: ['place-lao-cai-station'],
       detail: [
-        'Ze Sa Py na nádraží v Lào Cai se jede zhruba 35 km dolů. Jezdí sdílené minivany i soukromá auta.',
+        'Ze Sa Py na nádraží v Lào Cai je to 32–35 km z kopce, hodina až hodina a půl podle provozu.',
+        'Soukromé auto stojí kolem 30 USD za vůz, sdílený shuttle 30 000 – 60 000 VND na osobu. Ve čtyřech je rozdíl pár desítek korun na hlavu — a auto nečeká, až se naplní.',
       ],
-      practical: ['Počítej rezervu — je to horská silnice a vlak nepočká.'],
+      practical: [
+        'Vyjeď tak, abys byl na nádraží aspoň hodinu před odjezdem. Horská silnice nemá objížďku.',
+        'Sprchu a jídlo vyřeš v Sa Pě, ne na nádraží.',
+      ],
+      sourceIds: ['src-sapanomad-laocai-transfer'],
       tags: ['transport'],
     },
     {
@@ -148,14 +157,23 @@ export const day20260928: Day = {
       order: 4,
       dayPart: 'night',
       status: 'main',
+      timeHint: 'podle zdrojů SP4 odjíždí ve 21:30, nutno potvrdit',
+      transportLegId: 'leg-laocai-hanoi-train',
+      placeIds: ['place-lao-cai-station'],
       detail: [
-        'Na trase jezdí vlaky vietnamské železnice, ke kterým soukromí provozovatelé připojují vlastní turistické vozy (např. Chapa Express). To je důvod, proč se ceny a standard u „stejného vlaku" liší.',
-        'Rozhodnutí: dvě skutečná dvoulůžková kupé jsou soukromější a dražší; vykoupené celé čtyřlůžkové znamená, že jsme ve čtyřech sami a bývá to levnější.',
+        'Vlaky SP3 (Hanoj → Lào Cai) a SP4 (Lào Cai → Hanoj) provozuje vietnamská železnice. Soukromé firmy jako Chapa Express k nim připojují vlastní vozy s lepším vybavením. Kupuješ si tedy vůz, ne vlak — proto se u „stejného spoje" liší ceny i standard.',
+        'Rozhodnutí je mezi dvěma soukromími dvoulůžkovými kupé a vykoupeným celým čtyřlůžkovým. Čtyřlůžkové vychází zhruba na polovinu a jsme v něm ve čtyřech sami; dvoulůžková dávají párům skutečné soukromí a obě lůžka dole.',
+        'Podle zdrojů odjíždí SP4 z Lào Cai ve 21:30 a přijíždí do Hanoje v 05:30. Jízda trvá zhruba osm hodin — je to opravdová noc.',
+      ],
+      practical: [
+        'Vezmi si špunty do uší a něco na zakrytí očí. Vlak je hlučný a světla v chodbě se nezhasínají.',
+        'Rezervovat 3–6 týdnů předem. Kupé se vykupují brzy.',
       ],
       caveats: [
         'Přesné číslo spoje, odjezd, příjezd, cenu a storno je nutné ověřit konkrétně pro 28. 9. 2026. Staré časy z dřívějších návrhů neber jako platné.',
-        'Dřívější orientace 44 USD za lůžko a 226 USD za dvoulůžkové kupé Chapa jsou historické stopy z plánování, ne ověřené ceny.',
+        'Dřívější orientace 44 USD za lůžko a 226 USD za dvoulůžkové kupé Chapa jsou historické stopy z plánování. Shodou okolností sedí řádově s dnešními cenami, ale to z nich ověřené ceny nedělá.',
       ],
+      sourceIds: ['src-sapanomad-chapa', 'src-vietnamesetrain-sp4', 'src-chapa-express'],
       tags: ['transport'],
     },
   ],

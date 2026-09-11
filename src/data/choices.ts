@@ -186,6 +186,27 @@ export const choiceGroups: ChoiceGroup[] = [
       'Oběd na plavbě 3. 10. bývá v ceně — ten den neplánuj oběd navíc.',
     ],
   },
+  {
+    id: 'choice-loop-operator',
+    title: 'S kým jedeme loop',
+    intro:
+      'Čtyři dny, čtyři lidi, dva soukromé pokoje. Nejdůležitější rozhodnutí celé cesty — a zatím nemáme od nikoho cenu. Polož všem třem stejné otázky.',
+    mode: 'pick-one',
+    regionId: 'ha-giang',
+    serviceIds: ['svc-strawberry-loop', 'svc-yesd', 'svc-qt-motorbikes', 'svc-loop-package'],
+    decisionNotes: [
+      'Kamarádce třídenní loop přišel jako moc sezení a málo vesnic. Čtyři dny musí znamenat víc zastávek, ne víc kilometrů — na to se ptej výslovně.',
+      'Ptej se všech tří na totéž, jinak nabídky neporovnáš: hodiny jízdy denně, délka pěších bloků, dva soukromé pokoje, jazyk průvodce, co je v ceně, storno při počasí.',
+      'Zeptej se i na transfer z Hanoje 21. 9. a na noci 21. a 25. 9. — často to mají v balíčku a vyjde to levněji.',
+      'Úschova velkých batohů: nech si písemně potvrdit, kde a jak.',
+      'Pojištění řeš sám, ne přes operátora. Spolujízdu na motorce většina cestovních pojistek vylučuje.',
+    ],
+    openQuestions: [
+      'Od žádného ze tří kandidátů nemáme cenu za 4denní private loop pro čtyři osoby.',
+      'U Strawberry je potřeba potvrdit identitu firmy a webu — jména se u loop operátorů kopírují.',
+      'Není jasné, jestli 4 dny opravdu znamenají delší pěší bloky, nebo jen delší etapy.',
+    ],
+  },
 ]
 
 export const choiceGroupById = new Map(choiceGroups.map((c) => [c.id, c]))
