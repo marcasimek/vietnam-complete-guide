@@ -462,7 +462,6 @@
 
 @media (min-width: 1100px) {
   .plan { max-width: var(--wide-max); }
-  .plan__blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-7) var(--s-6); align-items: start; }
   .regionblock { min-width: 0; }
 }
 
@@ -516,8 +515,30 @@
 .miniday__row { align-items: flex-start; }
 .miniday__date, .miniday__night { padding-top: 1px; }
 
+/* ------------------------------------------------------------------
+   Desktop: vybraný den vlevo (drží se u kraje obrazovky), celá cesta
+   vpravo v jednom sloupci. Dvousloupcový přehled by rozbil chronologii —
+   cesta se čte shora dolů, ne zleva doprava.
+   ------------------------------------------------------------------ */
 @media (min-width: 1100px) {
-  .overview__blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); align-items: start; }
+  .plan__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-7);
+    align-items: start;
+    margin-top: var(--s-5);
+  }
+  .plan__body > .daycard--focus { margin-top: 0; position: sticky; top: 96px; }
+  .overview { margin-top: 0; }
+  .overview__toggle { display: none; }
+  .overview__blocks { margin-top: 0; }
+  .overview__head-desktop {
+    display: flex; align-items: baseline; gap: var(--s-3);
+    padding-bottom: var(--s-4); border-bottom: 1px solid var(--line); margin-bottom: var(--s-5);
+  }
+  /* Na širokém displeji se vejdou všechny dny najednou — nemusí se scrollovat. */
+  .daystrip__track { flex-wrap: wrap; justify-content: flex-start; }
+  .daychip { flex: 1 1 auto; max-width: 74px; }
 }
 
 /* --- rychlé srovnání variant -------------------------------------- */
@@ -892,3 +913,6 @@
   background: var(--surface-sunk); color: var(--ink-2);
   word-break: break-word; text-align: left;
 }
+
+.overview__head-desktop { display: none; }
+.overview__head-desktop h2 { font-size: 1.05rem; letter-spacing: -.022em; }

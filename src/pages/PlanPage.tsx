@@ -76,15 +76,20 @@ export function PlanPage() {
         </div>
       </div>
 
-      <FocusDay day={focusDay} isToday={focusDay.date === pos.today} />
+      <div className="plan__body">
+        <FocusDay day={focusDay} isToday={focusDay.date === pos.today} />
 
-      <section className="overview">
-        <button
-          type="button"
-          className="overview__toggle"
-          aria-expanded={overviewOpen}
-          onClick={() => setOverviewOpen((v) => !v)}
-        >
+        <section className="overview">
+          <div className="overview__head-desktop">
+            <h2>Celá cesta</h2>
+            <span className="small muted">18 dnů · 17 nocí · 7 oblastí</span>
+          </div>
+          <button
+            type="button"
+            className="overview__toggle"
+            aria-expanded={overviewOpen}
+            onClick={() => setOverviewOpen((v) => !v)}
+          >
           <span className="overview__togglehead">
             <span className="section-label">Celá cesta</span>
             <span className="overview__sub">18 dnů · 17 nocí · 7 oblastí</span>
@@ -137,8 +142,9 @@ export function PlanPage() {
               )
             })}
           </div>
-        ) : null}
-      </section>
+          ) : null}
+        </section>
+      </div>
     </div>
   )
 }
