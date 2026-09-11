@@ -107,6 +107,85 @@ export const choiceGroups: ChoiceGroup[] = [
       'Páry se můžou rozdělit: dva na koupel, dva do baru, sejít se potom. Nic z toho není společný závazek.',
     ],
   },
+  {
+    id: 'choice-ninhbinh-stay',
+    title: 'Kde v Tam Cốc spíme',
+    intro:
+      'Tři noci na jednom místě, dva pokoje. Tenhle blok je záměrně odpočinkový — po loopu a nočním vlaku. Bazén je pracovní priorita, ne luxus.',
+    mode: 'pick-one',
+    regionId: 'ninh-binh',
+    serviceIds: ['svc-tam-coc-horizon', 'svc-trang-an-retreat', 'svc-le-clos-du-fil'],
+    decisionNotes: [
+      'Bazén si nech potvrdit písemně — není samozřejmost a některé bývají mimo provoz.',
+      'Poloha v Tam Cốc znamená jídelny a půjčovnu kol pěšky. Ubytování blíž k Tràng An to obrací.',
+      'Zeptej se, jestli jsou v ceně kola pro hosty. Ušetří to den nájmu.',
+      'Tři noci na jednom místě je nejdelší blok cesty — tady se vyplatí vybírat pečlivěji než jinde.',
+    ],
+    openQuestions: [
+      'U žádného ze tří kandidátů nemáme dohledanou aktuální cenu za dvoulůžkový pokoj.',
+      'Kamarádka slíbila konkrétní tip na hotel s bazénem, ale jméno nemáme. Nevymýšlíme ho.',
+    ],
+  },
+  {
+    id: 'choice-ninhbinh-food',
+    title: 'Kde jíst v Ninh Bình',
+    intro: 'Jedna společná kozí tabule za pobyt a jinak obyčejné jídelny. Kozí maso a cơm cháy jsou skutečné místní speciality, ne turistický výmysl.',
+    mode: 'or',
+    regionId: 'ninh-binh',
+    serviceIds: ['svc-ninhbinh-goat', 'svc-tam-coc-local-eateries'],
+    decisionNotes: [
+      'Kozí tabule pro čtyři vyjde zhruba na 700 000 – 900 000 VND, tedy kolem 560–720 Kč za celý stůl.',
+      'Ốc núi (horští šneci) jsou sezónní — podle zdrojů září až listopad, takže náš termín sedí.',
+      'Na denní jídlo jsou jídelny podél Tam Cốc Road. Čím dál od přístaviště, tím levněji.',
+    ],
+  },
+  {
+    id: 'choice-catba-stay',
+    title: 'Kde na Cát Bà spíme',
+    intro: 'Tři noci v městečku, dva pokoje. Poloha v Cát Bà town je podstatná — odsud se chodí pěšky na loď, na jídlo i na pláž.',
+    mode: 'pick-one',
+    regionId: 'cat-ba',
+    serviceIds: ['svc-little-vietnam-hotel', 'svc-moon-boutique'],
+    decisionNotes: [
+      'U konkrétního objektu ověř aktuální hluk a stavební ruch. Na ostrově se hodně staví a situace se mění rychle.',
+      'Ubytování mimo městečko znamená dopravu na každou plavbu i na každou večeři.',
+      'Čtvrtá noc tu není — 5. 10. se vracíme na pevninu. Poslední noc musí být v Hanoji.',
+    ],
+    openQuestions: ['Ceny ani aktuální stav okolí u obou kandidátů nemáme ověřené.'],
+  },
+  {
+    id: 'choice-catba-boat',
+    title: 'Kdo nás veze po Lan Hạ',
+    intro:
+      'Celodenní plavba 3. 10. s rezervou na 4. 10. Nejdůležitější otázka není cena, ale velikost skupiny a co se stane při špatném počasí.',
+    mode: 'pick-one',
+    regionId: 'cat-ba',
+    serviceIds: ['svc-catba-ventures', 'svc-catba-outdoors'],
+    decisionNotes: [
+      'Ptej se na počet lidí na lodi. Rozdíl mezi 12 a 40 je celý den.',
+      'Lezení je samostatný program, ne přídavek k plavbě. Pokud o něj stojíme, poptej ho výslovně u Cat Ba Outdoors.',
+      'Rozliš lezení s jištěním na laně od deep-water soloingu — pojišťovny je posuzují jinak.',
+      'Zeptej se na podmínky zrušení kvůli počasí. Proto máme 4. 10. jako rezervu.',
+      'Nikdo nemusí lézt ani plavat. Ověř, že část skupiny může jen sledovat.',
+    ],
+    openQuestions: [
+      'Konkrétní program ani cenu pro 3. 10. 2026 nemáme u žádného z operátorů potvrzené.',
+      'Cena lezení a jeho obsah jsou úplně neověřené.',
+    ],
+  },
+  {
+    id: 'choice-catba-food',
+    title: 'Kde jíst na Cát Bà',
+    intro: 'Nábřeží nebo o ulici dál. Rozdíl v ceně je zásadní, rozdíl v jídle často opačný, než čekáš.',
+    mode: 'or',
+    regionId: 'cat-ba',
+    serviceIds: ['svc-catba-seafood', 'svc-catba-local-eateries'],
+    decisionNotes: [
+      'U mořských plodů účtovaných podle váhy si vždycky nech potvrdit cenu za kilo PŘED přípravou. Tohle je tady nejčastější problém.',
+      'Tři dny samý seafood na nábřeží by byly drahé. Střídej to s obyčejnými jídelnami.',
+      'Oběd na plavbě 3. 10. bývá v ceně — ten den neplánuj oběd navíc.',
+    ],
+  },
 ]
 
 export const choiceGroupById = new Map(choiceGroups.map((c) => [c.id, c]))

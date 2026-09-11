@@ -471,6 +471,161 @@ export const transportLegs: TransportLeg[] = [
     ],
     sourceIds: ['src-bookaway-hg-sapa', 'src-redbus-hg-sapa', 'src-a21-hg-sapa', 'src-gyg-hg-sapa-transfer'],
   },
+  {
+    id: 'leg-ninhbinh-catba',
+    from: 'Tam Cốc / Ninh Bình',
+    to: 'Cát Bà',
+    fromPlaceId: 'place-tam-coc',
+    toPlaceId: 'place-cat-ba-town',
+    date: '2026-10-02',
+    summary:
+      'Kombinovaná jízdenka: autobus po pevnině, trajekt přes záliv a svoz po ostrově. Prodává se jako jeden celek — nepřestupuje se a nekupují se tři lístky. Bez zbytečného návratu do Hanoje.',
+    options: [
+      {
+        id: 'opt-nb-cb-combo',
+        mode: 'ferry',
+        label: 'Přímý bus + trajekt (kombinovaná jízdenka)',
+        operator: 'Na trase jezdí mimo jiné Cat Ba Express a Good Morning Cat Ba.',
+        reseller: 'Přímo u dopravce, nebo přes Bookaway a 12Go.',
+        doorToDoor: {
+          minHours: 4.5,
+          maxHours: 6,
+          note: 'Včetně vyzvednutí u ubytování v Tam Cốc a vysazení u hotelu v Cát Bà town.',
+          confidence: 'published',
+        },
+        price: [
+          {
+            currency: 'USD',
+            min: 12,
+            max: 16,
+            unit: 'per-person',
+            persons: 1,
+            note: 'Pro čtyři tedy zhruba 48–64 USD. V ceně je autobus, mýto, trajekt i svoz — žádné doplácení cestou.',
+            confidence: 'published',
+            sourceIds: ['src-goodmorning-ninhbinh-catba', 'src-catbaexpress-ninhbinh'],
+            checkedOn: '2026-09-11',
+            includes: ['autobus', 'mýto', 'trajekt', 'vyzvednutí u ubytování', 'svoz k hotelu na ostrově'],
+            excludes: ['jídlo cestou'],
+          },
+        ],
+        capacityNote:
+          'Podle typu jde o turistický autobus na 25–29 míst nebo limousine na 9–16 míst. Zavazadla jdou do kufru — u čtyř velkých batohů to napiš do rezervace.',
+        pickup: {
+          description:
+            'Vyzvednutí u ubytování v Tam Cốc nebo Ninh Bình je podle dopravců součástí jízdenky. Konkrétní čas dostaneš v potvrzení den předem.',
+        },
+        dropoff: {
+          description:
+            'Vysazení u hotelu v Cát Bà town. Autobus podle dopravců najíždí přímo na trajekt, takže se cestou nepřestupuje.',
+        },
+        schedule: {
+          summary: 'Odjezdy z Ninh Bình jezdí od rána zhruba do 14:00. Pro nás dává smysl ranní, ať máme na ostrově ještě odpoledne.',
+          confidence: 'published',
+          sourceIds: ['src-goodmorning-ninhbinh-catba'],
+        },
+        availability: 'unknown',
+        bookingLeadTime: '1–2 týdny předem; v sezóně dřív, protože trajekt má omezenou kapacitu.',
+        pros: [
+          'Jeden nákup, žádné přestupy se zavazadly.',
+          'Trajekt je v ceně — žádné překvapení v přístavu.',
+          'Bez zajížďky přes Hanoj.',
+        ],
+        cons: [
+          'Pevný čas odjezdu, nedá se to posunout.',
+          'Při špatném počasí může trajekt nejezdit — pak se celý den mění.',
+        ],
+        sourceIds: ['src-goodmorning-ninhbinh-catba', 'src-catbaexpress-ninhbinh'],
+        recommended: true,
+      },
+      {
+        id: 'opt-nb-cb-private',
+        mode: 'car',
+        label: 'Soukromé auto do přístavu + trajekt zvlášť',
+        doorToDoor: { minHours: 4.5, maxHours: 6, note: 'Čas závisí hlavně na tom, jestli se trefíme na odjezd trajektu.', confidence: 'estimate' },
+        price: [
+          {
+            currency: 'USD',
+            unit: 'per-vehicle',
+            persons: 4,
+            note: 'Cenu za vůz na téhle trase jsme nedohledali. Poptej u ubytování v Tam Cốc. K tomu se připočítává trajekt zvlášť.',
+            confidence: 'unverified',
+            checkedOn: '2026-09-11',
+          },
+        ],
+        capacityNote: 'Sedmimístné auto kvůli zavazadlům.',
+        pickup: { description: 'Přímo od ubytování v domluvený čas.' },
+        dropoff: { description: 'Přístav na pevnině. Odtud trajekt a na ostrově další transfer — tři samostatné kroky, které si musíš pohlídat sám.' },
+        availability: 'unknown',
+        pros: ['Volný čas odjezdu.', 'Pohodlnější pro čtyři s batohy.'],
+        cons: [
+          'Nejdráž a bez ověřené ceny.',
+          'Riziko, že se nepotká auto s trajektem — kombinovaná jízdenka tohle řeší za tebe.',
+        ],
+      },
+    ],
+    fallback: [
+      'Když trajekt nejede kvůli počasí, zůstáváme v Tam Cốc o noc déle a jedeme další den. Jeden den na Cát Bà oželet jde, let 6. 10. ne.',
+      'Informuj ubytování na Cát Bà hned, jak víš o zdržení.',
+    ],
+    practical: [
+      'Kombinovaná jízdenka je tu jednoznačně lepší volba než skládat to po částech.',
+      'Odjezdy jsou dopoledne až brzy odpoledne. Pozdní odjezd znamená příjezd za tmy a žádné odpoledne na ostrově.',
+      'Přeptej se, jestli je v ceně i poslední úsek k ubytování — u části prodejců končí jízdenka v přístavu.',
+    ],
+    sourceIds: ['src-goodmorning-ninhbinh-catba', 'src-catbaexpress-ninhbinh'],
+  },
+  {
+    id: 'leg-catba-hanoi',
+    from: 'Cát Bà',
+    to: 'Hanoj',
+    fromPlaceId: 'place-cat-ba-town',
+    toPlaceId: 'place-hanoi',
+    date: '2026-10-05',
+    summary:
+      'Návrat na pevninu stejnou kombinací, jen opačně. Poslední noc musí být v Hanoji — na ostrově zůstat nemůžeme, protože 6. 10. večer letíme.',
+    options: [
+      {
+        id: 'opt-cb-hanoi-combo',
+        mode: 'ferry',
+        label: 'Ranní bus + trajekt do Hanoje',
+        operator: 'Cat Ba Express, Good Morning Cat Ba a další.',
+        doorToDoor: { minHours: 4, maxHours: 5.5, note: 'Včetně svozu z hotelu a vysazení ve Starém Městě.', confidence: 'estimate' },
+        price: [
+          {
+            currency: 'USD',
+            min: 13,
+            max: 18,
+            unit: 'per-person',
+            persons: 1,
+            note: 'Odvozeno z cen na stejné trase opačným směrem. Konkrétní cenu pro 5. 10. potvrď u dopravce.',
+            confidence: 'estimate',
+            sourceIds: ['src-goodmorning-ninhbinh-catba'],
+            checkedOn: '2026-09-11',
+          },
+        ],
+        capacityNote: 'Po cestě bývá zavazadel víc než na začátku — počítej s tím.',
+        pickup: { description: 'Svoz od hotelu v Cát Bà town.' },
+        dropoff: { description: 'Obvykle ve Starém Městě v Hanoji nebo u kanceláře dopravce. Ověř, kde přesně — s batohy to rozhoduje.' },
+        schedule: { summary: 'Ranní odjezd. Odpolední by ohrozil poslední večer v Hanoji.', confidence: 'estimate' },
+        availability: 'unknown',
+        bookingLeadTime: 'Zarezervovat hned po příjezdu na ostrov, ne až 4. 10.',
+        pros: ['Jeden nákup.', 'Ranní odjezd nechává celý poslední večer v Hanoji volný.'],
+        cons: ['Znamená vstávat a oželet poslední dopoledne na ostrově.'],
+        sourceIds: ['src-goodmorning-ninhbinh-catba'],
+        recommended: true,
+      },
+    ],
+    fallback: [
+      'Zjisti stav trajektů hned ráno 5. 10., ne až odpoledne.',
+      'Kdyby hrozilo, že spojení nepojede ani 6. 10. ráno, řeš odjezd z ostrova už 4. 10. večer. Poslední ostrovní den se dá oželet, let ne.',
+      'Informuj hotel v Hanoji o pozdním příjezdu, pokud se to protáhne.',
+    ],
+    practical: [
+      'Tohle je jediný přesun, u kterého se nevyplatí experimentovat — za ním už je jen let domů.',
+      'Poslední noc na ostrově by znamenala, že celá cesta na letiště visí na jednom trajektu. To nedělej.',
+    ],
+    sourceIds: ['src-goodmorning-ninhbinh-catba'],
+  },
 ]
 
 export const transportLegById = new Map(transportLegs.map((l) => [l.id, l]))

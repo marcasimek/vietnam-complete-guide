@@ -20,10 +20,16 @@ export const day20261002: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
+      transportLegId: 'leg-ninhbinh-catba',
       detail: [
-        'Na téhle trase se prodává kombinovaná jízdenka: autobus na pevnině, trajekt nebo rychloloď přes záliv a minibus na ostrově. Jede se jako jeden celek, ne jako tři samostatné nákupy.',
+        'Na téhle trase se prodává kombinovaná jízdenka: autobus na pevnině, trajekt přes záliv a svoz po ostrově. Autobus podle dopravců najíždí přímo na trajekt, takže se cestou nepřestupuje.',
+        'V ceně 12–16 USD na osobu je autobus, mýto, trajekt i vyzvednutí u ubytování. Pro čtyři tedy zhruba 48–64 USD, což je kolem 1 000–1 350 Kč za celou skupinu.',
       ],
-      practical: ['Zjisti, jestli je v jízdence zahrnutý i poslední úsek k ubytování — u části prodejců končí v přístavu.'],
+      practical: [
+        'Odjezdy jezdí od rána zhruba do 14:00. Ranní spoj nechá na ostrově ještě odpoledne.',
+        'Zjisti, jestli je v jízdence i poslední úsek k ubytování — u části prodejců končí v přístavu.',
+      ],
+      sourceIds: ['src-goodmorning-ninhbinh-catba', 'src-catbaexpress-ninhbinh'],
       tags: ['transport', 'water'],
     },
     {
@@ -34,8 +40,13 @@ export const day20261002: Day = {
       order: 2,
       dayPart: 'afternoon',
       status: 'main',
-      detail: ['Ubytování v městečku Cát Bà znamená docházkovou vzdálenost na jídlo, přístav i lodní kanceláře.'],
-      caveats: ['U konkrétního objektu ověř aktuální hluk a stavební ruch — na Cát Bà se hodně staví a situace se mění.'],
+      choiceGroupIds: ['choice-catba-stay', 'choice-catba-food'],
+      placeIds: ['place-cat-ba-town'],
+      detail: [
+        'Ubytování v městečku Cát Bà znamená docházkovou vzdálenost na jídlo, přístav i lodní kanceláře. Ubytování mimo městečko znamená dopravu na každou plavbu a každou večeři.',
+        'Pozdní oběd, protože ráno se jelo. Levnější jídelny jsou o ulici dvě od nábřeží.',
+      ],
+      caveats: ['U konkrétního objektu ověř aktuální hluk a stavební ruch — na Cát Bà se hodně staví a situace se mění rychle.'],
       tags: ['stay', 'food'],
     },
     {
@@ -46,7 +57,11 @@ export const day20261002: Day = {
       order: 3,
       dayPart: 'afternoon',
       status: 'optional',
-      detail: ['Městské pláže Cát Cò jsou od centra pěšky po pobřežní stezce.'],
+      placeIds: ['place-cat-co-beaches'],
+      detail: [
+        'Pláže Cát Cò 1–3 jsou od centra pěšky po vyhlídkové stezce v útesu, 10–20 minut. Stezka mezi nimi je sama o sobě pěkná procházka.',
+        'Podle toho, jak dopadne cesta. Když přijedeme pozdě, tenhle bod vypadne.',
+      ],
       tags: ['water', 'rest'],
     },
     {
@@ -57,7 +72,11 @@ export const day20261002: Day = {
       order: 4,
       dayPart: 'evening',
       status: 'main',
-      detail: ['Na Cát Bà se dá jíst mořské jídlo přímo u vody, ale levnější jídelny jsou o ulici dál od nábřeží.'],
+      choiceGroupIds: ['choice-catba-food'],
+      detail: [
+        'Na Cát Bà se dá jíst mořské jídlo přímo u vody, ale levnější a často lepší jídelny jsou o ulici dvě do vnitrozemí.',
+        'U ryb a mořských plodů účtovaných podle váhy si nech potvrdit cenu za kilo PŘED přípravou. Tohle je tady nejčastější turistický problém.',
+      ],
       tags: ['food', 'evening'],
     },
   ],
@@ -84,10 +103,18 @@ export const day20261003: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
+      placeIds: ['place-lan-ha-bay'],
+      choiceGroupIds: ['choice-catba-boat'],
       detail: [
-        'Lan Hạ je jižní část stejného krasového zálivu, ale s výrazně menším provozem než hlavní Hạ Long. Právě proto jedeme z Cát Bà, ne z Hạ Long City.',
+        'Lan Hạ je jižní část stejného krasového zálivu jako Hạ Long, ale s výrazně menším provozem. Právě proto jedeme z Cát Bà, ne z Hạ Long City.',
+        'Celodenní program v menší skupině se pohybuje kolem 32–50 USD na osobu. Pro čtyři tedy zhruba 128–200 USD, tedy 2 700–4 200 Kč za skupinu.',
       ],
-      practical: ['Ptej se na velikost skupiny, ne jen na cenu. Rozdíl mezi 12 a 40 lidmi na lodi je celý den.'],
+      practical: [
+        'Ptej se na velikost skupiny, ne jen na cenu. Rozdíl mezi 12 a 40 lidmi na lodi je celý den.',
+        'V ceně bývá loď, kajak, oběd, vstupy do zálivu a průvodce. Nápoje nad rámec vody a lezení obvykle ne.',
+        'Voděodolný obal na telefon se vyplatí — v kajaku se člověk vždycky namočí.',
+      ],
+      sourceIds: ['src-gyg-lanha-smallgroup', 'src-catba-ventures'],
       tags: ['water', 'view'],
     },
     {
@@ -98,7 +125,11 @@ export const day20261003: Day = {
       order: 2,
       dayPart: 'midday',
       status: 'main',
-      detail: ['Kajaky bývají součástí celodenních programů. Průjezdy do uzavřených lagun jsou to nejlepší z celého dne.'],
+      placeIds: ['place-lan-ha-bay'],
+      detail: [
+        'Kajaky bývají součástí celodenních programů. Průjezdy skalními okny do uzavřených lagun jsou to nejlepší z celého dne — velká loď se tam nedostane.',
+        'Ověř, že kajak je opravdu v ceně a ne za příplatek.',
+      ],
       tags: ['water', 'activity'],
     },
     {
@@ -109,7 +140,10 @@ export const day20261003: Day = {
       order: 3,
       dayPart: 'midday',
       status: 'main',
-      detail: ['Oběd bývá v ceně plavby. Koupání závisí na moři a počasí.'],
+      detail: [
+        'Oběd bývá v ceně plavby — tenhle den tedy neplánuj oběd navíc a nezapočítávej ho do rozpočtu dvakrát.',
+        'Koupání závisí na moři a počasí. V říjnu už voda chladne.',
+      ],
       tags: ['food', 'water'],
     },
     {
@@ -120,6 +154,7 @@ export const day20261003: Day = {
       order: 4,
       dayPart: 'afternoon',
       status: 'optional',
+      serviceIds: ['svc-catba-outdoors'],
       condition: 'Jen pokud to nabízí konkrétní poskytovatel jako kombinovaný program s jištěním.',
       detail: [
         'Pozor na rozdíl: lezení na laně s jištěním (sportovní lezení s instruktorem) je něco jiného než deep-water soloing, kde se leze bez lana nad vodou a padá se do moře.',
@@ -136,7 +171,11 @@ export const day20261003: Day = {
       order: 5,
       dayPart: 'evening',
       status: 'optional',
-      detail: ['Po celém dni na vodě je člověk unavenější, než čeká. Bar je nabídka, ne plán.'],
+      choiceGroupIds: ['choice-catba-food'],
+      detail: [
+        'Po celém dni na vodě je člověk unavenější, než čeká. Bar je nabídka, ne plán.',
+        'Slunce a sůl berou víc energie než chůze. Počítej s tím.',
+      ],
       tags: ['evening', 'food'],
     },
   ],
@@ -163,8 +202,13 @@ export const day20261004: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'backup',
+      placeIds: ['place-lan-ha-bay'],
+      choiceGroupIds: ['choice-catba-boat'],
       condition: 'Použij jen když plavba 3. 10. neproběhla.',
-      detail: ['Tohle je hlavní důvod, proč je na Cát Bà třetí noc. Bez rezervního dne může počasí celý zážitek smazat.'],
+      detail: [
+        'Tohle je hlavní důvod, proč je na Cát Bà třetí noc. Bez rezervního dne může počasí celý zážitek smazat a nedá se to dohnat.',
+        'Při rezervaci plavby se výslovně zeptej, jak se řeší přesun na náhradní den při špatném počasí.',
+      ],
       tags: ['water'],
     },
     {
@@ -175,9 +219,13 @@ export const day20261004: Day = {
       order: 2,
       dayPart: 'morning',
       status: 'optional',
+      placeIds: ['place-cat-ba-national-park', 'place-hospital-cave'],
       detail: [
-        'Národní park Cát Bà nabízí kratší okruhy i výstup na vyhlídku. Jeskyně (například Hospital Cave z války) je kratší zastávka.',
+        'Národní park Cát Bà nabízí kratší okruhy i strmější výstup na vyhlídku Ngự Lâm. Je to zhruba 15 km z městečka, takže to potřebuje dopravu.',
+        'Hospital Cave je kratší a nezávislá na počasí: jeskyně přebudovaná za války na polní nemocnici. Leží na silnici mezi městečkem a parkem, dá se to spojit.',
+        'Jedno z toho, ne obojí. Tohle je rezervní den, ne program.',
       ],
+      caveats: ['Skútr pro čtyři není default — nikdo z nás nemá ověřené oprávnění na motorku.'],
       tags: ['trek', 'culture'],
     },
     {
@@ -188,7 +236,8 @@ export const day20261004: Day = {
       order: 3,
       dayPart: 'midday',
       status: 'main',
-      detail: ['Levnější jídelny jsou o ulici dál od nábřeží.'],
+      choiceGroupIds: ['choice-catba-food'],
+      detail: ['Levnější jídelny jsou o ulici dvě od nábřeží. Rozdíl v ceně je zásadní, rozdíl v jídle často opačný, než čekáš.'],
       tags: ['food', 'budget'],
     },
     {
@@ -199,7 +248,11 @@ export const day20261004: Day = {
       order: 4,
       dayPart: 'afternoon',
       status: 'main',
-      detail: ['Tři malé pláže spojené pobřežní stezkou, pěšky z centra.'],
+      placeIds: ['place-cat-co-beaches'],
+      detail: [
+        'Tři malé pláže v zátokách pod skalami, spojené vyhlídkovou stezkou po útesu. Cát Cò 1 je nejblíž centru, Cát Cò 3 nejklidnější.',
+        'V říjnu už moře chladne a počasí je proměnlivé — koupání není jistota, procházka po stezce ano.',
+      ],
       tags: ['water', 'rest'],
     },
     {
@@ -210,7 +263,11 @@ export const day20261004: Day = {
       order: 5,
       dayPart: 'evening',
       status: 'main',
-      detail: ['Poslední večeře u moře. Zítra se vrací do Hanoje.'],
+      choiceGroupIds: ['choice-catba-food'],
+      detail: [
+        'Poslední večeře u moře. Zítra se vrací na pevninu.',
+        'Jestli jsme ještě neměli pořádný seafood, tohle je ten večer. Cenu za kilo si nech potvrdit předem.',
+      ],
       tags: ['evening', 'food'],
     },
   ],
@@ -236,8 +293,16 @@ export const day20261005: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
-      detail: ['Stejná kombinace jako cesta tam, jen opačně: transfer na ostrově, trajekt a autobus do Hanoje.'],
-      practical: ['Ranní spoj je bezpečnější — odpolední zdržení by ohrozilo poslední večer.'],
+      transportLegId: 'leg-catba-hanoi',
+      detail: [
+        'Stejná kombinace jako cesta tam, jen opačně: svoz z hotelu, trajekt a autobus do Hanoje. Zhruba 4–5,5 hodiny s návaznostmi.',
+        'Tohle je jediný přesun, u kterého se nevyplatí experimentovat — za ním už je jen let domů.',
+      ],
+      practical: [
+        'Ranní spoj, ne odpolední. Odpolední zdržení by ohrozilo poslední večer v Hanoji.',
+        'Zjisti stav trajektů hned ráno, ne až odpoledne.',
+      ],
+      sourceIds: ['src-goodmorning-ninhbinh-catba'],
       tags: ['transport'],
     },
     {
