@@ -602,6 +602,24 @@ export const sources: Source[] = [
     checkedOn: '2026-09-11',
     supports: ['popis trasy okruhu a jeho hlavních úseků', 'nezávislý pohled na podmínky a náročnost'],
   },
+  {
+    id: 'src-northvietnam-hanoi-tamcoc',
+    title: 'Hanoi to Tam Coc — transport options 2026',
+    url: 'https://north-vietnam.com/how-to-get-from-hanoi-to-tam-coc/',
+    publisher: 'north-vietnam.com',
+    kind: 'guide',
+    checkedOn: '2026-09-11',
+    supports: ['100 km po dálnici, jízda 2–2,5 h', 'limousine / minivan cca 6–15 USD na osobu s vysazením v Tam Cốc', 'soukromé auto 35–165 USD za vůz'],
+  },
+  {
+    id: 'src-vnrailway-hanoi-ninhbinh',
+    title: 'Train from Hanoi to Ninh Binh — tickets & schedule',
+    url: 'https://vietnam-railway.com/train/route/train-from-hanoi-to-ninh-binh',
+    publisher: 'vietnam-railway.com',
+    kind: 'guide',
+    checkedOn: '2026-09-11',
+    supports: ['jízda vlakem cca 2,5 h', 'jízdenka 118 000 – 425 000 VND podle třídy', 'denně jezdí několik expresů (SE3, SE5, SE7, SE19)'],
+  },
 ]
 
 export const sourceById = new Map(sources.map((s) => [s.id, s]))

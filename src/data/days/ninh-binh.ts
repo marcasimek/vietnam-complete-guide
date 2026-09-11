@@ -51,10 +51,12 @@ export const day20260929: Day = {
       dayPart: 'morning',
       status: 'main',
       placeIds: ['place-tam-coc'],
+      transportLegId: 'leg-hanoi-tamcoc',
       detail: [
-        'Z Hanoje do Ninh Bình je to zhruba 100 km na jih. Vede tam vlak i silnice; limousine minivan s vysazením přímo v Tam Cốc bývá pro čtyři lidi se zavazadly nejjednodušší.',
-        'Tenhle přesun zatím nemá vlastní detail s variantami — je to jedna z věcí, které se doplňují. Zatím platí: objednat přes ubytování v Tam Cốc nebo přes 12Go.',
+        'Z Hanoje do Ninh Bình je to 100 km na jih po dálnici, jízda 2–2,5 hodiny. Limousine minivan s vysazením přímo u ubytování v Tam Cốc je pro čtyři lidi se zavazadly nejjednodušší.',
+        'Po noci ve vlaku není podstatná rychlost, ale to, aby se na spoj nemuselo běžet a aby se nemuselo překládat zavazadla.',
       ],
+      sourceIds: ['src-northvietnam-hanoi-tamcoc', 'src-vnrailway-hanoi-ninhbinh'],
       practical: [
         'Nedávej odjezd těsně za příjezd vlaku. Po noci na kolejích se hodí rezerva a snídaně.',
       ],

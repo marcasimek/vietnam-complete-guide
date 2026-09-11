@@ -243,6 +243,26 @@ describe('referenční integrita', () => {
     }
   })
 
+  it('každý přesun mezi oblastmi vede na skutečné dopravní varianty', () => {
+    // Smyčka loopu z Hà Giangu a zpět nemá vlastní leg — má vlastní schéma.
+    const mainMoves = routeSegments.filter((s) => s.group === 'main' && s.fromNodeId !== s.toNodeId)
+    expect(mainMoves.length).toBeGreaterThanOrEqual(7)
+    for (const s of mainMoves) {
+      expect(s.transportLegId, `${s.id}: přesun bez dopravního detailu`).toBeTruthy()
+      const leg = transportLegById.get(s.transportLegId!)
+      expect(leg, `${s.id}: chybí leg ${s.transportLegId}`).toBeDefined()
+      expect(leg!.options.length, `${leg!.id}: méně než dvě varianty`).toBeGreaterThanOrEqual(2)
+      expect(leg!.options.filter((o) => o.recommended).length, `${leg!.id}: musí být právě jedna doporučená varianta`).toBe(1)
+      expect(leg!.fallback?.length, `${leg!.id}: chybí plán, když to nevyjde`).toBeGreaterThan(0)
+      for (const o of leg!.options) {
+        expect(o.doorToDoor, `${leg!.id}/${o.id}: chybí čas ode dveří ke dveřím`).toBeDefined()
+        expect(o.pickup, `${leg!.id}/${o.id}: chybí nástup`).toBeDefined()
+        expect(o.dropoff, `${leg!.id}/${o.id}: chybí výstup`).toBeDefined()
+        expect(o.capacityNote, `${leg!.id}/${o.id}: chybí kapacita pro čtyři se zavazadly`).toBeTruthy()
+      }
+    }
+  })
+
   it('nemá duplicitní ID napříč rejstříky', () => {
     const all = [
       ...places.map((p) => p.id), ...services.map((s) => s.id),

@@ -3,6 +3,7 @@
 Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`, `npm test` a kódem.
 
 **Poslední aktualizace:** 11. 9. 2026
+**Větev:** `claude/vietnam-pwa-implementation-8xuy9s`
 
 ---
 
@@ -10,68 +11,76 @@ Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`,
 
 ```bash
 npm install
-npm run dev                 # vývoj
-npm run build && npm run preview   # produkční build na http://localhost:4173/vietnam-complete-guide/
-npm test                    # datové a unit testy (vitest)
-node scripts/shots.mjs      # screenshoty 390/768/1440 px + diagnostika overflow a malých cílů
-node scripts/shot.mjs '#/plan' docs/screenshots/x.png 390 844   # jeden rychlý screenshot
+npm run dev                        # vývoj
+npm run build && npm run preview   # http://localhost:4173/vietnam-complete-guide/
+npm test                           # 66 datových a unit testů
+npx playwright test                # 24 E2E testů (mobil + desktop)
+node scripts/shots.mjs             # screenshoty 390/768/1440 px + diagnostika
 ```
 
-Base path je od začátku `/vietnam-complete-guide/`. Pro root hosting `BASE_PATH=/ npm run build`.
+Service worker běží jen v produkčním buildu — offline se testuje přes `preview`, ne `dev`.
 
 ---
 
-## Hotovo
+## Stav: aplikace je funkční a kompletní pro celou cestu
 
-### Základ
-- Vite 8 + React 19 + TypeScript, HashRouter, base path `/vietnam-complete-guide/`.
-- Design systém: `src/styles/tokens.css` + `components.css`, akcent podle oblasti přes `data-region`.
-- Vlastní sada ikon (`src/components/Icon.tsx`) a dekorativní SVG grafika oblastí (`RegionArt.tsx`) — žádné fotografie, žádná licenční zátěž, funguje offline.
-- Samohostované fonty přes `@fontsource` (Bricolage Grotesque + Be Vietnam Pro, oboje OFL, s vietnamským i latin-ext subsetem).
+### Hotovo
 
-### Datový model (`src/model/types.ts`)
-- Trip, Day, ItineraryItem, Place, Service, TransportLeg, TransportOption, ChoiceGroup, Price, Source, Alternative, GuideCard, BookingTask, PlanBScenario, OpenQuestion.
-- Tři oddělené stavy: `Confidence` (důvěryhodnost údaje), `Availability` (dostupnost pro náš termín), `BookingStatus` (co jsme opravdu objednali).
-- `GeoPrecision` včetně `area-fallback` = pin neznáme, mapa otevře vyhledání místo falešně přesného bodu.
+**Základ**
+Vite 8 + React 19 + TypeScript, HashRouter, base path `/vietnam-complete-guide/` od začátku.
+Vlastní design systém (`tokens.css`, `components.css`), akcent podle oblasti přes `data-region`.
+Vlastní sada ikon a dekorativní SVG grafika oblastí — žádné fotografie, žádná licenční zátěž, funguje offline.
+Samohostovaná písma (Bricolage Grotesque + Be Vietnam Pro, OFL, subsety latin / latin-ext / vietnamese, jen `.woff2`).
 
-### Obrazovky
-- **Plán** — vybraný den v plné podobě + kompaktní přehled celé cesty po oblastech, pás 18 dnů, „Dnes" podle vietnamského data.
-- **Detail dne / kroku / dopravy / výběru / místa / podniku** — každý s vlastní URL, zpět, poznámkou a zdroji.
-- **Mapa** — vlastní schematická SVG mapa (offline) + volitelná podrobná mapa Leaflet/OSM. Hlavní trasa a Hà Giang Loop jako dvě samostatná čitelná schémata.
-- **Průvodce** — rejstřík s vyhledáváním bez diakritiky (cs + vi), filtry oblast/typ, praktické karty, alternativní oblasti, plán B, otevřené otázky.
-- **Moje cesta** — rezervační checklist (18 položek, default „k řešení"), transparentní rozpočet, uložené, poznámky, export/import, offline balíček.
+**Datový model**
+Trip, Day, ItineraryItem, Place, Service, TransportLeg + TransportOption, ChoiceGroup, Price, Source, Alternative, GuideCard, BookingTask, PlanBScenario, OpenQuestion.
+Tři oddělené stavy: `Confidence` (důvěryhodnost údaje) × `Availability` (dostupnost pro náš termín) × `BookingStatus` (co jsme opravdu objednali, default „k řešení").
+`GeoPrecision` včetně `area-fallback` = pin neznáme → mapa otevře vyhledání, ne falešně přesný bod.
 
-### Obsah
-- **Všech 18 pobytových dnů** s kroky, poznámkami dne a noclehy. 17 nocí ověřeno testem.
-- **26. 9. je referenční den** — hotový podle zadání: transfer se 3 variantami, check-in + oběd se dvěma výběry, coaster s vyřešenou otázkou identity (kolejová dráha ≠ bezkolejová autíčka), večerní varianty jako „nebo".
-- **Hanoj** — 8 míst, 7 podniků s adresami a cenami, 3 dopravní úseky, 3 výběry.
-- **Sa Pa** — 5 míst, 10 podniků, 1 dopravní úsek, 3 výběry.
-- Praktický průvodce: metoda ověřování, vstup, lety, peníze, SIM (Viettel vs. Airalo v horách), pojištění, zdraví, bezpečnost, pravidla, balení.
-- Rozpočet: 26 položek, poctivě označené ty bez ceny, žádné dvojí započtení balíčků.
+**Obrazovky**
+Plán (vybraný den v plné podobě + kompaktní přehled cesty, pás 18 dnů, „Dnes" podle vietnamského data) · detail dne, kroku, dopravy, výběru, místa a podniku · Mapa (vlastní schematická SVG offline + volitelný Leaflet/OSM online; hlavní trasa a loop jako dvě čitelná schémata) · Průvodce (rejstřík s hledáním bez diakritiky, filtry, praktické karty, alternativní oblasti, plán B, otevřené otázky) · Moje cesta (rezervace, rozpočet, uložené, poznámky, export/import, offline balíček).
 
-### Testy
-- 64 testů ve `tests/unit/`: struktura cesty, 18 dnů, 17 nocí, referenční integrita, ceny (měna + jednotka + jistota), zdroje, souřadnice, referenční den 26. 9., hledání bez diakritiky, export/import, přepočet měn, mapové odkazy, časová pásma.
+**Obsah — celý itinerář**
+18 pobytových dnů, 17 nocí (ověřeno testem). 26. 9. je referenční den podle zadání.
+**9 dopravních úseků** s variantami, časem ode dveří ke dveřím, nástupem/výstupem, kapacitou pro čtyři se zavazadly a plánem, když to nevyjde: letiště ⇄ Hanoj, Hanoj → Hà Giang, Hà Giang → Sa Pa, Sa Pa → Lào Cai, noční vlak, Hanoj → Tam Cốc, Ninh Bình → Cát Bà, Cát Bà → Hanoj.
+**Místa a podniky ve všech oblastech** — Hanoj, Hà Giang, loop, Sa Pa, Ninh Bình, Cát Bà.
+Praktický průvodce (metoda ověřování, vstup, lety, peníze, SIM, pojištění, zdraví, bezpečnost, pravidla, balení), rozpočet s poctivě označenými položkami bez ceny, 4 náhradní varianty napojené přímo na kroky.
+
+**Nasazení**
+`.github/workflows/ci.yml` — PR: typecheck, testy, build, E2E.
+`.github/workflows/deploy.yml` — z `main`, s kontrolou base path, manifestu a toho, že se do `dist` nedostalo zadání ani interní poznámky. Ruční spuštění povolené.
+
+**Dokumentace**
+`README.md`, `docs/TEST-REPORT.md`, `docs/LICENSES.md`, `docs/screenshots/` (39 obrázků, bez nálezů).
 
 ---
 
-## Zbývá
+## Co zbývá
 
-1. **Obsah pro zbylé oblasti** — Ninh Bình a Cát Bà nemají vlastní místa, podniky ani dopravní úseky; kroky tam zatím mají jen text detailu.
-2. **Hà Giang Loop** — místa (Quản Bạ, Thẩm Mã, Mã Pí Lèng, Nho Quế, Du Già) a operátoři jako služby.
-3. **Noční vlak** — vlastní `TransportLeg` s porovnáním dvou dvoulůžkových kupé proti vykoupenému čtyřlůžkovému.
-4. **E2E testy (Playwright)** — 10 scénářů ze zadání §14, hlavně offline a aktualizace verze.
-5. **GitHub Actions** — build/test na PR, deploy z `main`, ruční spuštění.
-6. **README** a evidence licencí.
-7. Vizuální průchod ve všech třech šířkách po dokončení obsahu.
+### Nutný ruční krok
+**GitHub Pages není zapnuté.** Potřeba: `Settings → Pages → Build and deployment → Source: GitHub Actions`. Potom jde deploy spustit ručně přes `workflow_dispatch`. Veřejná URL proto **není ověřená** — workflow je připravené, ale nasazení neproběhlo.
+
+### Obsahové doplňky (aplikace bez nich funguje)
+1. **Ceny, které chybí** — největší díra je balíček loopu na 4 dny (máme jen hladinu pro 3denní). Dál ubytování v Tam Cốc a na Cát Bà, průvodce na trek, lezení, plavba po Nho Quế. Všechno je vedené v „Co zatím nevíme" (Průvodce → Varianty) s konkrétním dalším krokem.
+2. **Konkrétní podniky místo kategorií** — hotpot v Sa Pě, bylinková koupel, kozí restaurace v Ninh Bình a seafood na Cát Bà jsou zatím kategorie s doloženými kandidáty, ne jeden ověřený podnik. Chce to otevřít zdroje a vybrat.
+3. **Ověřené piny** — většina míst má `area-fallback`, tedy mapa otevírá vyhledání. Kde se podaří najít důvěryhodný pin, přepnout na `approximate`/`exact`.
+
+### Technické
+4. **WebKit** není v prostředí k dispozici (`/opt/pw-browsers` má jen Chromium), takže na Safari to odzkoušené není.
+5. **Lighthouse** neproběhl.
 
 ---
 
 ## Poctivé omezení, které je potřeba znát
 
-Data vznikla v prostředí, kde byl web dostupný **jen přes vyhledávání** — jednotlivé stránky nešlo otevřít (`WebFetch` i přímý `curl` blokuje egress proxy). Údaje proto pocházejí z výsledků vyhledávání nad uvedenými URL, ne z otevřené stránky.
+Data vznikla v prostředí, kde byl web dostupný **jen přes vyhledávání** — jednotlivé stránky nešlo otevřít (`WebFetch` i přímý `curl` blokuje egress proxy). Údaje pocházejí z výsledků vyhledávání nad uvedenými URL, ne z otevřené stránky.
 
-Důsledek v datech: **žádná cena nemá stupeň `verified`** a test to hlídá (`tests/unit/data.test.ts` → „netvrdí ověřeno tam, kde zdroj nebyl otevřen"). U každé ceny je klikací odkaz, aby to šlo potvrdit. V aplikaci je to vysvětlené v kartě „Jak jsme tohle ověřovali" (Průvodce → Praktické).
+Důsledek v datech: **žádná cena nemá stupeň `verified`** a test to vynucuje (`tests/unit/data.test.ts` → „netvrdí ověřeno tam, kde zdroj nebyl otevřen"). U každé ceny je klikací odkaz, aby to šlo potvrdit. V aplikaci je to vysvětlené v kartě „Jak jsme tohle ověřovali" (Průvodce → Praktické).
+
+Kdyby další session měla plný přístup na web: nejcennější je otevřít zdroje u cen a povýšit je na `verified`, doplnit chybějící ceny a najít ověřené piny.
+
+---
 
 ## Další konkrétní krok
 
-Doplnit místa a podniky pro Ninh Bình (Tràng An, Hang Múa, Bích Động, kozí speciality) a Cát Bà (Lan Hạ, pláže Cát Cò, seafood, lodní operátoři) a napojit je na kroky dnů 29. 9. – 5. 10.
+Doplnit chybějící ceny z bodu 1 — začít balíčkem loopu, protože je to největší položka rozpočtu a zároveň nejdůležitější rezervace celé cesty. Postup je popsaný ve výběru „S kým jedeme loop" (Průvodce → Rejstřík, nebo krok 21. 9. → Briefing): položit všem třem operátorům stejné otázky a doplnit odpovědi do `src/data/services.ts` a `src/data/budget.ts`.

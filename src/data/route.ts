@@ -119,14 +119,14 @@ export const routeNodes: RouteNode[] = [
 ]
 
 export const routeSegments: RouteSegment[] = [
-  { id: 'rs-hanoi-hagiang', group: 'main', fromNodeId: 'rn-hanoi', toNodeId: 'rn-hagiang', mode: 'van', label: 'Denní minivan, cca 6–8 h', date: '2026-09-21', itemId: 'item-20260921-transfer' },
+  { id: 'rs-hanoi-hagiang', group: 'main', fromNodeId: 'rn-hanoi', toNodeId: 'rn-hagiang', mode: 'van', label: 'Denní minivan, cca 6–8 h', date: '2026-09-21', transportLegId: 'leg-hanoi-hagiang', itemId: 'item-20260921-transfer' },
   { id: 'rs-hagiang-loop', group: 'main', fromNodeId: 'rn-hagiang', toNodeId: 'rn-hagiang', mode: 'motorbike', label: 'Loop, 4 dny — viz schéma okruhu níž', date: '2026-09-22', itemId: 'item-20260922-depart' },
   { id: 'rs-hagiang-sapa', group: 'main', fromNodeId: 'rn-hagiang', toNodeId: 'rn-sapa', mode: 'van', label: 'Přímý transfer, 6,5–8 h', date: '2026-09-26', transportLegId: 'leg-hagiang-sapa', itemId: 'item-20260926-transfer' },
-  { id: 'rs-sapa-laocai', group: 'main', fromNodeId: 'rn-sapa', toNodeId: 'rn-laocai', mode: 'car', label: 'Transfer na nádraží, cca 35 km', date: '2026-09-28', itemId: 'item-20260928-to-lao-cai' },
-  { id: 'rs-laocai-hanoi', group: 'main', fromNodeId: 'rn-laocai', toNodeId: 'rn-hanoi', mode: 'train', label: 'Noční vlak', date: '2026-09-28', itemId: 'item-20260928-night-train' },
-  { id: 'rs-hanoi-tamcoc', group: 'main', fromNodeId: 'rn-hanoi', toNodeId: 'rn-tamcoc', mode: 'van', label: 'Návazný přejezd na jih', date: '2026-09-29', itemId: 'item-20260929-to-tam-coc' },
-  { id: 'rs-tamcoc-catba', group: 'main', fromNodeId: 'rn-tamcoc', toNodeId: 'rn-catba', mode: 'ferry', label: 'Bus + trajekt, cca 5–6,5 h', date: '2026-10-02', itemId: 'item-20261002-transfer' },
-  { id: 'rs-catba-hanoi', group: 'main', fromNodeId: 'rn-catba', toNodeId: 'rn-hanoi', mode: 'ferry', label: 'Loď + silnice, cca 4–5,5 h', date: '2026-10-05', itemId: 'item-20261005-return' },
+  { id: 'rs-sapa-laocai', group: 'main', fromNodeId: 'rn-sapa', toNodeId: 'rn-laocai', mode: 'car', label: 'Transfer na nádraží, cca 35 km', date: '2026-09-28', transportLegId: 'leg-sapa-laocai', itemId: 'item-20260928-to-lao-cai' },
+  { id: 'rs-laocai-hanoi', group: 'main', fromNodeId: 'rn-laocai', toNodeId: 'rn-hanoi', mode: 'train', label: 'Noční vlak SP4, 21:30 → 05:30', date: '2026-09-28', transportLegId: 'leg-laocai-hanoi-train', itemId: 'item-20260928-night-train' },
+  { id: 'rs-hanoi-tamcoc', group: 'main', fromNodeId: 'rn-hanoi', toNodeId: 'rn-tamcoc', mode: 'van', label: 'Návazný přejezd, 100 km po dálnici', date: '2026-09-29', transportLegId: 'leg-hanoi-tamcoc', itemId: 'item-20260929-to-tam-coc' },
+  { id: 'rs-tamcoc-catba', group: 'main', fromNodeId: 'rn-tamcoc', toNodeId: 'rn-catba', mode: 'ferry', label: 'Bus + trajekt, cca 4,5–6 h', date: '2026-10-02', transportLegId: 'leg-ninhbinh-catba', itemId: 'item-20261002-transfer' },
+  { id: 'rs-catba-hanoi', group: 'main', fromNodeId: 'rn-catba', toNodeId: 'rn-hanoi', mode: 'ferry', label: 'Loď + silnice, cca 4–5,5 h', date: '2026-10-05', transportLegId: 'leg-catba-hanoi', itemId: 'item-20261005-return' },
 
   { id: 'rs-l1', group: 'loop', fromNodeId: 'rn-loop-hagiang', toNodeId: 'rn-quanba', mode: 'motorbike', label: 'Den 1 — výjezd do hor', date: '2026-09-22', itemId: 'item-20260922-quan-ba' },
   { id: 'rs-l2', group: 'loop', fromNodeId: 'rn-quanba', toNodeId: 'rn-yenminh', mode: 'motorbike', label: 'Den 1 — do Yên Minh', date: '2026-09-22', itemId: 'item-20260922-yen-minh' },

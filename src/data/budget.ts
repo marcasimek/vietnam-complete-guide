@@ -173,8 +173,10 @@ export const budgetLines: BudgetLine[] = [
     id: 'bd-hanoi-tamcoc',
     category: 'transport',
     label: 'Hanoj → Tam Cốc',
-    min: null, max: null, currency: 'VND', basis: 'per-person',
-    confidence: 'unverified',
+    note: 'Limousine minivan s vysazením u ubytování. Vlak je levnější, ale přidává překládání zavazadel v Ninh Bình.',
+    min: 6, max: 15, currency: 'USD', basis: 'per-person',
+    confidence: 'published',
+    sourceIds: ['src-northvietnam-hanoi-tamcoc'],
     dayDates: ['2026-09-29'],
   },
   {
