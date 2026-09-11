@@ -69,7 +69,12 @@ jobs:
           ! find dist -iname 'PROGRESS.md' | grep -q .
           echo "Base path a manifest v pořádku."
 
+      # `enablement: true` přepne zdroj Pages na GitHub Actions, pokud je repo
+      # ještě nastavené na „Deploy from a branch". Bez toho by deploy spadl,
+      # protože Pages by čekaly soubory ve větvi místo artefaktu z workflow.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
