@@ -119,7 +119,7 @@
 .daycard__artsvg { width: 100%; height: 100%; display: block; }
 .daycard__head::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(to bottom, transparent 20%, var(--surface) 78%);
+  background: linear-gradient(to bottom, transparent 14%, color-mix(in srgb, var(--surface) 70%, transparent) 48%, var(--surface) 74%);
 }
 .daycard__headtext { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .daycard__date {
@@ -160,31 +160,34 @@
 
 /* svislá linka mezi uzly */
 .step:not(:last-child) .step__link::before {
-  content: ''; position: absolute; left: 12px; top: 34px; bottom: -2px;
+  content: ''; position: absolute; left: 18px; top: 45px; bottom: -3px;
   width: 2px; border-radius: 2px;
   background: linear-gradient(var(--line-strong), var(--line));
 }
 .step__node {
   position: relative; z-index: 1; flex: none;
-  width: 25px; height: 25px; margin-top: 3px;
-  border-radius: 50%; display: grid; place-items: center;
-  background: var(--surface); border: 2px solid var(--accent-line);
-  color: var(--accent-ink);
-}
-.step__num { font-family: var(--font-display); font-size: 11.5px; font-weight: 700; line-height: 1; }
-.step[data-status='optional'] .step__node { border-style: dashed; }
-.step[data-status='backup'] .step__node { border-style: dotted; }
-
-.step__icon {
-  flex: none; width: 34px; height: 34px; border-radius: var(--r-sm);
-  display: grid; place-items: center; margin-top: -1px;
+  width: 38px; height: 38px; margin-top: 1px;
+  border-radius: 12px; display: grid; place-items: center;
   background: var(--accent-soft); color: var(--accent-ink);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
 }
+.step__num {
+  position: absolute; top: -5px; left: -5px;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  border-radius: var(--r-pill); display: grid; place-items: center;
+  background: var(--surface); border: 1.5px solid var(--accent-line);
+  font-family: var(--font-display); font-size: 10.5px; font-weight: 700;
+  line-height: 1; color: var(--accent-ink);
+}
+.step[data-status='optional'] .step__node { border-style: dashed; background: var(--surface-alt); color: var(--ink-2); }
+.step[data-status='optional'] .step__num { border-style: dashed; }
+.step[data-status='backup'] .step__node { border-style: dotted; background: var(--surface-alt); color: var(--ink-2); }
+
 .step__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 1px; }
-.step__title { font-weight: 600; line-height: 1.32; letter-spacing: -.012em; }
+.step__title { font-weight: 600; line-height: 1.32; letter-spacing: -.014em; font-size: 0.95rem; }
 .step__sub { font-size: var(--t-xs); color: var(--ink-3); line-height: 1.4; }
-.step__meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-.step__chev { color: var(--ink-3); flex: none; align-self: center; opacity: .7; }
+.step__meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.step__chev { color: var(--ink-3); flex: none; align-self: center; opacity: .65; }
 .step[data-status='optional'] .step__title { font-weight: 550; }
 
 /* ==================================================================
@@ -462,3 +465,71 @@
   .plan__blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-7) var(--s-6); align-items: start; }
   .regionblock { min-width: 0; }
 }
+
+/* --- přehled celé cesty ------------------------------------------- */
+.daycard--focus { margin-top: var(--s-5); box-shadow: var(--sh-2); }
+.daycard__head--static { cursor: default; }
+.daycard__actions { padding: 0 var(--s-4) var(--s-4); }
+
+.overview { margin-top: var(--s-7); }
+.overview__toggle {
+  width: 100%; display: flex; align-items: center; gap: var(--s-3);
+  padding: 13px 15px; border-radius: var(--r-lg); cursor: pointer;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sh-1);
+  text-align: left; min-height: var(--tap);
+}
+.overview__togglehead { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.overview__sub { font-size: var(--t-sm); font-weight: 600; color: var(--ink); letter-spacing: -.01em; }
+.overview__chev { color: var(--ink-3); transition: transform var(--dur-2) var(--ease); }
+.overview__chev--open { transform: rotate(180deg); }
+.overview__blocks { display: flex; flex-direction: column; gap: var(--s-6); margin-top: var(--s-5); }
+
+.miniday { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.miniday__row {
+  width: 100%; display: flex; align-items: center; gap: 11px; cursor: pointer;
+  padding: 9px 12px; min-height: var(--tap); text-align: left;
+  border-radius: var(--r-md); border: 1px solid var(--line); background: var(--surface);
+  transition: border-color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+}
+.miniday__row:active { transform: scale(.99); }
+.miniday__row--active { border-color: var(--accent); background: var(--accent-soft); }
+.miniday__date {
+  flex: none; width: 44px; display: flex; flex-direction: column; align-items: center; line-height: 1.1;
+}
+.miniday__wd { font-size: 9.5px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
+.miniday__num { font-family: var(--font-display); font-size: 13.5px; font-weight: 680; letter-spacing: -.02em; color: var(--accent-ink); }
+.miniday__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.miniday__title {
+  font-size: var(--t-sm); font-weight: 600; letter-spacing: -.012em; line-height: 1.3;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.miniday__theme { font-size: var(--t-2xs); color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.miniday__night {
+  flex: none; display: flex; align-items: center; gap: 4px; max-width: 96px;
+  font-size: var(--t-2xs); color: var(--ink-3);
+}
+.miniday__night > svg { flex: none; }
+.miniday__night span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (min-width: 1100px) {
+  .overview__blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); align-items: start; }
+}
+
+/* --- rychlé srovnání variant -------------------------------------- */
+.compare { display: flex; flex-direction: column; gap: 7px; }
+.compare__row {
+  display: flex; align-items: center; gap: 11px; min-height: var(--tap);
+  padding: 9px 13px; border-radius: var(--r-md); text-decoration: none; color: inherit;
+  background: var(--surface); border: 1px solid var(--line);
+}
+.compare__row--rec { border-color: var(--jade-200); background: linear-gradient(90deg, var(--jade-100), var(--surface) 60%); }
+.compare__icon { flex: none; color: var(--accent-ink); display: grid; place-items: center; }
+.compare__row--rec .compare__icon { color: var(--jade-600); }
+.compare__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.compare__label { font-size: var(--t-sm); font-weight: 600; letter-spacing: -.012em; line-height: 1.3; }
+.compare__facts { display: flex; gap: 6px; font-size: var(--t-2xs); color: var(--ink-3); font-weight: 550; }
+.compare__row .chip { flex: none; }
+
+.optcard__headtext { flex: 1; min-width: 0; }
+.optcard__meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; flex-wrap: wrap; }
+.optcard { scroll-margin-top: 80px; }

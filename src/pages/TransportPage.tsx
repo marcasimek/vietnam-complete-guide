@@ -19,6 +19,11 @@ const MODE_LABEL: Record<TransportOption['mode'], string> = {
   taxi: 'taxi', 'cable-car': 'lanovka',
 }
 
+const hourFmt = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 1 })
+function hours(min: number, max: number): string {
+  return min === max ? `${hourFmt.format(min)} h` : `${hourFmt.format(min)}–${hourFmt.format(max)} h`
+}
+
 const AVAILABILITY_LABEL = {
   'confirmed-for-our-date': 'potvrzeno pro náš termín',
   likely: 'pravděpodobně jede',
@@ -64,6 +69,25 @@ export function TransportPage() {
         <p className="detail-head__lead">{leg.summary}</p>
       </DetailHeader>
 
+      <Section title="Rychlé srovnání" hint="Podrobnosti a zdroje jsou u každé varianty níž.">
+        <div className="compare">
+          {leg.options.map((o) => (
+            <a key={o.id} href={`#opt-${o.id}`} className={`compare__row${o.recommended ? ' compare__row--rec' : ''}`}>
+              <span className="compare__icon"><Icon name={MODE_ICON[o.mode]} size={18} /></span>
+              <span className="compare__text">
+                <span className="compare__label">{o.label}</span>
+                <span className="compare__facts">
+                  {o.doorToDoor ? <span>{hours(o.doorToDoor.minHours, o.doorToDoor.maxHours)}</span> : <span>čas neznáme</span>}
+                  <span aria-hidden="true">·</span>
+                  <span>{shortPrice(o)}</span>
+                </span>
+              </span>
+              {o.recommended ? <span className="chip chip--jade">tip</span> : null}
+            </a>
+          ))}
+        </div>
+      </Section>
+
       {recommended ? (
         <Section title="Doporučená varianta">
           <OptionCard option={recommended} allSources={sources} highlight />
@@ -101,20 +125,32 @@ export function TransportPage() {
   )
 }
 
+function shortPrice(option: TransportOption): string {
+  const p = option.price?.[0]
+  if (!p) return 'cena neznámá'
+  const f = new Intl.NumberFormat('cs-CZ', { notation: 'compact', maximumFractionDigits: 1 })
+  const unit = p.unit === 'per-person' ? '/os.' : p.unit === 'per-vehicle' ? '/vůz' : ''
+  if (typeof p.amount === 'number') return `${f.format(p.amount)} ${p.currency}${unit}`
+  if (typeof p.min === 'number' && typeof p.max === 'number') return `${f.format(p.min)}–${f.format(p.max)} ${p.currency}${unit}`
+  return 'cena neověřená'
+}
+
 function OptionCard({ option, allSources, highlight }: {
   option: TransportOption; allSources: ReturnType<typeof getSources>; highlight?: boolean
 }) {
   const sources = getSources(option.sourceIds)
   const merged = [...new Map([...allSources, ...sources].map((s) => [s.id, s])).values()]
   return (
-    <article className={`optcard${highlight ? ' optcard--main' : ''}`}>
+    <article className={`optcard${highlight ? ' optcard--main' : ''}`} id={`opt-${option.id}`}>
       <header className="optcard__head">
         <span className="optcard__icon"><Icon name={MODE_ICON[option.mode]} size={22} /></span>
-        <div>
+        <div className="optcard__headtext">
           <h3>{option.label}</h3>
-          <p className="xsmall muted">{MODE_LABEL[option.mode]}</p>
+          <p className="optcard__meta">
+            <span className="xsmall muted">{MODE_LABEL[option.mode]}</span>
+            {highlight ? <span className="chip chip--jade">doporučeno</span> : null}
+          </p>
         </div>
-        {highlight ? <span className="chip chip--jade">doporučeno</span> : null}
       </header>
 
       <dl className="factgrid">
@@ -122,8 +158,8 @@ function OptionCard({ option, allSources, highlight }: {
           <div>
             <dt>Ode dveří ke dveřím</dt>
             <dd>
-              {option.doorToDoor.minHours}–{option.doorToDoor.maxHours} h
-              {option.ridingTime ? <span className="muted"> (čistá jízda {option.ridingTime.minHours}–{option.ridingTime.maxHours} h)</span> : null}
+              {hours(option.doorToDoor.minHours, option.doorToDoor.maxHours)}
+              {option.ridingTime ? <span className="muted"> (čistá jízda {hours(option.ridingTime.minHours, option.ridingTime.maxHours)})</span> : null}
             </dd>
             {option.doorToDoor.note ? <dd className="xsmall muted">{option.doorToDoor.note}</dd> : null}
           </div>

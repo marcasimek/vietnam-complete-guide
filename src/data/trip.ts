@@ -3,7 +3,7 @@ import type { Trip } from '@/model/types'
 export const trip: Trip = {
   id: 'vietnam-2026-09',
   title: 'Sever Vietnamu',
-  subtitle: '19. 9. – 6. 10. 2026 · čtyři lidi, 18 dnů, 17 nocí',
+  subtitle: '19. 9. – 6. 10. 2026 · 4 lidi · 18 dnů · 17 nocí',
   startDate: '2026-09-19',
   endDate: '2026-10-06',
   timezone: 'Asia/Ho_Chi_Minh',

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { days } from '@/data'
 import { trip } from '@/data/trip'
@@ -24,24 +24,20 @@ function groupByRegion(list: Day[]): RegionBlock[] {
 export function PlanPage() {
   const [params, setParams] = useSearchParams()
   const pos = useMemo(() => tripPosition(), [])
-  const focus = params.get('den') ?? pos.focusDate
+  const focus = params.get('den') && days.some((d) => d.date === params.get('den'))
+    ? (params.get('den') as string)
+    : pos.focusDate
+  const focusDay = days.find((d) => d.date === focus) ?? days[0]
   const blocks = useMemo(() => groupByRegion(days), [])
   const stripRef = useRef<HTMLDivElement>(null)
+  const [overviewOpen, setOverviewOpen] = useState(true)
 
-  // Vybraný den posuň do viditelné části pásu, ale nehýbej stránkou.
   useEffect(() => {
     const el = stripRef.current?.querySelector<HTMLElement>(`[data-date="${focus}"]`)
     el?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
   }, [focus])
 
-  const scrollToDay = (date: string) => {
-    setParams({ den: date }, { replace: true })
-    const el = document.getElementById(`den-${date}`)
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 118
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
-  }
+  const select = (date: string) => setParams({ den: date }, { replace: true })
 
   return (
     <div className="page plan">
@@ -51,24 +47,25 @@ export function PlanPage() {
           <h1>{trip.title}</h1>
           <p className="small muted">{trip.subtitle}</p>
         </div>
-        <TodayBadge />
+        <TodayBadge pos={pos} />
       </header>
 
       <div className="daystrip" ref={stripRef}>
-        <div className="daystrip__track">
+        <div className="daystrip__track" role="tablist" aria-label="Výběr dne">
           {days.map((d) => {
             const region = getRegion(d.regionId)
             const active = d.date === focus
-            const isToday = d.date === pos.today
             return (
               <button
                 key={d.date}
                 type="button"
+                role="tab"
+                aria-selected={active}
                 data-date={d.date}
                 data-region={d.regionId}
-                className={`daychip${active ? ' daychip--active' : ''}${isToday ? ' daychip--today' : ''}`}
-                onClick={() => scrollToDay(d.date)}
-                aria-label={`${formatDayLong(d.date)}, ${region?.name ?? ''}`}
+                className={`daychip${active ? ' daychip--active' : ''}${d.date === pos.today ? ' daychip--today' : ''}`}
+                onClick={() => select(d.date)}
+                title={`${formatDayLong(d.date)} — ${region?.name}: ${d.title}`}
               >
                 <span className="daychip__wd">{weekdayShort(d.weekday)}</span>
                 <span className="daychip__d">{formatDayShort(d.date)}</span>
@@ -79,32 +76,74 @@ export function PlanPage() {
         </div>
       </div>
 
-      <div className="plan__blocks">
-        {blocks.map((block, bi) => {
-          const region = getRegion(block.regionId)
-          return (
-            <section key={`${block.regionId}-${bi}`} className="regionblock" data-region={block.regionId}>
-              <div className="regionblock__head">
-                <span className="regionblock__dot" aria-hidden="true" />
-                <h2>{region?.name}</h2>
-                <span className="regionblock__count">
-                  {block.days.length} {block.days.length === 1 ? 'den' : block.days.length < 5 ? 'dny' : 'dnů'}
-                </span>
-              </div>
-              <p className="regionblock__blurb small">{region?.blurb}</p>
-              <div className="regionblock__days">
-                {block.days.map((d) => <DayCard key={d.date} day={d} isToday={d.date === pos.today} />)}
-              </div>
-            </section>
-          )
-        })}
-      </div>
+      <FocusDay day={focusDay} isToday={focusDay.date === pos.today} />
+
+      <section className="overview">
+        <button
+          type="button"
+          className="overview__toggle"
+          aria-expanded={overviewOpen}
+          onClick={() => setOverviewOpen((v) => !v)}
+        >
+          <span className="overview__togglehead">
+            <span className="section-label">Celá cesta</span>
+            <span className="overview__sub">18 dnů · 17 nocí · 7 oblastí</span>
+          </span>
+          <Icon name="chevron-down" size={18} className={`overview__chev${overviewOpen ? ' overview__chev--open' : ''}`} />
+        </button>
+
+        {overviewOpen ? (
+          <div className="overview__blocks">
+            {blocks.map((block, bi) => {
+              const region = getRegion(block.regionId)
+              return (
+                <div key={`${block.regionId}-${bi}`} className="regionblock" data-region={block.regionId}>
+                  <div className="regionblock__head">
+                    <span className="regionblock__dot" aria-hidden="true" />
+                    <h2>{region?.name}</h2>
+                    <span className="regionblock__count">
+                      {block.days.length} {block.days.length === 1 ? 'den' : block.days.length < 5 ? 'dny' : 'dnů'}
+                    </span>
+                  </div>
+                  <p className="regionblock__blurb small">{region?.blurb}</p>
+                  <ul className="miniday">
+                    {block.days.map((d) => (
+                      <li key={d.date}>
+                        <button
+                          type="button"
+                          className={`miniday__row${d.date === focus ? ' miniday__row--active' : ''}`}
+                          onClick={() => {
+                            select(d.date)
+                            window.scrollTo({ top: 0, behavior: 'smooth' })
+                          }}
+                        >
+                          <span className="miniday__date">
+                            <span className="miniday__wd">{weekdayShort(d.weekday)}</span>
+                            <span className="miniday__num">{formatDayShort(d.date)}</span>
+                          </span>
+                          <span className="miniday__text">
+                            <span className="miniday__title">{d.title}</span>
+                            <span className="miniday__theme">{d.theme}</span>
+                          </span>
+                          <span className="miniday__night">
+                            <Icon name={d.night?.kind === 'train' ? 'train' : d.night ? 'bed' : 'plane'} size={15} />
+                            <span>{d.night ? d.night.label : 'odlet'}</span>
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        ) : null}
+      </section>
     </div>
   )
 }
 
-function TodayBadge() {
-  const pos = useMemo(() => tripPosition(), [])
+function TodayBadge({ pos }: { pos: ReturnType<typeof tripPosition> }) {
   if (pos.phase === 'before') {
     return (
       <Link to={`/day/${pos.focusDate}`} className="todaybadge">
@@ -114,7 +153,12 @@ function TodayBadge() {
     )
   }
   if (pos.phase === 'after') {
-    return <div className="todaybadge todaybadge--done"><Icon name="check" size={18} /><span className="todaybadge__lbl">Cesta proběhla</span></div>
+    return (
+      <div className="todaybadge todaybadge--done">
+        <Icon name="check" size={18} />
+        <span className="todaybadge__lbl">Cesta proběhla</span>
+      </div>
+    )
   }
   return (
     <Link to={`/day/${pos.focusDate}`} className="todaybadge todaybadge--live">
@@ -124,26 +168,36 @@ function TodayBadge() {
   )
 }
 
-function DayCard({ day, isToday }: { day: Day; isToday: boolean }) {
+function FocusDay({ day, isToday }: { day: Day; isToday: boolean }) {
+  const region = getRegion(day.regionId)
   return (
-    <article className={`daycard${isToday ? ' daycard--today' : ''}`} id={`den-${day.date}`} data-region={day.regionId}>
-      <Link to={`/day/${day.date}`} className="daycard__head">
+    <article className={`daycard daycard--focus${isToday ? ' daycard--today' : ''}`} data-region={day.regionId}>
+      <div className="daycard__head daycard__head--static">
         <span className="daycard__art" aria-hidden="true"><RegionArt region={day.regionId} className="daycard__artsvg" /></span>
         <span className="daycard__headtext">
           <span className="daycard__date">
-            <span className="daycard__daynum">{day.index}. den</span>
+            <span className="daycard__daynum">{day.index}. den z 18</span>
             <span className="daycard__dot" aria-hidden="true">·</span>
             {day.weekday} {formatDayLong(day.date)}
+            <span className="daycard__dot" aria-hidden="true">·</span>
+            {region?.name}
             {isToday ? <span className="chip chip--jade daycard__todaychip">dnes</span> : null}
           </span>
           <span className="daycard__title">{day.title}</span>
           <span className="daycard__theme">{day.theme}</span>
         </span>
-        <Icon name="chevron-right" size={18} className="daycard__chev" />
-      </Link>
+      </div>
+
       <ol className="steps">
         {day.items.map((item, i) => <ItemRow key={item.id} item={item} index={i + 1} />)}
       </ol>
+
+      <div className="daycard__actions">
+        <Link to={`/day/${day.date}`} className="btn btn--accent btn--sm btn--block">
+          Otevřít celý den<Icon name="chevron-right" size={16} />
+        </Link>
+      </div>
+
       <div className="daycard__foot">
         <Icon name={day.night?.kind === 'train' ? 'train' : day.night ? 'bed' : 'plane'} size={16} />
         {day.night ? <span>Noc: <strong>{day.night.label}</strong></span> : <span>Bez noci ve Vietnamu — večer letíme domů</span>}

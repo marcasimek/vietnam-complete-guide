@@ -42,9 +42,9 @@ export function ItemRow({ item, index }: { item: ItineraryItem; index: number })
     <li className="step" data-status={item.status}>
       <Link to={`/item/${item.id}`} className="step__link">
         <span className="step__node" aria-hidden="true">
+          <Icon name={iconFor(item)} size={19} />
           <span className="step__num">{index}</span>
         </span>
-        <span className="step__icon" aria-hidden="true"><Icon name={iconFor(item)} size={19} /></span>
         <span className="step__body">
           <span className="step__title">{item.title}</span>
           {item.subtitle ? <span className="step__sub">{item.subtitle}</span> : null}
