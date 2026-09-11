@@ -21,12 +21,16 @@ export const day20260921: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
+      transportLegId: 'leg-hanoi-hagiang',
       detail: [
-        'Standardní spojení je sdílený limousine minivan s vyzvednutím ve Starém Městě. Soukromé auto dává smysl, pokud chceme vyjet v jiný čas nebo jistotu místa na zavazadla.',
+        'Zhruba 300 km na sever. Trasa je hodně frekventovaná — jezdí po ní desítky spojů denně, od levných nočních sleeperů po limousine s polohovatelnými sedadly.',
+        'Jedeme DENNÍM spojem. Noční by ušetřil nocleh, ale přijel by ve čtyři ráno a druhý den ráno začíná čtyřdenní loop. To nedává smysl.',
       ],
       practical: [
-        'Většina loop operátorů transfer zařizuje nebo prodává v balíčku — zeptat se dřív, než se kupuje zvlášť.',
+        'Nejdřív se zeptej loop operátora, jestli transfer nemá v balíčku — často to vyjde levněji a navazuje to na briefing.',
+        'Poslední úsek je horský a klikatý. Kdo špatně snáší jízdu, ať sedí vpředu.',
       ],
+      sourceIds: ['src-sapanomad-hanoi-hagiang', 'src-looptrails-hagiang-bus'],
       tags: ['transport'],
     },
     {
@@ -37,8 +41,10 @@ export const day20260921: Day = {
       order: 2,
       dayPart: 'afternoon',
       status: 'main',
+      placeIds: ['place-ha-giang-town'],
       detail: [
         'Ubytování v Hà Giangu má smysl vybírat podle toho, kde sídlí loop operátor — ráno se odjíždí brzy a večer probíhá briefing.',
+        'Většina operátorů (Strawberry, QT, YESD) má vlastní pokoje nebo partnerské ubytování. Proto se to řeší až s výběrem balíčku, ne samostatně.',
       ],
       tags: ['stay', 'food'],
     },

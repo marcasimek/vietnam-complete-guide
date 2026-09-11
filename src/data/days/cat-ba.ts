@@ -248,7 +248,11 @@ export const day20261005: Day = {
       order: 2,
       dayPart: 'afternoon',
       status: 'main',
-      detail: ['Poslední noc — vyplatí se být blízko centra kvůli večeři a rannímu odjezdu na letiště.'],
+      choiceGroupIds: ['choice-hanoi-stay', 'choice-hanoi-oldquarter-food'],
+      detail: [
+        'Poslední noc — vyplatí se být blízko centra kvůli večeři a rannímu odjezdu na letiště.',
+        'Nemusí to být stejný hotel jako na začátku. Tady rozhoduje dostupnost a poloha, ne garantovaný ranní pokoj.',
+      ],
       tags: ['stay', 'food'],
     },
     {
@@ -259,7 +263,12 @@ export const day20261005: Day = {
       order: 3,
       dayPart: 'afternoon',
       status: 'optional',
-      detail: ['Pokud bylo razítko zadané 20. 9., tohle je den na vyzvednutí. Zbytek jsou káva a suvenýry.'],
+      serviceIds: ['svc-phuc-loi-stamp'],
+      placeIds: ['place-old-quarter'],
+      detail: [
+        'Pokud bylo razítko zadané 20. 9., tohle je den na vyzvednutí. Zbytek jsou káva a suvenýry.',
+        'Máme na to jen odpoledne — domluv si při zadání 20. 9., do kdy se dá vyzvedávat.',
+      ],
       tags: ['shopping'],
     },
     {
@@ -270,7 +279,12 @@ export const day20261005: Day = {
       order: 4,
       dayPart: 'evening',
       status: 'main',
-      detail: ['Poslední společná večeře. Rooftop nebo bar podle nálady, ne podle plánu.'],
+      choiceGroupIds: ['choice-hanoi-evening'],
+      placeIds: ['place-ta-hien'],
+      detail: [
+        'Poslední společná večeře. Rooftop nebo bar podle nálady, ne podle plánu.',
+        'Když jsme si první večer 19. 9. nechali Tạ Hiện ujít, tohle je poslední šance.',
+      ],
       tags: ['food', 'evening'],
     },
   ],
@@ -296,7 +310,12 @@ export const day20261006: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
-      detail: ['Poslední dopoledne. Káva, snídaně, případně krátká procházka — ale bez programu, který se musí stihnout.'],
+      placeIds: ['place-hoan-kiem', 'place-old-quarter'],
+      choiceGroupIds: ['choice-hanoi-oldquarter-food'],
+      detail: [
+        'Poslední dopoledne. Káva, snídaně, případně krátká procházka — ale bez programu, který se musí stihnout.',
+        'Vaječná káva (cà phê trứng) je hanojská specialita, kterou jinde nedáš. Na tohle dopoledne se hodí.',
+      ],
       tags: ['food', 'rest'],
     },
     {
@@ -319,8 +338,11 @@ export const day20261006: Day = {
       dayPart: 'afternoon',
       status: 'main',
       timeHint: 'orientačně 16:30, upravit podle hotelu a provozu',
+      transportLegId: 'leg-hanoi-han',
+      placeIds: ['place-han-airport'],
       detail: [
-        'Z centra na Nội Bài se jede zhruba 45–60 minut podle provozu. Odpolední špička je reálné riziko.',
+        'Z centra na Nội Bài je to 27–30 km a 35–60 minut podle provozu. Odpolední špička je reálné riziko.',
+        'Čas 16:30 je návrh odvozený zpětně od odletu ve 20:40, ne pevný bod. Uprav ho podle polohy hotelu a podle toho, co říká recepce.',
       ],
       practical: ['Etihad doporučuje být na mezinárodní let na letišti s odpovídajícím předstihem — ověř aktuální doporučení dopravce.'],
       sourceIds: ['src-etihad'],

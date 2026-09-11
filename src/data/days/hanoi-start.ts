@@ -22,6 +22,7 @@ export const day20260919: Day = {
       dayPart: 'early',
       status: 'main',
       timeHint: 'přílet 07:20 místního času',
+      placeIds: ['place-han-airport'],
       detail: [
         'Let EY432 z Abú Dhabí přistává na letišti Nội Bài, terminál 2, v 07:20 vietnamského času.',
         'Po pasové kontrole se řeší tři věci: hotovost, připojení a odvoz. Nic z toho nemá smysl řešit ve frontě na letišti za každou cenu — SIM i peníze jdou vyřešit i ve městě.',
@@ -41,12 +42,15 @@ export const day20260919: Day = {
       order: 2,
       dayPart: 'morning',
       status: 'main',
+      transportLegId: 'leg-han-hanoi',
       detail: [
-        'Z Nội Bài do centra Hanoje je to zhruba 27–35 km podle cílové adresy. Ve čtyřech s velkými batohy má smysl jedno auto, ne dvě taxi.',
+        'Z Nội Bài do Starého Města je to 27–30 km a 35–60 minut podle provozu. Ve čtyřech s velkými batohy má smysl jedno sedmimístné auto, ne dvě taxi.',
       ],
       practical: [
-        'Cenu i vůz si nech potvrdit předem, pokud jedeš přes hotel — po nočním letu není chvíle na smlouvání.',
+        'Cenu nebo taxametr si nech potvrdit PŘED naložením zavazadel.',
+        'Nenech se oslovit uvnitř příletové haly — oficiální taxi stojí venku na stanovišti.',
       ],
+      sourceIds: ['src-yvt-noibai-taxi', 'src-asiamystika-hanoi-taxi'],
       tags: ['transport'],
     },
     {
@@ -57,6 +61,7 @@ export const day20260919: Day = {
       order: 3,
       dayPart: 'midday',
       status: 'main',
+      choiceGroupIds: ['choice-hanoi-stay'],
       detail: [
         'Tohle je důvod, proč se u hotelu v Hanoji řeší ranní pokoj zvlášť. Po noci v letadle chceme sprchu a pár hodin spánku, ne čekání do 14:00.',
         'Existují tři cesty, jak to zajistit, a liší se cenou i jistotou: zaplatit noc 18./19. 9. dopředu, koupit day-use, nebo spoléhat na písemně potvrzený early check-in.',
@@ -75,8 +80,10 @@ export const day20260919: Day = {
       order: 4,
       dayPart: 'afternoon',
       status: 'optional',
+      placeIds: ['place-hoan-kiem', 'place-old-quarter'],
       detail: [
         'Okruh kolem jezera Hoàn Kiếm a pár ulic Starého Města. Žádný vstup, žádný program — jen se rozchodit a chytit místní čas.',
+        'Okruh kolem jezera měří asi 1,7 km. Půl hodiny v klidu, a je to přesně ta dávka pohybu, kterou po letu potřebuješ.',
       ],
       tags: ['culture', 'rest'],
     },
@@ -88,8 +95,11 @@ export const day20260919: Day = {
       order: 5,
       dayPart: 'evening',
       status: 'optional',
+      choiceGroupIds: ['choice-hanoi-evening'],
+      placeIds: ['place-ta-hien'],
       detail: [
         'První jídlo na ulici. Po dlouhém letu je rozumné dát si něco jednoduchého a jít brzy spát — večer není povinnost.',
+        'Stánky ve Starém Městě se rozjíždějí zhruba od 18:00. Bánh mì stojí 35 000 – 45 000 VND, tedy kolem třiceti korun.',
       ],
       tags: ['food', 'budget'],
     },
@@ -117,6 +127,7 @@ export const day20260920: Day = {
       order: 1,
       dayPart: 'morning',
       status: 'main',
+      placeIds: ['place-ngoc-son', 'place-temple-of-literature'],
       detail: [
         'Chrám Ngọc Sơn leží přímo na jezeře Hoàn Kiếm a je to zastávka na deset minut chůze od Starého Města.',
         'Chrám literatury je větší areál dál od centra a zabere víc času i dopravy. Obojí v jeden den je zbytečné.',
@@ -131,6 +142,7 @@ export const day20260920: Day = {
       order: 2,
       dayPart: 'midday',
       status: 'main',
+      placeIds: ['place-dong-xuan', 'place-old-quarter'],
       detail: [
         'Trh Đồng Xuân a obchodní ulice Hàng Gai a Hàng Đào tvoří přirozenou pěší trasu Starým Městem. Dá se to projít v jednom tahu.',
         'Ve screenshotech od cestujících se objevily konkrétní obchody (105 Hàng Gai, 34 Hàng Cá, 96 Hàng Đào). Jsou to náměty k ověření na místě, ne doporučení.',
@@ -149,6 +161,8 @@ export const day20260920: Day = {
       order: 3,
       dayPart: 'afternoon',
       status: 'optional',
+      serviceIds: ['svc-phuc-loi-stamp'],
+      choiceGroupIds: ['choice-hanoi-oldquarter-food'],
       detail: [
         'Razítko podle fotky (naše nebo Noxovo) je suvenýr, na který je potřeba čas na výrobu. Z podkladů vychází orientace kolem 250 000 VND za jeden obličej nebo zvíře a výroba tentýž nebo následující den.',
         'Zadat to dneska znamená, že se dá vyzvednout 5. 10. při návratu do Hanoje.',
@@ -166,6 +180,7 @@ export const day20260920: Day = {
       order: 4,
       dayPart: 'evening',
       status: 'optional',
+      placeIds: ['place-old-quarter'],
       condition: 'Noční trh běžně jezdí o víkendech — 20. 9. je neděle, takže to vychází. Ověřit na místě.',
       detail: [
         'Noční trh ve Starém Městě uzavírá ulice pro pěší a rozjíždí stánky. Provoz se ale mění, takže to bereme jako bonus, ne jako pevný bod.',
@@ -180,8 +195,11 @@ export const day20260920: Day = {
       order: 5,
       dayPart: 'evening',
       status: 'optional',
+      placeIds: ['place-ta-hien'],
+      serviceIds: ['svc-bia-hoi-ta-hien'],
       detail: [
-        'Tạ Hiện je pivní roh Starého Města. Bia hơi je čerstvé, velmi levné a podává se na ulici.',
+        'Tạ Hiện je pivní roh Starého Města. Bia hơi je čerstvé, velmi levné a podává se na plastových stoličkách přímo na ulici.',
+        'Roh Tạ Hiện je turisticky vytížený. Klidnější a levnější bia hơi najdeš o ulici nebo dvě dál — je to stejné pivo.',
       ],
       tags: ['evening'],
     },
