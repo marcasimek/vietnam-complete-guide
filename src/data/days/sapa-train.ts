@@ -80,7 +80,11 @@ export const day20260927: Day = {
       dayPart: 'evening',
       status: 'optional',
       choiceGroupIds: ['choice-sapa-evening'],
-      detail: ['Dnes je koupel na místě víc než po přejezdu — nohy to ocení.'],
+      serviceIds: ['svc-la-dao-spa'],
+      detail: [
+        'Dnes je koupel na místě víc než po přejezdu — nohy to ocení.',
+        'Trasa končí v Tả Van, kde je La Dao Spa. Dá se jít do koupele rovnou po dojití, ještě než se pojede zpátky nahoru. V centru Sa Py má May Spa otevřeno dlouho do noci, takže to jde i po večeři.',
+      ],
       tags: ['evening', 'wellness'],
     },
   ],

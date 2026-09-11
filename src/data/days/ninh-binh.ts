@@ -162,6 +162,7 @@ export const day20260930: Day = {
       dayPart: 'midday',
       status: 'main',
       choiceGroupIds: ['choice-ninhbinh-food'],
+      serviceIds: ['svc-hoang-giang-ninhbinh'],
       detail: [
         'Ninh Bình je známé kozím masem (dê núi) a křupavou rýží (cơm cháy). Jsou to opravdu lokální speciality, ne turistický výmysl — kozy se pasou přímo na těch vápencových kopcích.',
         'Objednává se na stůl, ne po jednom. Celá tabule pro čtyři vyjde zhruba na 700 000 – 900 000 VND.',

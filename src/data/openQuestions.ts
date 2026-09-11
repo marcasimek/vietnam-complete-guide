@@ -84,4 +84,18 @@ export const openQuestions: OpenQuestion[] = [
     nextStep: 'Ověřit na místě nebo přes ubytování den předem.',
     relatedDayDates: ['2026-09-20'],
   },
+  {
+    id: 'oq-tamcoc-catba-prices',
+    title: 'Ceny ubytování v Tam Cốc a na Cát Bà',
+    detail: 'Šest nocí ve dvou pokojích — Tam Cốc 29. 9. – 2. 10. a Cát Bà 2.–5. 10. U žádného z pěti kandidátů nemáme dohledanou cenu za dvoulůžkový pokoj.',
+    nextStep: 'Otevřít rezervační portál pro oba termíny, porovnat kandidáty a doplnit ceny do src/data/services.ts a src/data/budget.ts.',
+    relatedDayDates: ['2026-09-29', '2026-10-02'],
+  },
+  {
+    id: 'oq-trang-an-route',
+    title: 'Která trasa v Tràng An',
+    detail: 'Jsou tři trasy: nejkratší cca 2 h, prostřední 2,5–3 h s historickými místy, nejdelší 3–3,5 h s jeskyní Cloud Cave přes 1 000 m.',
+    nextStep: 'Rozhodnout podle toho, jestli chceme 30. 9. stihnout i Hang Múa. Trasa se stejně volí na pokladně, ale vyplatí se vědět dopředu, co chceme.',
+    relatedDayDates: ['2026-09-30'],
+  },
 ]
