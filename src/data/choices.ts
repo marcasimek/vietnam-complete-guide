@@ -201,6 +201,8 @@ export const choiceGroups: ChoiceGroup[] = [
       'Ptej se všech tří na totéž, jinak nabídky neporovnáš: hodiny jízdy denně, délka pěších bloků, dva soukromé pokoje, jazyk průvodce, co je v ceně, storno při počasí.',
       'Zeptej se i na transfer z Hanoje 21. 9. a na noci 21. a 25. 9. — často to mají v balíčku a vyjde to levněji.',
       'Úschova velkých batohů: nech si písemně potvrdit, kde a jak.',
+      'Soukromé pokoje na homestayích nejsou u easy rider balíčků samozřejmost — většina operátorů dává společné ubytování. Pro nás je to podmínka, ne přání.',
+      'Orientační hladina pro čtyřdenní easy rider je 212–297 USD na osobu. Kdo bude výrazně levnější, bude něco šetřit — zeptej se na čem.',
       'Pojištění řeš sám, ne přes operátora. Spolujízdu na motorce většina cestovních pojistek vylučuje.',
     ],
     openQuestions: [

@@ -13,7 +13,7 @@ export const openQuestions: OpenQuestion[] = [
     id: 'oq-loop-operator',
     title: 'Výběr loop operátora a délky',
     detail: 'Tři kandidáti (Strawberry, QT, YESD) a rozhodnutí 3 vs. 4 dny, private vs. skupina. Kamarádku třídenní loop unavil dlouhým sezením.',
-    nextStep: 'Poptat u všech tří: hodiny jízdy denně, reálná délka pěších bloků, dva soukromé pokoje, jazyk průvodce, co je v ceně a storno při počasí.',
+    nextStep: 'Poptat u všech tří: hodiny jízdy denně, reálná délka pěších bloků, dva soukromé pokoje (nejsou samozřejmost!), jazyk průvodce, co je v ceně včetně povolení do pohraniční oblasti, a storno při počasí. Orientační hladina je 212–297 USD na osobu za 4 dny.',
     relatedDayDates: ['2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25'],
   },
   {

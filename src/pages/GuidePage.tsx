@@ -181,10 +181,10 @@ export function GuidePage() {
                     <div><dt>Stojí to</dt><dd>{a.cost}</dd></div>
                   </dl>
                   {a.gains.length ? (
-                    <div><p className="section-label">Získáme</p><BulletList items={a.gains} icon="check" /></div>
+                    <div className="altcard__gain"><p className="section-label">Získáme</p><BulletList items={a.gains} icon="check" /></div>
                   ) : null}
                   {a.losses.length ? (
-                    <div><p className="section-label">Ztratíme</p><BulletList items={a.losses} icon="warning" /></div>
+                    <div className="altcard__loss"><p className="section-label">Ztratíme</p><BulletList items={a.losses} icon="warning" /></div>
                   ) : null}
                   {a.detail?.length ? (
                     <div className="altcard__detail">{a.detail.map((d) => <p key={d.slice(0, 30)} className="small">{d}</p>)}</div>

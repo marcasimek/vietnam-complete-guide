@@ -137,10 +137,10 @@ export const budgetLines: BudgetLine[] = [
     id: 'bd-loop-package',
     category: 'activity',
     label: 'Balíček Hà Giang Loop, 4 dny',
-    note: 'Uvedený rozsah platí pro TŘI dny (easy rider). Náš 4denní program bude dražší a konkrétní nabídku zatím nemáme. Dřívější orientace 6,3 mil. VND za private loop je historická stopa z plánování, ne ověřená cena.',
-    min: 3_800_000, max: 4_500_000, currency: 'VND', basis: 'per-person',
+    note: 'Odvozeno z hladiny pro easy rider: 3 dny 170–220 USD, čtyřdenní verze o 25–35 % dražší. Povolení do pohraniční oblasti (cca 10 USD) bývá zahrnuté — ověř. Konkrétní nabídku pro čtyři osoby zatím nemáme; je to největší položka rozpočtu.',
+    min: 212, max: 297, currency: 'USD', basis: 'per-person',
     confidence: 'estimate',
-    sourceIds: ['src-looptrails-tours'],
+    sourceIds: ['src-daytripsvietnam-loop-cost', 'src-looptrails-tours'],
     dayDates: ['2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25'],
   },
   {

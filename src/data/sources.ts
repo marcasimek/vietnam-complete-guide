@@ -719,6 +719,15 @@ export const sources: Source[] = [
     checkedOn: '2026-09-11',
     supports: ['cena od cca 72 USD za pokoj/noc', 'tříhvězdičkový butikový hotel se snídaní, kousek od pláže i centra'],
   },
+  {
+    id: 'src-daytripsvietnam-loop-cost',
+    title: 'Cost of Ha Giang Loop Motorbike Tour 2026 — DIY vs guided vs easy rider',
+    url: 'https://daytripsvietnam.com/guides/cost-of-ha-giang-loop-2026/',
+    publisher: 'Day Trips Vietnam',
+    kind: 'guide',
+    checkedOn: '2026-09-11',
+    supports: ['easy rider 3 dny 170–220 USD na osobu', 'čtyřdenní verze o 25–35 % dražší, tedy zhruba 212–297 USD', 'povolení do pohraniční oblasti cca 10 USD / 230 000 VND'],
+  },
 ]
 
 export const sourceById = new Map(sources.map((s) => [s.id, s]))

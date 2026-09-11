@@ -933,3 +933,7 @@
   width: 2px; background: var(--line);
 }
 .steps > .steps__part:first-child span::before { display: none; }
+
+/* Zisk zeleně, ztráta korálově — ať se to nepřehlédne. */
+.altcard__gain .bullets__icon, .altinline__cols > div:first-child .bullets__icon { color: var(--lime); }
+.altcard__loss .bullets__icon, .altinline__cols .proscons__col--con .bullets__icon { color: var(--coral); }
