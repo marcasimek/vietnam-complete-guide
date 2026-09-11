@@ -1,0 +1,931 @@
+# MASTER PROMPT — Vietnam Complete Guide: interaktivní cestovní PWA
+
+Revize 2 · samostatné zadání pro nový projekt · 11. 9. 2026
+
+Jsi seniorní frontend/PWA vývojář, produktový UX/UI designer a pečlivý cestovatelský rešeršér. Máš pracovat přímo v repozitáři, spouštět aplikaci, procházet ji v prohlížeči, kontrolovat screenshoty a iterovat až k funkčnímu, vizuálně dotaženému výsledku.
+
+## 0. Nový projekt, repozitář a způsob práce
+
+Pracuj VÝHRADNĚ v repozitáři:
+https://github.com/marcasimek/vietnam-complete-guide
+
+Git remote:
+https://github.com/marcasimek/vietnam-complete-guide.git
+
+Zamýšlená adresa po skutečném nasazení:
+https://marcasimek.github.io/vietnam-complete-guide/
+
+**Jde o nový projekt od nuly.** Na začátku může repo obsahovat pouze tento soubor a jeho TXT kopii. Žádná aplikace, aktivní GitHub Pages, konfigurace buildu, původní service worker ani uživatelská data se nepředpokládají. Nejprve ověř skutečný aktuální stav, `git status`, remote a případné instrukce v repozitáři; nesmaž změny, které mezitím vznikly.
+
+`Vietnam_PWA_master_prompt.md` je hlavní zadání. `Vietnam_PWA_master_prompt.txt` je obsahově shodná kopie pro snadné čtení, nikoliv druhé nebo odlišné zadání. Stačí načíst MD celé jednou. Neupravuj zadání jen proto, abys snížil požadavky na výsledek.
+
+Tento dokument je samostatný. Nevyžaduje přístup do jiného repozitáře, předchozího firemního/soukromého chatu, souborů v ChatGPT sandboxu ani obrázků z původní konverzace. Níže jsou zahrnuty termíny, všechny dny, preference i shrnutí relevantních inspirací. Odkazy, adresy a dřívější návrhy jsou k ověření, ne náhrada rezervace.
+
+Uživatel zadává práci z mobilního coding chatu. Vývoj, instalaci závislostí, spuštění serveru, testy a screenshoty prováděj ve svém dostupném vzdáleném vývojovém prostředí. Nevyžaduj od uživatele notebook, lokální terminál nebo kopírování desítek zdrojových souborů přes telefon. Nemáš-li určitou schopnost či oprávnění, řekni to konkrétně; netvrď, že jsi testoval nebo nasadil něco, co se nestalo.
+
+Vytvoř moderní, hravou a graficky kvalitní PWA pro naši konkrétní cestu po severním Vietnamu. Nechci další návrh produktu ani pouhý prototyp se třemi ukázkovými dny. Chci implementaci s celou cestou, použitelnými detaily a otestovaným offline režimem.
+
+Předchozí vizuální návrhy uživateli nevyhovovaly; nejsou předlohou k převzetí. V tomto repu vytvoř nový soudržný design a novou implementaci. Neimportuj starou aplikaci a neřeš migraci jejích dat nebo cache.
+
+Pracuj samostatně:
+- Nezačínej dlouhým dotazníkem. Tento dokument obsahuje podklady pro první kompletní verzi.
+- Nic za nás nekupuj, neobjednávej ani neposílej poskytovatelům.
+- Nedělej force-push a nepřepisuj nesouvisející změny.
+- Pracuj v bezpečné pracovní větvi a dělej smysluplné commity; využij běžný PR postup dostupného prostředí.
+- GitHub Pages pro NOVÉ repo nemusí být zapnuté. Připrav kompletní build a deploy, ověř skutečný stav a na konci uveď jen případný nezbytný ruční krok.
+- Nečekej na ruční zapnutí Pages, abys mohl lokálně implementovat a testovat aplikaci.
+- Ověř informace v reálných zdrojích, máš-li přístup na web. Bez něj nevyráběj „ověřené“ ceny, recenze, otevírání ani souřadnice.
+- Nedělej několikahodinovou obecnou rešerši před prvním funkčním výsledkem. Postupuj po funkčních celcích; každý dokonči, otestuj a zapiš stav.
+- Nevypisuj do chatu celé zdrojové soubory ani tento prompt. Kód, zdroje a důkazy testů patří do repozitáře, průběžná hlášení mají být krátká.
+- Udržuj stručný `docs/PROGRESS.md`: dokončené funkce, nehotové úkoly, provedené testy a nejbližší konkrétní krok. Při navázání další session ho přečti spolu se skutečným kódem a pokračuj; nezačínej projekt znovu.
+- Neodkládej veškerý obsah na „další iteraci“. Rešerše a skutečné vyplnění celé aplikace jsou součást zadání.
+- Neinstaluj placené služby ani nepřidávej AI chat, přihlašování, CMS nebo sociální síť. Prioritou je dobrý plán, jeho klikací detaily, mapa a offline přístup.
+
+### Pořadí priorit při implementaci
+
+1. Funkční aplikace pro celou cestu: 18 dnů, každý krok odkazuje na skutečný interní detail, validovaná strukturovaná data a funkční návrat zpět.
+2. Moderní mobilní UX ověřené screenshoty; plně dotažený referenční den 26. září, potom stejný standard napříč všemi oblastmi.
+3. Konkrétní rešeršované možnosti dopravy, místního jídla, ubytování a aktivit, nikoliv pouhé odkazy na vyhledávání.
+4. Praktická mapa, rejstřík, osobní stav a skutečný offline balíček.
+5. Dokončení praktického průvodce, rozpočtu, alternativ, automatických testů a nasazení.
+
+Toto je pořadí práce, ne povolení zbytek vynechat. Při omezení prostředí nebo session zachovej funkční build a pravdivý seznam zbývající práce. Nikdy neoznač kostru za hotovou aplikaci.
+
+## 1. Podstata produktu: každý krok musí být proveditelný
+
+Hlavní itinerář odpovídá na:
+**Kde jsme? Co uděláme dnes? V jakém pořadí? Kam a jak se přesuneme?**
+
+Detail kroku odpovídá na:
+**Co to přesně je? Kde to je? Jak se tam dostaneme? Kolik to přibližně stojí? Co zvolit? Kde to ověřit nebo rezervovat?**
+
+Nechceme turistický blog ani obrázek plakátu vložený do webu. Chceme nástroj, který otevřeme ráno v telefonu a opravdu podle něj zvládneme den.
+
+Základní pravidlo:
+**Každý významový řádek itineráře je klikací objekt s vlastním užitečným detailem. Nestačí, když je rozklikávací pouze celý den.**
+
+Kliknutí na cizí název musí nejprve otevřít srozumitelný interní detail, ne nás bez vysvětlení vyhodit na Google. Uvnitř detailu bude mapa/navigace, zdroje a další akce.
+
+Všechna místa, aktivity, podniky, dopravní spoje a výběry služeb propojuj přes společný rejstřík. Totéž místo nesmí mít pět navzájem odlišných popisů nebo cen.
+
+## 2. Referenční scénář: takto má fungovat 26. září
+
+V přehledu:
+
+**26. 9. — Hà Giang → Sa Pa**
+Přesun + lehký adrenalin
+
+1. Ranní přímý transfer do Sa Pa
+2. Check-in a oběd
+3. Alpine Coaster / downhill autíčka
+4. Večer hotpot, bar nebo bylinková koupel
+
+Každý z těchto čtyř řádků je samostatně klikací.
+
+### A. „Ranní přímý transfer do Sa Pa“
+
+Otevře interní stránku přepravy s:
+- Jednou doporučenou možností a 1–2 smysluplnými alternativami.
+- Rozlišením sdílený minivan / autobus / soukromé auto.
+- Skutečným dopravcem versus pouhým prodejcem jízdenek.
+- Odhadovanou dobou ode dveří ke dveřím, nikoli jen čistou dobou jízdy.
+- Cenou s měnou a jednotkou: za osobu, za celé vozidlo, za naši čtveřici.
+- Dostatečnou kapacitou pro čtyři cestující, řidiče a zavazadla.
+- Nástupním a výstupním místem, vyzvednutím u hotelu nebo nutnou poslední návazností.
+- Mapou konkrétního nástupu, pokud je doložen. Když není, napiš „potvrdit při rezervaci“; nevymýšlej autobusové nádraží.
+- Odkazem na dopravce/rezervaci a doporučeným předstihem.
+- Stavem jízdního řádu a dostupnosti pro náš den.
+- Variantou při zrušení spoje nebo pozdním příjezdu.
+
+### B. „Check-in a oběd“
+
+Otevře přehled se dvěma propojenými částmi:
+- 2–3 vhodná ubytování s cenou za DVOULŮŽKOVÝ POKOJ/noc, celkem za dva pokoje, polohou, koupelnou, hlukem a důvodem doporučení.
+- 2–3 konkrétní levné místní jídelny v okolí relevantního příjezdu/ubytování: co si objednat, cena běžného jídla, adresa, mapa, otevírání a zdroj.
+
+Ne „doporučujeme ochutnat místní kuchyni“. Chci konkrétní podnik a konkrétní jídlo.
+Pokud ještě není vybraný hotel, nepředstírej přesnou vzdálenost „od našeho hotelu“. Ukaž oblast a vysvětli, ke kterému kandidátovi doporučení patří.
+
+### C. „Alpine Coaster / downhill autíčka“
+
+Otevře detail:
+- Co je to za atrakci a jak vypadá.
+- Zda jde opravdu o zařízení, které hledáme.
+- Přesná poloha, doprava z relevantní oblasti, cena, doba návštěvy, provoz, omezení za deště, případná rezervace.
+- Zdroje a datum kontroly.
+
+Nejdřív ověř, zda „coaster“ a „downhill autíčka“ označují stejnou věc. Když ano, jedna entita s aliasy. Když ne, dvě skutečně rozlišené možnosti. Nezaměňuj automaticky kolejovou bobovou dráhu s bezkolejovým luge.
+
+### D. „Večer hotpot, bar nebo bylinková koupel“
+
+Otevře volbu podle nálady:
+- Místní hotpot / večeře.
+- Bar s vhodnou atmosférou.
+- Bylinková koupel nebo masáž.
+
+U každé varianty konkrétní podniky, co čekat, cenový rozsah, místo a otevírání. Variantu „nebo“ nezobrazuj jako povinnost absolvovat všechny tři.
+
+**Tento standard aplikuj na CELÝ itinerář, ne jen na 26. září.**
+
+## 3. Pevné podklady o cestě
+
+### Kdo a jak cestuje
+
+- Čtyři dospělí, dva páry kolem třiceti.
+- Hlavní plán pro čtyři; ceny zobrazuj i za člověka a dvojici, kde to dává smysl.
+- Páry se mohou na část dne oddělit a později spojit.
+- Pouze sever Vietnamu. Přílet i odlet Hanoj.
+- Priority: Hà Giang, zátoka Cát Bà/Lan Hạ/Hạ Long, Ninh Bình, hory, výhledy, pěší výlety, vesnice a místní život.
+- Chceme kulturu, ale méně měst a památkového maratonu.
+- Chceme street food, vietnamskou kávu, levné místní jídelny, občas hotpot, bar nebo party.
+- PREFERUJEME LOWCOST MÍSTNÍ JÍDELNY, ne podniky vybrané hlavně pro turisty nebo instagramový interiér.
+- Chceme i kajaky, trochu adrenalinu, koupání, masáže, bazén a odpočinek.
+- Nejsme automaticky ani skupina „bez party“, ani každodenní party tour. Večer klidně společnost a hudba; přes den bezpečný, rozumný program.
+- Soukromé dvoulůžkové pokoje a rozumný poměr cena/výkon jsou pracovní preference. Příjemnější hotel dává smysl po příletu a v odpočinkové základně; luxus všude není cíl.
+- Po příletu chceme sprchu a možnost odpočinku.
+- Zvažujeme balení do 7 kg příručního zavazadla. Skutečný tarif a zavazadlový nárok všech cestujících nejsou potvrzené.
+- Počítej s telefonem a kamerou Insta360; případný další fotoaparát/iPad není potvrzená povinnost.
+- Motocyklový řidičák má podle podkladů pouze Martin. Skupina oprávnění, mezinárodní průkaz a zkušenosti nejsou potvrzené. Nepředpokládej samostatné řízení celé skupiny.
+- Nox je náš pes; nápad na razítko podle jeho fotky je suvenýr. Není účastníkem této cesty.
+
+### Lety: údaje poskytnuté cestujícími
+
+Všechny uvedené časy jsou místní pro dané letiště. Zachovej je jako podklady od uživatele; neoznačuj je za živě ověřený stav letů.
+
+| Datum | Let | Odlet | Přílet |
+|---|---|---|---|
+| 18. 9. 2026 | EY156 | Praha PRG, T1, 10:10 | Abú Dhabí AUH, terminál A, 18:00 |
+| 18.–19. 9. 2026 | EY432 | AUH, terminál A, 18. 9. 21:45 | Hanoj HAN, T2, 19. 9. 07:20 |
+| 6.–7. 10. 2026 | EY431 | HAN, T2, 6. 10. 20:40 | AUH, terminál A, 7. 10. 00:30 |
+| 7. 10. 2026 | EY155 | AUH, terminál A, 02:50 | Praha PRG, T1, 07:05 |
+
+Pobyt: **19. 9.–6. 10. 2026 = 18 kalendářních dnů a 17 nocí.**
+Návrat do Prahy je až **7. října**, nikoliv 6. října.
+
+Časová pásma ukládej pomocí IANA: `Asia/Ho_Chi_Minh`, `Asia/Dubai`, `Europe/Prague`.
+Funkce „Dnes“ pro pobyt se řídí vietnamským datem, nikoliv automaticky časem telefonu v Česku.
+
+## 4. Pracovní hlavní itinerář — celý vlož do aplikace
+
+Toto je výchozí plán, ne potvrzené rezervace. Zachovej kostru, ale ověř návaznosti, aktuální provoz a proveditelnost. Opravy jasně zaznamenej; neměň tiše hlavní oblasti nebo termíny.
+
+**Hanoj → Hà Giang → Sa Pa → Lào Cai → noční vlak do Hanoje → Ninh Bình/Tam Cốc → Cát Bà/Lan Hạ → Hanoj.**
+
+V rámci dne řaď kroky podle geografické a časové návaznosti. Ne náhodně podle atraktivity názvu. Orientační délky níže jsou plánovací rámce k ověření, nikoliv rezervované jízdní řády.
+
+### 19. 9., sobota — Hanoj
+
+1. Přílet HAN 07:20, vstupní formality, SIM/peníze podle potřeby.
+2. Transfer HAN → hotel; možnosti dopravy, cena za vůz/pro čtyři a místo vyzvednutí.
+3. Sprcha, odpočinek, lehký oběd.
+4. Krátká procházka Hoàn Kiếm a Old Quarter.
+5. Street food, káva; večer volitelný, ne pevná povinnost.
+
+Noc: Hanoj. První den nepřeplnit po dlouhém letu.
+V detailu hotelu porovnej garantovaný early check-in, day-use a zaplacení předchozí noci 18./19. 9. s písemně potvrzeným ranním příjezdem. Pouhé „subject to availability“ není garance.
+
+### 20. 9., neděle — Hanoj
+
+1. Snídaně/káva a jedna kulturní zastávka, například Ngọc Sơn; alternativou Chrám literatury. Ne automaticky obě.
+2. Đồng Xuân a procházka ulicemi Hàng Gai/Hàng Đào s krátkým shoppingem.
+3. Místní oběd; příležitost zadat výrobu personalizovaného razítka, pokud podnik a lhůta vyhoví.
+4. Večerní Old Quarter Night Market, bude-li provoz potvrzen.
+5. Tạ Hiện/bia hơi, případně bar podle chuti.
+
+Noc: Hanoj. Trhy a jídlo spoj do přirozené pěší trasy. Nákupy nemají spolknout celý den.
+
+### 21. 9., pondělí — Hanoj → Hà Giang
+
+1. Denní přímý přejezd, preferovaně sdílený minivan nebo vhodné soukromé auto.
+2. Check-in a jídlo poblíž ubytování/loop operátora.
+3. Briefing: trasa, přilby, výbava, pokoje, pěší bloky, úschova velkých batohů.
+4. Klidnější večer.
+
+Noc: Hà Giang. Předběžně vyhradit přibližně 6–8 hodin ode dveří ke dveřím; ověř podle služby.
+
+### 22. 9., úterý — Hà Giang Loop, den 1
+
+Trasa: Hà Giang → Quản Bạ → Yên Minh.
+1. Vyjezd s místními řidiči.
+2. Oblast Quản Bạ / Heaven Gate / horské vyhlídky.
+3. Lokální oběd a kratší procházka vesnicí, pokud ji reálná etapa dovolí.
+4. Příjezd do Yên Minh, ubytování a společná večeře.
+
+Noc: Yên Minh. Pěší část nemá být deset minut u fotografie vydávaných za trek.
+
+### 23. 9., středa — Loop, den 2
+
+Trasa: Yên Minh → Thẩm Mã → Đồng Văn.
+1. Thẩm Mã a smysluplné zastávky na trase.
+2. Vesnice a místní život.
+3. Cílený pěší blok přibližně 2–3 hodiny v oblasti Thiên Hương, pouze pokud ho operátor skutečně zařadí.
+4. Đồng Văn, večeře a večerní procházka.
+
+Noc: Đồng Văn. Hmong King Palace / Lung Cú jsou kandidáti, ne povinné přídavky. Kvůli pěšímu bloku musí případně ustoupit jiná odbočka. Nevymýšlej potvrzený GPX ani převýšení.
+
+### 24. 9., čtvrtek — Loop, den 3
+
+Trasa: Đồng Văn → Mã Pí Lèng → Mèo Vạc → Du Già.
+1. Výhledy Mã Pí Lèng.
+2. Bezpečný pěší úsek v oblasti Sky Path podle podmínek.
+3. Nho Quế: vyhlídka NEBO plavba, pokud se reálně vejde.
+4. Přesun do Du Già.
+5. Homestay, společná večeře, případně hudba/karaoke.
+
+Noc: Du Già. Toto může být dlouhý den: ověř čas sjezdu k řece, lodě a návratu. Nevtěsnej dlouhý trek, loď a dlouhý přejezd bez rezervy. Vyber hlavní zážitek a druhý označ jako alternativu.
+
+### 25. 9., pátek — Loop, den 4
+
+Trasa: Du Già → Hà Giang.
+1. Vesnice a okolí Du Già.
+2. Vodopád jen při bezpečném průtoku/přístupu, ne povinné skákání do vody.
+3. Návrat do Hà Giang a vyzvednutí zavazadel.
+4. Sprcha, večeře, regenerace.
+
+Noc: Hà Giang. Neplánuj hned po loopu noční autobus.
+
+### 26. 9., sobota — Hà Giang → Sa Pa
+
+1. Ranní přímý transfer.
+2. Check-in a místní oběd.
+3. Alpine Coaster / downhill atrakce, pokud je identita, provoz a čas příjezdu ověřen.
+4. Hotpot, bar NEBO bylinková koupel.
+
+Noc: Sa Pa / vhodná část údolí. Přesun předběžně přibližně 6–8 hodin včetně svozu a posledního úseku. Neslibuj atrakci před zavřením bez reálné časové návaznosti. Pozdní příjezd = přesunout nebo vypustit volitelnou atrakci.
+
+### 27. 9., neděle — Sa Pa: pěší den
+
+1. Přesun na začátek pěší trasy s místním průvodcem.
+2. Lao Chải → Tả Van / vhodné navazující vesnice.
+3. Oběd v lokálním podniku nebo u hostitelů.
+4. Návrat, odpočinek.
+5. Večeře, případně herbal bath/masáž.
+
+Noc: stejná základna Sa Pa.
+Cíl zhruba 8–14 km podle konkrétní trasy, převýšení, bláta a kondice; není to potvrzená trasa. Nenutíme celou skupinu do extrému. Sklizeň/zlatá pole nejsou garance.
+
+### 28. 9., pondělí — Sa Pa → Lào Cai → noční vlak
+
+1. Jeden volitelný hlavní program: Fansipan, skutečně ověřený canyoning NEBO volnější místní den.
+2. Dostatečně včas návrat, sprcha, jídlo a převzetí zavazadel.
+3. Transfer na nádraží Lào Cai s rezervou.
+4. Noční vlak Lào Cai → Hanoj.
+
+Noc: vlak.
+Preferenci kupé ukaž jako rozhodnutí: dvě skutečná soukromá dvoulůžková kupé versus vykoupení celého čtyřlůžkového pro čtyři. Poslední pracovní návrh používá společné čtyřlůžkové, uživatel však původně projevil zájem i o dvoulůžkové. Nic není potvrzeně koupené.
+Přesné číslo spoje, odjezd, příjezd, cenu a storno ověř pro 28. 9. Neber staré časy automaticky jako platné.
+
+### 29. 9., úterý — Hanoj → Ninh Bình / Tam Cốc
+
+1. Ranní příjezd vlaku do Hanoje.
+2. Snídaně a návazný přejezd do Tam Cốc.
+3. Check-in nebo domluvená možnost sprchy/odložení zavazadel.
+4. Bazén, praní a volno.
+5. Jen podle energie krátká projížďka na kole a místní večeře.
+
+Noc: Tam Cốc. Po nočním vlaku neplánuj náročný trek. Návazný transfer nemá být na minuty těsný.
+
+### 30. 9., středa — Ninh Bình: hlavní loď a výhled
+
+1. Brzy Tràng An: hlavní lodní výlet.
+2. Místní oběd a pauza.
+3. Hang Múa v příhodnou dobu podle počasí, tepla a viditelnosti.
+4. Návrat do Tam Cốc, večeře.
+
+Noc: Tam Cốc. Tràng An je výchozí volba, Tam Cốc boat ride je smysluplná náhrada. Nejsou povinné dvě podobné plavby.
+
+### 1. 10., čtvrtek — Ninh Bình: kola, vesnice, klid
+
+1. Půjčení kol.
+2. Bích Động a rozumný okruh vesnicemi/poli.
+3. Místní oběd.
+4. Bazén, masáž nebo volný půlden.
+
+Noc: Tam Cốc. Další loď jen dobrovolně. Lotosy/rýži neslibuj podle ilustrační fotky z jiné sezóny.
+
+### 2. 10., pátek — Ninh Bình → Cát Bà
+
+1. Přímé spojení bus + loď/trajekt + návazný transfer, bez zbytečného návratu do Hanoje.
+2. Check-in a pozdní oběd.
+3. Podle situace pláž/procházka/odpočinek.
+4. Seafood nebo jiná místní večeře, bar podle chuti.
+
+Noc: Cát Bà. Předběžně přibližně 5–6,5 hodiny s návaznostmi; ověř službu.
+
+### 3. 10., sobota — Lan Hạ Bay
+
+1. Celodenní výlet na lodi v menší skupině.
+2. Kajak a laguny.
+3. Oběd a koupání, dovolí-li podmínky.
+4. Volitelně organizované lezení pro začátečníky v kombinovaném programu.
+5. Návrat na ostrov, večeře a případně hudba/bar.
+
+Noc: Cát Bà. Lezení není automatická součást standardní plavby; musí odpovídat konkrétní nabídce. Odděl jištění na laně od deep-water soloingu. Ne všichni musí lézt.
+
+### 4. 10., neděle — Cát Bà / záložní den
+
+Primárně počasím podmíněná rezerva na plavbu.
+Když už proběhla:
+1. Kratší výlet do národního parku NEBO jeskyně.
+2. Oběd.
+3. Pláž/volno.
+4. Poslední ostrovní večer.
+
+Noc: Cát Bà. Neplánuj vše najednou. Skútr není default pro čtyři bez ověřeného oprávnění.
+
+### 5. 10., pondělí — Cát Bà → Hanoj
+
+1. Ranní návrat lodí a po silnici.
+2. Check-in a oběd.
+3. Poslední nákupy, případné vyzvednutí razítka/suvenýrů, káva.
+4. Závěrečná večeře a podle chuti rooftop/bar.
+
+Noc: Hanoj. Poslední noc musí být na pevnině v Hanoji, ne na ostrově. Předběžně 4–5,5 hodiny s návaznostmi.
+
+### 6. 10., úterý — Hanoj a odlet
+
+1. Volné dopoledne, brunch/káva, případná krátká procházka.
+2. Vyzvednutí zavazadel.
+3. Orientačně kolem 16:30 odjezd z centra na HAN; upravit podle hotelu a dopravní situace.
+4. Odlet EY431 ve 20:40.
+
+Žádná hotelová noc navíc ve Vietnamu. Přes AUH se vracíme do Prahy 7. 10. v 07:05 dle dodaných letů.
+
+### Kontrola nocí
+
+- Hanoj: 19., 20. 9. a 5. 10. = 3 noci.
+- Hà Giang před/po loopu: 21. a 25. 9. = 2.
+- Loop: Yên Minh 22., Đồng Văn 23., Du Già 24. 9. = 3.
+- Sa Pa: 26. a 27. 9. = 2.
+- Vlak 28./29. 9. = 1.
+- Tam Cốc: 29., 30. 9. a 1. 10. = 3.
+- Cát Bà: 2., 3. a 4. 10. = 3.
+
+Celkem **16 nocí na souši + 1 vlak = 17**. Zaplacená předchozí noc 18./19. kvůli rannímu pokoji je extra náklad, nikoliv další fyzická noc pobytu. Žádná povinná noc na lodi.
+
+## 5. Další podklady, které nezahodit ani slepě nepřebírat
+
+Tato sekce shrnuje inspirace z dřívější konverzace a screenshotů cestujících. Originální screenshoty se v novém repu nepředpokládají. Pracuj s tímto shrnutím a vlastní rešerší; nepředstírej, že jsi původní obrázky otevřel.
+
+### Zkušenost kamarádky
+
+Doporučila méně zastávek, Hà Giang s místními řidiči, jednodenní loď z Cát Bà a Strawberry. Třídenní loop ji unavil dlouhým sezením a chyběl jí čas na vesnice. Čtyři dny proto nesmějí automaticky znamenat jen více kilometrů. Velké batohy nechali na základně.
+
+Kamarádku mrzelo, že v Tam Cốc hlavní loďky vytlačil jiný program a večerní autobus. V naší cestě musí mít hlavní plavba skutečný prostor.
+
+Slíbila hezký hotel s bazénem u Ninh Bình, ale jeho název nemáme. Nevymýšlej ho. Zařaď jako nevyřešenou drobnou položku.
+
+Její nejasné cenové zápisy „3500 dongů“ a „880 dongů“ nepoužívej. Její cesta byla v jiném období a není důkaz dnešní dostupnosti.
+
+### Alternativní oblasti z našich inspirací
+
+Ulož je do „Alternativ“, nikoli automaticky do hlavní trasy:
+- Tà Xùa: moře mraků, Dinosaur Spine, Dolphin Rock, Windy Peak, Lonely Tree, Hiên Coffee a mechový les. Ověř přesnou identitu bodů; turistická oblast pro cloud hunting a vícedenní výstup na stejnojmenný horský vrchol nejsou automaticky stejná aktivita. Mraky nejsou garantované, fotografie nepředpovídá zářijové počasí.
+- Pù Luông: pěší výlety mezi vesnicemi, terasy, tradiční domy, vodní kola, Bat Cave / oblast Kho Mường k ověření, Coffee Lang Thang. Bambusový vor není peřejový rafting. Trasa z videa 10–20 km denně není náš povinný výkon.
+- Cao Bằng/Bản Giốc nebo Mai Châu jen jako alternativy za jiný blok, ne nové povinné zastávky.
+
+U každé alternativy vysvětli: za co by se vyměnila, kolik nocí a přesunů vyžaduje, co ztrácíme (např. noční vlak), co získáváme. Nedělej automatické přeskupení rezervovaného plánu.
+
+### Rafty a autíčka z videí
+
+Uživatel si vybavuje rafting a downhill autíčka „u Hanoje“. Dodaný raftingový screenshot je ale označen Đà Nẵng. Hòa Phú Thành bylo dříve navrženo jako možná identifikace; nejde o potvrzené místo od uživatele.
+Ověř, nehádej. Kvůli tomuto videu nepřidávej střed Vietnamu.
+„Alpine Coaster Sapa“ a canyoning u Love Waterfall jsou kandidáti z předchozích návrhů asistenta, nikoliv uživatelem doložené rezervace.
+
+### Shopping, suvenýry a původ zboží
+
+Podklady obsahují Đồng Xuân, Old Quarter Night Market, Hàng Gai/Hàng Đào, Ninh Hiệp, Hàng Da, Tràng Tiền Plaza a Lotte Mall.
+Pro naši cestu preferuj krátkou centrální trasu; velkoobchodní Ninh Hiệp není automatická priorita.
+
+Ve screenshotech se objevily názvy/adresy:
+- „The North Face Factory Outlet Original“, 105 Hàng Gai.
+- „Wanderlust Outfit“, 34 Hàng Cá.
+- „Factory Outlet“, 96 Hàng Đào.
+
+Jsou to náměty k ověření, nikoliv potvrzení existence, kvality nebo autorizace značek. Neopisuj hvězdičky, počet recenzí ani otevírací dobu ze screenshotu jako aktuální fakta. „AAA“, „1:1“, „VNXK“ a „factory outlet“ nejsou důkaz pravosti. Pokropení vodou není důkaz membrány nebo dlouhodobé nepromokavosti. Neprezentuj neověřené vybavení jako spolehlivou ochranu do hor.
+
+Phúc Lợi Stamp v Old Quarter: kandidát na vlastní razítko podle fotky nás/Noxe. Ze screenshotu pochází orientace cca 250 000 VND za jeden obličej/zvíře a výroba tentýž/další den. Před použitím ověř adresu, cenu, výrobní lhůtu a možnost vyzvednutí. Zadání 20. 9. může být logisticky lepší než výroba těsně před odletem.
+
+Screenshoty obsahují také Hội An tailoring a nákupy v Ho Či Minově Městě. To je inspirace mimo náš region, NE pokyn rozšířit cestu na jih/střed.
+
+### Dřívější tvrzení vyžadující zvláštní kontrolu
+
+Do produkce nepřebírej bez nového ověření:
+- údajný Hanoi Jazztival a konkrétní festivalový program v našich dnech;
+- údajnou odstávku Fansipanu 21.–27. 9. a znovuotevření 28. 9.;
+- přesné časy nočního vlaku, provoz coasteru a konkrétní canyoning;
+- konkrétní plavební kapacity, cenu lezení a aktuální stavby/pláže na Cát Bà;
+- garance zlaté rýže, lotosů, mlhy nebo průchodnosti treků;
+- dostupnost Grab v každé obci;
+- vstupní formuláře, bankovní poplatky nebo pravidla pro baterie.
+
+Datum Trung Thu a skutečné lokální akce ověř, ale neměň kvůli jedné akci logiku celé trasy.
+
+## 6. Rešerše a konkrétní obsah aplikace
+
+Rešerši prováděj k reálnému datu práce. Tento brief vzniká z plánování 10.–11. 9. 2026. Nefalšuj „ověřeno dnes“, pokud máš jen tento text nebo vyhledávací úryvek.
+
+### Hierarchie důvěryhodnosti
+
+- Lety/pojištění/vstupní podmínky: příslušné úřady, dopravce a cestující.
+- Ceny, provoz, služby, storno: skutečný poskytovatel.
+- Atmosféra, hluk, čistota a zkušenosti: aktuální recenze a nezávislé zprávy; nepovažuj jednotlivou zkušenost za konsenzus.
+- Inspirace: cestovatelské blogy, skutečná vlákna Redditu a zde shrnuté náměty ze screenshotů.
+- Starší návrhy AI: pracovní kandidáti, nikdy samostatný důkaz.
+
+Rozliš:
+1. plán cestujících;
+2. provozní údaj ověřený ve zdroji;
+3. zveřejněný ceník bez ověřené dostupnosti pro náš termín;
+4. odhad;
+5. neověřeno / nutno potvrdit.
+
+Webovým ověřením ceny NEpotvrzuješ rezervaci. Zaškrtávací políčko uživatele NEpotvrzuje aktuálnost oficiálního ceníku. Tyto stavy jsou oddělené.
+
+Ke konkrétním tvrzením ukládej zdroj, datum kontroly a případně datum účinnosti. V detailu ukaž klikací zdroj přímo u ceny, provozu nebo přepravní informace; samotný obecný seznam odkazů na konci aplikace nestačí. U proměnlivých údajů podporuj upozornění „znovu ověřit před návštěvou“. Nedávej jediný zavádějící zelený štítek „ověřeno“ celému záznamu, když znáš jen jeho adresu.
+
+Nenajdeš-li přesný údaj, uveď co není známo a použitelný další krok. Neplň celou aplikaci prázdnými kartami „ověřit na místě“: prověřuj alternativy a dodej maximum konkrétního obsahu, který zdroje skutečně unesou.
+
+### Hotely a operátoři: počáteční kandidáti, nikoli schválený výběr
+
+| Oblast | Kandidáti k prověření |
+|---|---|
+| Hanoj | La Selva Hotel, Tirant Hotel |
+| Hà Giang | Strawberry Ha Giang Loop Tour, Motorbike Rental & Rooms; Wings Ha Giang Loop Bungalow |
+| Loop | Strawberry, QT Motorbikes & Tours, YESD |
+| Sa Pa/údolí | Sapa Eco Bungalows & Spa, Eco Palms House; pěší průvodci Sapa Sisters |
+| Ninh Bình | Tam Coc Horizon Bungalow, Trang An Retreat, Le Clos du Fil Boutique Hotel & Spa |
+| Cát Bà | Little Vietnam Hotel, The Moon Boutique Hotel |
+| Lodě/aktivity | Cat Ba Ventures, Cat Ba Outdoors; konkrétní poskytovatel climbing + kayaking nalezený přes platformu se musí identifikovat |
+| Vlak | Oficiální vietnamská železnice a skuteční provozovatelé turistických vozů, např. Chapa Express |
+
+Ubytování porovnávej i podle posledního úseku dopravy. „Klidný homestay v údolí“ může být skvělý pro trekking a horší pro večerní bar nebo rychlé ranní odjezdy. U Cát Bà ověř současný hluk/stavby u konkrétního objektu. Hotelový bazén není samozřejmost.
+
+Pro hlavní základny dodělej alespoň dvě věrohodné ubytovací možnosti a několik odpovídajících levných jídelních možností, pokud jsou dohledatelné. U loop nocí vysvětli, že skutečný homestay může určovat balíček operátora.
+
+Porovnání loopu: 3 versus 4 dny, private versus menší skupina, easy rider versus auto, hodiny jízdy a reálná chůze, dva soukromé pokoje, jazyk průvodce, vybavení, zahrnuté jídlo/vstupy/transfery a storno při počasí. Soukromý 4denní loop je pracovní doporučení, ne již uzavřená objednávka.
+
+### Jídlo: nezbytná součást obsahu, ne výplň
+
+Pro každé relevantní místo hledej podniky kolem skutečné trasy, ne na druhém konci regionu. Uveď:
+- Jméno s místním zápisem a jasnou identifikací.
+- Co konkrétně si objednat a orientační cenu porce nebo společného hotpotu.
+- Rozlišení jedné porce a jídla pro více lidí.
+- Adresu, ověřený pin nebo poctivě označené přibližné místo.
+- Otevírací dobu, pouze pokud má zdroj.
+- Stručný důvod výběru: menu/cenová hladina/poloha/doložené zkušenosti.
+- Poznámku k alergiím či surovinám, je-li relevantní; nic nezaručuj bez podkladu.
+
+Rozumné kandidátní pokrmy: phở, bún chả, bánh cuốn, bánh mì, cơm bình dân, místní hotpot, kozí speciality u Ninh Bình a seafood u Cát Bà. Nabídku ověř u konkrétního podniku.
+„Autentické“ a „chodí sem místní“ nepoužívej jako automatické marketingové nálepky.
+
+### Cenové podklady
+
+Dříve se v návrzích objevilo například 6,3 mil. VND/os. za private loop, 44 USD/lůžko nebo 226 USD/dvoulůžkové kupé Chapa, 300 000 VND za Tràng An a 250 000 VND za coaster. Jsou to historické orientační stopy z plánování, NE nově ověřené ceny a NE naše rezervace. Před zobrazením jako aktuální je ověř, jinak viditelně označ původ a nejistotu.
+
+Rozpočet nebyl uživatelem potvrzen. Předchozí odhady asistenta se pohybovaly zhruba od 26,6 tis. do 32–38 tis. Kč/os. bez mezinárodních letenek, podle variant. To nejsou limity. Spočítej transparentní aktuální model podle vybraných možností.
+
+- Uchovávej originální cenu v původní měně.
+- Jednotka je povinná: osoba, pokoj/noc, auto, kupé, aktivita, skupina.
+- Přepočet Kč má jeden dohledatelný kurz, zdroj a datum. Nefalšuj live kurz.
+- Offline používej poslední uložený kurz s datem.
+- Orientační mentální přepočet 100 000 VND ≈ 80 Kč smí být jen zřetelně označená pomůcka.
+- Nezapočítej dvakrát ubytování, jídlo, vstupy nebo transfery zahrnuté v loopu/plavbě.
+- Extra zaplacenou první noc a rezervu ukaž samostatně.
+- Součet plánovaného rozpočtu odděl od uživatelem zaznamenaných plateb.
+
+## 7. Obrazovky a moderní, hravý design
+
+### Vizuální směr
+
+Chci svěží moderní travel app, ne staromódní brožuru, firemní dashboard nebo nekonečný formulář.
+
+Hravost má vznikat kompozicí, fotografiemi, barvami oblastí, tvary, interakcemi a kvalitní typografií. Ne náhodnými emoji, kýčovitými nálepkami a hesly.
+
+Můžeš navázat na příjemný světlý podklad a zeleň Vietnamu, ale nejsi vázán béžovým plakátem. Použij soudržnou moderní paletu; doplňkové korálové, modré či limetkové akcenty jen záměrně. Žádná duha nesouvisejících karet.
+
+- Velkorysá, ale funkční typografie; krátké čitelné nadpisy, normální text pohodlný v mobilu.
+- Fotografie skutečných míst; autorské/licenční podmínky a zdroje evidovat.
+- Dekorativní ilustrace mohou zpříjemnit prostředí, ale nesmějí předstírat dokumentární fotografii konkrétního hotelu.
+- Kvalitní rozestupy, promyšlené karty, jasná hierarchie.
+- Jednotná sada jemných ikon dopravy/aktivit, ne pět různých vizuálních stylů.
+- Jemné přechody, stavy stisku a otevírání detailů; respektuj reduced motion.
+- Žádný obří hero blok, který odsune praktický obsah o několik obrazovek dolů.
+- Žádný „vibe cesty“, procenta zážitků, „tohle bude pecka“, „same people different views“, dekorativní texty nebo marketingová sekce „proč s námi“.
+- Ne vše musí být ořezané. Krásná grafika je vítaná. Zakázaný je TEXTOVÝ BALAST, ne vizuální kvalita.
+
+### Hlavní navigace
+
+Navrhni malé stabilní menu, například:
+**Plán · Mapa · Průvodce · Moje cesta**
+
+Praktické informace, rezervace, uložené položky a offline správu rozumně seskup; nedělej deset rovnocenných tabů.
+
+### Plán
+
+- Chronologický itinerář všech 18 dnů, seskupený podle oblastí.
+- Datum, oblast, stručná návaznost přesunu a několik kroků pod sebou.
+- Rychlý výběr dne a „Dnes“, s možností procházet celou cestu.
+- Jasné pořadí ranního přesunu, jídla, aktivit a návratu.
+- Nocleh/transport zobrazuj tam, kde pomáhá orientaci, ne jako opakovanou velkou tabulku.
+- Odliš hlavní program, volitelnou aktivitu a náhradní variantu.
+- Pro orientační program stačí ráno/dopoledne/odpoledne/večer; přesné časy používej jen s oporou.
+- Každý krok má signál klikatelnosti. Nevyžaduj hover.
+- Neudělej z každého detailu další samostatnou kartičku v přehledu.
+- Srovnání variant a podrobnosti patří až do detailu.
+
+### Detail dne a detail kroku
+
+Na mobilu krátký detail může být bottom sheet; rozsáhlá doprava/ubytování raději samostatná stránka nebo rozšířitelný sheet. Vyhni se třem vnořeným modalům.
+
+Zachovej historii, tlačítko zpět, scroll a vybraný den. Po návratu z mapy nesmí uživatel ztratit místo v itineráři.
+
+Každý detail musí jít otevřít přímo sdíleným odkazem. Pro neznámé ID ukaž užitečný fallback, ne prázdnou obrazovku.
+
+### Průvodce / rejstřík
+
+Vyhledávání podle českých i místních názvů a aliasů bez nutnosti diakritiky.
+Filtry: oblast, jídlo, ubytování, doprava, výhled, trek, kultura, aktivita, večer, wellness.
+Například „Hanoj/Hanoi/Hà Nội“ a „Ha Giang/Hà Giang“ musí fungovat.
+
+U každé entity:
+- Jedna až dvě věty „co to je“.
+- Proč je v našem plánu.
+- Délka návštěvy, náročnost/cena, kde relevantní.
+- Zařazení do konkrétního dne.
+- Mapa, praktické návaznosti a zdroje.
+- Alternativa, pokud existuje.
+- Akce „Mapa“, „Navigovat“, „Web/rezervace“, „Uložit“, „Sdílet“ podle dostupných dat.
+
+Řádek „Check-in a oběd“ je kombinovaný krok odkazující do dvou výběrů služeb. „Ranní transfer“ je dopravní úsek s alternativami. Nenuť vše do jednoho typu „památka“.
+
+### Použitelnost
+
+Mobil 360–430 px, iPhone Safari/PWA prioritně; smysluplný desktop a tablet.
+Na desktopu může být mapa vedle plánu; na mobilu nepřekáží.
+Minimální dotyková plocha kolem 44 × 44 px, dostatečný kontrast, čitelné texty, bezpečné odsazení spodní navigace.
+Klávesnice, focus, popisky ikon, správná sémantika tlačítek/odkazů a ovládání dialogů.
+Nepoužívej drag/swipe jako jedinou možnost akce.
+Nezamykat celý web při chybě map, fotek nebo analytiky.
+
+## 8. Mapy a navigace
+
+Mapa je praktická, ne pouze dekorace. Zobraz:
+- Celou cestu, jednotlivé oblasti a body konkrétního dne.
+- Přesuny s rozlišením auta/busu, motorky, vlaku, lodě.
+- Kliknutí na bod → interní detail stejné entity jako v itineráři.
+- Kliknutí na přesun → skutečné dopravní varianty.
+- Směr a pořadí trasy.
+- Relevantní ubytování, jídelny a nástupní místa po zapnutí příslušného filtru.
+
+Souřadnice ověř a označ přesnost. Bod města je centrum oblasti, nikoliv přesná poloha autobusového nástupu.
+Spojnice mezi oblastmi je „schematická trasa“, pokud nemáš skutečnou geometrii cesty. Nevydávej rovnou čáru za sjízdnou silnici nebo bezpečný trek.
+
+Externí navigaci generuj přes dokumentované Google Maps URLs / Apple Maps. Přednost má ověřený pin/Place ID nebo adresa. Při nejistotě otevři zřetelně označené vyhledání, nikoliv falešně přesný bod.
+Aplikace nemusí mít vlastní turn-by-turn navigaci.
+
+Pro online mapu můžeš použít Leaflet s poskytovatelem, jehož podmínky dodržíš. Zachovej atribuci.
+Pro offline základ připrav vlastní lehkou schematickou mapu s body a trasou, ideálně SVG/GeoJSON se správnou licencí podkladu.
+NESLIBUJ kompletní offline Google Maps ani nestahuj hromadně veřejné OSM dlaždice. Standardní `tile.openstreetmap.org` zakazuje offline/prefetch funkce. Skutečné offline dlaždice pouze s poskytovatelem/licencí, která to dovoluje. Bez nové placené závislosti použij přehledovou offline mapu. Viz technické zdroje na konci.
+
+## 9. Datový model: oddělit obsah, plán a osobní stav
+
+Použij strukturovaná data s validací. Nikoli osmnáct ručně napsaných HTML stránek.
+
+Navrhované entity:
+- `Trip`: termíny, timezone, cestující, lety, publikovaná verze.
+- `Day`: datum, oblast, uspořádané kroky, nocleh, hlavní/alternativní plán.
+- `ItineraryItem`: druh kroku, titulek, pořadí, odkazy na entity, časový rámec, volitelnost, podmínky a návaznosti.
+- `Place`: město, památka, vyhlídka, jeskyně, pláž, trek apod.
+- `Service`: ubytování, jídelna, bar, wellness, operátor, atrakce.
+- `TransportLeg`: odkud/kam, varianty, operátor/prodejce, nástup/výstup, návaznosti.
+- `ChoiceGroup`: např. „ubytování v Sa Pa“, „oběd po příjezdu“, „večer podle nálady“.
+- `Price`: měna, rozsah, jednotka, počet osob, zahrnuté služby, příplatky, platnost a zdroj.
+- `Source`: URL, název, vydavatel, typ, datum kontroly a podpořené údaje.
+- `Alternative`: podmínka použití, nahrazovaný blok, změny přesunů a nocí.
+- `LocalUserState`: oblíbené, soukromé poznámky, vybrané varianty, vlastní stav rezervací.
+
+Požadované principy:
+- Stabilní ID a reference; ne odkazování podle indexu pole.
+- Aliasy a normalizované vyhledávání.
+- `null` / stav neznámo místo vymyšlené nuly.
+- Čas cesty jako rozsah + typ (odhad/ověřený jízdní řád).
+- Oddělený stav důvěryhodnosti údaje, dostupnosti a rezervace.
+- Ceny musí být přiřaditelné ke konkrétní variantě služby.
+- GeoJSON pořadí souřadnic versus knihovní lat/lng musí být testované.
+- Poznámky nevykresluj jako nebezpečné HTML.
+- Ověř vztahy a sirotčí entity automatickou validací.
+- Nové jídlo, hotel nebo den lze upravit v datech bez přepisování komponent.
+
+Výběr hotelu může v místním zobrazení změnit relevantní okolní jídelny, ale nesmí tiše přepisovat sdílený plán ostatním.
+
+## 10. Offline PWA: skutečná funkce, ne jen manifest
+
+Implementuj podle současných dokumentací; zdroje níže.
+
+### Instalace a offline balíček
+
+- Platný manifest, vlastní čitelná ikona, potřebné velikosti včetně vhodné maskable ikony a apple-touch-icon.
+- Správný `id`, `scope`, `start_url`, `display` a base path pro `/vietnam-complete-guide/`.
+- Kontextový návod pro instalaci na iPhone; nezkoušej vydávat nepodporované programatické instalační tlačítko za univerzální.
+- Samostatná akce „Připravit cestu offline“ se skutečným průběhem.
+- Neukazuj „Připraveno offline“, dokud nejsou potřebná data skutečně uložená a kontrola úspěšná.
+- Ulož app shell, celý itinerář, CELÝ potřebný rejstřík, ceny/zdroje jako text, kontakty, schémata map a vybrané fotografie.
+- Offline musí jít otevřít i detail, který uživatel předtím jednotlivě nenavštívil.
+- Offline fotografie mohou tvořit zvláštní balíček; jejich selhání nesmí znefunkčnit text.
+- Ukaž velikost/stav/verzi uloženého balíčku a poslední úspěšnou aktualizaci.
+- Nezaměňuj `navigator.onLine` za důkaz dosažitelnosti serveru.
+- Ošetři přerušené stahování, málo místa, selhání cache, chybějící obrázek a ztrátu lokálních dat.
+- Před cestou má být snadné udělat kontrolu offline připravenosti.
+- Externí web, rezervace, živé počasí nebo Grab bez sítě neslibuj.
+- Offline mapa je přehledová, ne plnohodnotná navigace.
+- Browserová data nejsou absolutně nezničitelná. Implementuj export/import lokálních dat a případně žádost o persistent storage, ale neprezentuj ji jako garanci proti vymazání.
+
+### Aktualizace této nové aplikace a izolace úložiště
+
+**Nemigruj žádnou starou aplikaci.** Tento projekt začíná samostatně. Implementuj ale správné aktualizace vlastní první verze a verzování lokálního schématu pro další vývoj.
+
+- Všechny cache, IndexedDB databáze a localStorage klíče namespacuj jednoznačně pro `vietnam-complete-guide` a vlastní verzi schématu.
+- GitHub Pages projekty na `marcasimek.github.io` mohou sdílet origin. Nedotýkej se cizích cache, workerů ani klíčů. Nemaž „vše kromě aktuální cache“, nepoužívej `localStorage.clear()` a neregistruj worker se scope `/`.
+- Service worker i jeho scope musí patřit jen pod `/vietnam-complete-guide/`.
+- Nepřebírej obecné klíče `b0`, `b1` atd. ani stav rezervací z jiných aplikací; rezervace v novém projektu začínají jako „k řešení“.
+- Udrž konzistentní verzi app shellu a dat; neúplně stažená nová verze nesmí rozbít funkční offline verzi.
+- Nabídni „Nová verze je připravená“ a kontrolovaný přechod bez ztráty rozepsané poznámky.
+- Aktualizace musí skutečně dostat upravený itinerář do telefonů po návratu online.
+- Osobní stav nikdy nepřepiš novým veřejným datasetem. Budoucí migrace vlastního schématu musí být bezpečné a testované.
+- Nevracej HTML fallback místo očekávaného JSON/JS souboru.
+- Každá práce s úložištěm musí mít ošetřenou chybu.
+- Základní offline flow musí fungovat bez push/background-sync podpory.
+
+## 11. Veřejný web versus společná a osobní data
+
+První verze je statická, bez přihlášení a bez backendu.
+
+Sdílené:
+- Publikovaný itinerář, veřejné informace o místech, nabídky služeb a zdroje.
+
+Lokální pro konkrétní zařízení:
+- Oblíbené položky.
+- Poznámky.
+- Vlastní výběr variant.
+- Uživatelem označené rezervace a checklist.
+
+**Zaškrtnutí na mém telefonu se samo neobjeví ostatním.** V UI to jednou srozumitelně vysvětli. Neslibuj synchronizaci bez implementovaného backendu. Přidej export/import a snadné sdílení odkazu na den/místo; nejde o totéž jako synchronizace stavu.
+
+Do veřejného repozitáře ani datasetu nepatří:
+- pasy, čísla dokladů, booking reference, letenkové rezervační kódy;
+- osobní telefonní čísla cestujících, skeny smluv/pojistek;
+- API tajemství, GitHub tokeny, přístupová hesla.
+
+Vlastní lokální poznámky nejsou bezpečný šifrovaný trezor. Ve veřejném UI nepobízej ke vkládání citlivých dokladů. Sdílení/export má ukázat, co obsahuje.
+Neimplementuj „heslo“ pouze ve frontendovém JavaScriptu a nenazývej to soukromým webem.
+Nežádej žádná oprávnění k poloze při startu; teprve po akci uživatele.
+Cloudovou spolupráci čtyř lidí navrhni jen jako budoucí modul, není nutná pro splnění první verze.
+
+## 12. Praktické informace a rezervace
+
+Podrobnosti schovej do samostatné přehledné sekce, nezahltí hlavní timeline.
+
+### Rezervace
+
+Vlož skutečný checklist:
+- Garantovaný ranní pokoj v Hanoji pro přílet 19. 9.
+- Hanoj první pobyt 19.–21. 9.; případná extra placená noc od 18. 9.
+- Transfer do Hà Giang 21. 9.
+- Loop 22.–25. 9. včetně pokojů, pěších bloků, pojištění a úschovy zavazadel.
+- Základna před/po loopu 21. a 25. 9.; ověř, co je v balíčku.
+- Přímý přesun Hà Giang → Sa Pa 26. 9.
+- Sa Pa 26.–28. 9., dva pokoje.
+- Průvodce/trek 27. 9., případná aktivita 28. 9.
+- Vlak Lào Cai → Hanoj v noci 28./29. 9. a transfer na nádraží.
+- Návazný transfer 29. 9. do Tam Cốc.
+- Tam Cốc 29. 9.–2. 10., ideálně bazén.
+- Přesun Ninh Bình → Cát Bà 2. 10.
+- Cát Bà 2.–5. 10.
+- Loď 3. 10. s rezervou 4. 10. a podmínkami zrušení.
+- Návrat do Hanoje 5. 10.; poslední hotel 5.–6. 10.
+- Transfer na HAN 6. 10.
+
+Ke každému termín, počet osob/pokojů, výběr poskytovatele, způsob rezervace, orientační předstih, cena, zahrnuté služby a storno. Stav defaultně „k řešení“, ne „rezervováno“.
+
+### Praktický průvodce
+
+Stručné akční karty; jejich obsah je přístupný v rejstříku i offline:
+- Pasy/vstup pro české občany jako předpoklad; aktuálně ověřit u MZV a vietnamských úřadů.
+- Etihad a přesný tarif zavazadel; tekutiny, baterie/powerbanky, tranzit.
+- Pojištění: asistence, spolujízda na motorce, trekking a případné lezení/canyoning.
+- Peníze: bankomaty, DCC, měna platby, poplatky, podobné bankovky, rozdělení hotovosti; žádný nepodložený „vždy zdarma“ bankomat.
+- SIM/eSIM: Viettel versus cestovní eSIM/Airalo, počet dnů, data, hotspot, místní číslo, registrace a horské pokrytí.
+- Jídlo/voda, alergie, základní postup při obtížích; žádné individuální dávkování nebo preventivní antibiotika.
+- Nouzové kontakty a česká konzulární pomoc ověřené u primárních zdrojů; lokální asistenci si uživatel doplní lokálně.
+- Místní pravidla, řízení, tabák/e-cigarety, osobní léky: aktuální oficiální pravidla, ne převzaté dojmy.
+- Taxi, falešné agentury/rezervace, příplatky, pas jako zástava: konkrétní ověřovací kroky.
+- Minimalistické balení: vrstvy/dešťová ochrana/obuv, osobní léky, repelent, ochrana techniky, nabíjení a zálohování fotek; rozdělení osobní/společné/koupit na místě.
+- Denní malý batoh na loop; velká zavazadla u ověřené základny.
+- Jednoduchý cenový přehled a rozpočet s rezervou.
+
+Zdravotní/právní údaje nejsou prostor pro kreativitu. Jasně odděl veřejné informace od individuálních rad lékaře/pojišťovny.
+
+### Plán B
+
+Připrav konkrétní návazné varianty:
+- déšť/sesuvy nebo uzavřené horské silnice;
+- nedostupný vlak;
+- zrušená plavba a riziko přerušení spojení z ostrova;
+- nemoc/únava;
+- oddělení dvojic.
+
+Ukaž, co se ruší/přesouvá a jaké rezervace to ovlivní. Při únavě raději vynechat nepovinnou atrakci než zrušit bezpečný přestup nebo poslední noc v Hanoji.
+
+## 13. Technická implementace a nasazení
+
+Preferovaný výchozí stack: **Vite + TypeScript + React**, vlastní promyšlené CSS/design tokens nebo střídmě použitý Tailwind, hash routing, lokální strukturovaná data, lehká mapová knihovna a Service Worker / Workbox / Vite PWA podle potřeby.
+
+To je doporučení, ne důvod přidat zbytečné závislosti. Nepotřebujeme Next.js server, vlastní backend, autentizaci, placený CMS nebo databázový server.
+Použij aktuální kompatibilní stabilní verze, lockfile a reprodukovatelný build.
+
+Doporučené členění:
+- stránky/komponenty pro plán, detaily, mapu, průvodce a osobní stav;
+- obsah oddělený do validovaných dat;
+- modely a validace;
+- mapové/geografické funkce;
+- offline/cache/storage služby;
+- skutečné lokální assety s evidencí licence;
+- unit/data testy a end-to-end testy;
+- README a dokumentace obsahu/designu.
+
+Routing příklad:
+`/#/plan`
+`/#/day/2026-09-26`
+`/#/item/hagiang-sapa-transfer`
+`/#/place/ta-van`
+`/#/map`
+Při nasazení vše pod `/vietnam-complete-guide/`. Deep link musí fungovat po otevření v novém panelu i po reloadu.
+
+Nasazení:
+- Nejdříve zjisti skutečný stav NOVÉHO repozitáře; pokud workflow neexistuje, vytvoř ho.
+- U buildu přes Vite publikuj výstup `dist`, nikoliv src.
+- Připrav GitHub Actions build/test/deploy podle aktuální oficiální dokumentace; PR má kontrolovat build/testy, produkci publikuj z `main` po úspěšných kontrolách. Přidej možnost ručního spuštění, aby šel deploy zopakovat po zapnutí Pages.
+- Při nasazení přes Actions může být potřeba nejprve zapnout Pages a zvolit `Settings → Pages → Build and deployment → Source: GitHub Actions`. Nastavení měň jen s dostupným oprávněním; jinak přesně popiš potřebný krok. Nenastavuj publikaci kořene zdrojového React/Vite projektu jako hotového webu.
+- Ověř base path assetů, manifestu, workeru, obrázků a deep links.
+- Nedávej klientovi tajné tokeny kvůli deploymentu.
+- Do `dist` nepublikuj master prompty, interní progress, testovací podklady nebo soukromé informace.
+- Odděl lokálně otestovanou, commitnutou, pushnutou/PR a skutečně nasazenou verzi.
+- Hotový commit/deploy musí být dohledatelný. Netvrď, že URL funguje, pokud jsi ji neověřil.
+
+## 14. Testování, vizuální iterace a akceptační kritéria
+
+Nestačí „build prošel“. Spusť produkční build v browseru a opravdu proklikej aplikaci.
+
+### Automatické kontroly
+
+- Přesně 18 pobytových dnů, žádný chybějící/duplicitní.
+- 17 nocí podle uvedeného rozložení; extra první zaplacená noc nezkresluje pobyt.
+- Každý významový krok má existující detail; žádný inertní slib klikatelnosti.
+- Reference na entity, zdroje, ceny, alternativy a oblasti jsou validní.
+- Všechny viditelné ceny mají měnu, jednotku a typ jistoty.
+- Data nevydávají volitelné aktivity za potvrzené rezervace.
+- Návrat do Prahy je 7. 10.
+- Lookup „Ha Giang“, „Hanoi“, „Ta Van“ funguje bez diakritiky.
+- Deep links a browser back obnovují správný kontext.
+- Export/import má validaci verze, dat a bezpečné zacházení s konflikty.
+- Rozpočet nedubluje balíčky.
+- Web bez JS/chybě dat ukáže srozumitelný fallback.
+- Externí odkazy kontroluj přiměřeně; zablokovaný automatický request není důkaz neexistence podniku.
+
+### End-to-end scénáře
+
+1. Mobilní přehled → 26. 9. → transfer → dopravní varianty → detail nástupu → navigační odkaz.
+2. Zpět → check-in a oběd → hotelové kandidáty → skutečnou lokální jídelnu → mapu.
+3. Zpět → coaster → cenu/provoz/zdroje → večerní alternativy.
+4. Označit oblíbené/rezervaci, napsat poznámku, reload; data zůstanou.
+5. Připravit celou cestu offline, vypnout síť a reloadnout.
+6. Offline otevřít dosud nenavštívený den, detail místa, dopravu, rejstřík i schematickou mapu.
+7. Ve druhém čistém browser profilu se netvářit, že existuje cloud sync lokálních checkboxů.
+8. Aktualizovat publikovaná data a worker; po přijetí nové verze neztratit osobní stav.
+9. Simulovat neúspěšné stahování/obrázek, omezené úložiště a neprůchodný externí odkaz.
+10. Aktualizace vlastní první verze a test izolace: vytvoř cizí testovací cache/storage klíč, aktualizuj aplikaci a ověř, že cizí data zůstala. Neimportovat staré checkboxy z jiného projektu.
+
+### Vizuální kontrola
+
+Udělej screenshoty minimálně v šířkách 375/390 px, 768 px a 1440 px. Ověř:
+- první pohled na itinerář;
+- rozklik dne a dopravy;
+- ubytování/jídelny;
+- detail místa a mapu;
+- vyhledávání;
+- prázdný/chybový/offline stav;
+- spodní navigaci a dlouhé názvy.
+
+Kontroluj skutečně: čitelnost, kontrast, useknuté texty, horizontální overflow, příliš mnoho rámečků, ztracené CTA, otravné modaly a vizuální soudržnost.
+Vizuální prohlídku zopakuj po změnách. Dokud výsledek vypadá jako generický bootstrapový seznam, redesign není hotový.
+
+Testuj Chromium a pokud prostředí dovolí i WebKit. Simulace není test na fyzickém iPhonu; reportuj pravdivě, co proběhlo. Lighthouse je doplněk, ne náhrada ručních offline scénářů.
+
+### Výstupy
+
+Dodej:
+- Funkční aplikaci v repozitáři s celým itinerářem a propojenými detaily.
+- Krátké README: vývoj, build, testy, publikace, aktualizace obsahu, offline, instalace a vlastní verzování dat.
+- Strukturované zdroje a stručný seznam nevyřešených cestovních údajů.
+- Evidenci licencí obrázků/map/fontů.
+- Screenshoty hlavních obrazovek a stručný test report.
+- Commity a případně PR; nasazení, pokud máš potřebná oprávnění a vše prošlo.
+- Krátký závěrečný přehled: co je hotové, co nebylo možné ověřit, kde aplikaci otevřít a nejvýše nezbytné manuální kroky.
+
+Nepovažuj za hotovo:
+- hezkou landing page bez skutečných detailů;
+- kompletní framework s pouhými třemi demo dny;
+- přesunutí všech faktických informací na externí Google hledání;
+- offline režim, který funguje jen pro již otevřené karty;
+- mapu se smyšlenými piny;
+- generické rozbalovací seznamy přebarvené na „moderní“ bez promyšleného UX.
+
+## 15. Doporučený pracovní postup
+
+1. Přečti celé zadání jednou, ověř nový repozitář a založ stručný přehled práce v `docs/PROGRESS.md`. Nevytvářej další dlouhý produktový dokument místo kódu.
+2. Vytvoř reprodukovatelný projekt, datový model a všechny pobytové dny. Nastav cesty pro `/vietnam-complete-guide/` od začátku.
+3. Udělej celý funkční referenční průchod 26. září: transfer, check-in/oběd, atrakce, večerní varianty, interní detaily a mapa. U ověřitelných položek použij skutečné zdroje.
+4. Proklikej ho v mobilním browseru a zkontroluj screenshoty. Oprav UX před rozšířením stejného vzoru do dalších dnů.
+5. Doplň celé oblasti a jejich konkrétní služby; každý významový krok musí vést na použitelný detail. Nejdřív hlavní trasa, potom alternativní oblasti.
+6. Implementuj mapu, rejstřík, osobní stav, export/import, offline balíček a bezpečnou aktualizaci této nové aplikace.
+7. Spusť datové/unit/E2E testy, otestuj produkční build i vypnutou síť, znovu projdi mobilní a desktopové screenshoty.
+8. Ulož výsledek do smysluplných commitů, vytvoř PR podle možností prostředí, připrav deploy a ověř ho, pokud je dostupný. Jasně odliš hotovou implementaci od čekajícího merge nebo ručního nastavení Pages.
+
+Nečekej na další zprávu po každém bodu. Průběžné poznámky piš krátce. Při skutečné překážce pokračuj v nezávislých částech, poznamenej blocker a nepředstírej úspěch.
+
+Při navázání v další session nezačínej novou aplikaci: přečti `docs/PROGRESS.md`, git diff a testy, potvrď co opravdu funguje a dokonči první nehotovou část.
+
+**Hlavní měřítko úspěchu: ráno otevřeme den, na dva tapy najdeme konkrétní dopravu nebo oběd, rozumíme místním názvům a aplikaci je radost používat i bez signálu.**
+
+---
+
+## Výchozí zdroje pro vlastní ověřování
+
+Následující odkazy jsou výchozí zdroje, nikoliv potvrzení konkrétní zářijové dostupnosti. Odkazy na cestovní poskytovatele prověř včetně identity.
+
+### Technické primární zdroje
+
+- GitHub Pages, publishing source:
+  https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+- Vite, statický deploy / GitHub Pages:
+  https://vite.dev/guide/static-deploy.html
+- React Router, HashRouter:
+  https://reactrouter.com/api/declarative-routers/HashRouter
+- Vite PWA:
+  https://vite-pwa-org.netlify.app/guide/
+- MDN, PWA caching:
+  https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Caching
+- MDN, offline and background operation:
+  https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Offline_and_background_operation
+- MDN, storage quotas and eviction:
+  https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria
+- WebKit, Home Screen web apps:
+  https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/
+- Leaflet:
+  https://leafletjs.com/reference.html
+- OpenStreetMap tile usage policy:
+  https://operations.osmfoundation.org/policies/tiles/
+- Google Maps URLs:
+  https://developers.google.com/maps/documentation/urls/get-started
+
+### Cestovní rešerše
+
+- MZV ČR, Vietnam:
+  https://mzv.gov.cz/jnp/cz/encyklopedie_statu/asie/vietnam/index.html
+- MZV, vstupní režim:
+  https://mzv.gov.cz/jnp/cz/encyklopedie_statu/asie/vietnam/cestovani/visa.html
+- Vietnam Tourism:
+  https://vietnam.travel/
+- Vietnam Tourism, klima:
+  https://vietnam.travel/things-to-do/weather-and-climate-vietnam
+- Vietnam Coracle, Hà Giang:
+  https://www.vietnamcoracle.com/ha-giang-extreme-north-motorbike-loop/
+- Seat61, Vietnam:
+  https://www.seat61.com/Vietnam.htm
+- Severní Vietnam, Ninh Bình:
+  https://severni-vietnam.cz/ninh-binh/
+- Etihad:
+  https://www.etihad.com/
+- CDC Travelers' Health:
+  https://wwwnc.cdc.gov/travel/
+- Strawberry, kandidátní doména k ověření identity:
+  https://strawberryhagiangloop.com/
+- QT Motorbikes & Tours:
+  https://qtmotorbikesandtours.com.vn/
+- YESD:
+  https://yesd.org/
+- Chapa Express:
+  https://chapaexpresstrain.com/
+- Tràng An:
+  https://muave.disantrangan.vn/
+- Cat Ba Ventures:
+  https://www.catbaventures.com/
+- Cat Ba Outdoors:
+  https://www.catbaoutdoors.vn/
+- Přepravní platformy pro porovnání, nikoli automaticky skuteční dopravci:
+  https://12go.asia/
+  https://www.baolau.com/
+- Reddit: skutečné diskuse r/VietNam, r/travel, r/backpacking a relevantních komunit. Cituj konkrétní vlákna, ne článek agentury nazvaný „co říká Reddit“.
+
+KONEC ZADÁNÍ. Začni kontrolou nového repozitáře a následně implementuj, zkoušej a vizuálně dolaďuj výsledek. MD a TXT jsou dvě kopie tohoto jednoho zadání; není nutné je číst dvakrát.
