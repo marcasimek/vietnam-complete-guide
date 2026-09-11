@@ -5,7 +5,7 @@ import { trip } from '@/data/trip'
 import { formatDayLong, formatDayShort, getRegion, weekdayShort } from '@/model/registry'
 import { tripPosition } from '@/lib/time'
 import { Icon } from '@/components/Icon'
-import { ItemRow } from '@/components/ItemRow'
+import { StepList } from '@/components/StepList'
 import { RegionArt } from '@/components/RegionArt'
 import type { Day, RegionId } from '@/model/types'
 
@@ -194,9 +194,7 @@ function FocusDay({ day, isToday }: { day: Day; isToday: boolean }) {
         </span>
       </div>
 
-      <ol className="steps">
-        {day.items.map((item, i) => <ItemRow key={item.id} item={item} index={i + 1} />)}
-      </ol>
+      <StepList items={day.items} />
 
       <div className="daycard__actions">
         <Link to={`/day/${day.date}`} className="btn btn--accent btn--sm btn--block">

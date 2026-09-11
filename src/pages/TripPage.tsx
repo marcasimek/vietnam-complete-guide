@@ -6,7 +6,7 @@ import { formatDayLong, formatDayShort, getPlace, getService, getItem, getLeg, g
 import { useUserState } from '@/state/UserStateContext'
 import { useServiceWorker } from '@/state/useServiceWorker'
 import { buildExport, clearOwnData, importState, type BookingUserStatus, type ImportReport } from '@/lib/storage'
-import { clearOfflinePackage, formatBytes, isServerReachable, prepareOffline, readStatus, type OfflineStatus, type PrepareProgress } from '@/lib/offline'
+import { clearOfflinePackage, formatBytes, isServerReachable, isStoragePersisted, prepareOffline, readStatus, requestPersistentStorage, type OfflineStatus, type PrepareProgress } from '@/lib/offline'
 import { Icon } from '@/components/Icon'
 import { BulletList, Callout, EmptyState, Section } from '@/components/ui'
 
@@ -411,12 +411,26 @@ function Offline() {
   const [progress, setProgress] = useState<PrepareProgress | null>(null)
   const [result, setResult] = useState<{ ok: boolean; error?: string } | null>(null)
   const [reachable, setReachable] = useState<boolean | null>(null)
+  const [persisted, setPersisted] = useState<boolean | null>(null)
+  const [persistMsg, setPersistMsg] = useState<string | null>(null)
 
   const refresh = useCallback(async () => {
     setStatus(await readStatus(trip.contentVersion))
+    setPersisted(await isStoragePersisted())
   }, [])
 
   useEffect(() => { void refresh() }, [refresh])
+
+  const askPersist = async () => {
+    const res = await requestPersistentStorage()
+    setPersisted(res.granted)
+    setPersistMsg(
+      res.error
+        ?? (res.granted
+          ? 'Prohlížeč slíbil, že data sám neuvolní. Export dat to ale nenahrazuje.'
+          : 'Prohlížeč žádost zamítl. Stává se to; data zůstanou uložená, jen je prohlížeč může při nedostatku místa uvolnit.'),
+    )
+  }
 
   const run = async () => {
     setResult(null)
@@ -499,6 +513,28 @@ function Offline() {
             ]} />
           </div>
         </div>
+      </Section>
+
+      <Section title="Ochrana uložených dat" hint="Prohlížeč může data uvolnit, když dojde místo. Tímhle ho požádáš, aby to nedělal.">
+        <div className="offstatus__badge">
+          <Icon name={persisted ? 'shield' : 'info'} size={20} />
+          <span>
+            {persisted === null ? 'Prohlížeč tuhle funkci nepodporuje'
+              : persisted ? 'Trvalé úložiště je zapnuté'
+                : 'Trvalé úložiště zatím není zapnuté'}
+          </span>
+        </div>
+        {persisted === false ? (
+          <button type="button" className="btn btn--ghost btn--sm" onClick={() => void askPersist()}>
+            <Icon name="shield" size={16} />Požádat o trvalé úložiště
+          </button>
+        ) : null}
+        {persistMsg ? <Callout tone="info">{persistMsg}</Callout> : null}
+        <Callout tone="warn" title="Co to NEznamená">
+          Trvalé úložiště chrání jen proti tomu, aby prohlížeč data uvolnil sám při nedostatku místa.
+          Nechrání proti smazání dat stránky, přeinstalaci prohlížeče ani proti plnému telefonu.
+          Proto je tu i export dat — a ten je spolehlivější.
+        </Callout>
       </Section>
 
       <Section title="Kontrola před cestou">

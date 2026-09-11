@@ -30,6 +30,20 @@ function iconFor(item: ItineraryItem): IconName {
   return KIND_ICON[item.kind]
 }
 
+/**
+ * Části dne. Zadání říká: pro orientační program stačí ráno / dopoledne /
+ * odpoledne / večer; přesné časy jen tam, kde mají oporu.
+ */
+export const DAY_PART_LABEL: Record<ItineraryItem['dayPart'], string> = {
+  early: 'Brzy ráno',
+  morning: 'Ráno',
+  midday: 'Poledne',
+  afternoon: 'Odpoledne',
+  evening: 'Večer',
+  night: 'Noc',
+  flexible: 'Kdykoli',
+}
+
 const STATUS_LABEL: Record<ItineraryItem['status'], string | null> = {
   main: null,
   optional: 'volitelné',

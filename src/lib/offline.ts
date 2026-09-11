@@ -222,6 +222,37 @@ export async function isServerReachable(timeoutMs = 4000): Promise<boolean> {
 const nf1 = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 1 })
 const nf0 = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 })
 
+/**
+ * Požádá prohlížeč o trvalé úložiště.
+ *
+ * POZOR NA SLIBY: „persistent storage" znamená jen to, že prohlížeč data
+ * nesmaže sám při nedostatku místa. NEchrání proti tomu, když si uživatel
+ * smaže data stránky, přeinstaluje prohlížeč nebo mu dojde místo v telefonu.
+ * Proto k tomu v UI patří i export dat, ne místo něj.
+ */
+export async function requestPersistentStorage(): Promise<{ granted: boolean; supported: boolean; error?: string }> {
+  if (!navigator.storage?.persist) {
+    return { granted: false, supported: false, error: 'Tenhle prohlížeč trvalé úložiště nepodporuje. Aplikace bude fungovat, ale prohlížeč může data uvolnit při nedostatku místa.' }
+  }
+  try {
+    const already = await navigator.storage.persisted()
+    if (already) return { granted: true, supported: true }
+    const granted = await navigator.storage.persist()
+    return { granted, supported: true }
+  } catch (err) {
+    return { granted: false, supported: true, error: `Žádost selhala: ${String(err)}` }
+  }
+}
+
+export async function isStoragePersisted(): Promise<boolean | null> {
+  if (!navigator.storage?.persisted) return null
+  try {
+    return await navigator.storage.persisted()
+  } catch {
+    return null
+  }
+}
+
 export function formatBytes(bytes: number | null): string {
   if (bytes === null) return 'neznámo'
   if (bytes < 1024) return `${nf0.format(bytes)} B`

@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { days } from '@/data'
 import { formatDayLong, getDay, getRegion } from '@/model/registry'
 import { Icon } from '@/components/Icon'
-import { ItemRow } from '@/components/ItemRow'
+import { StepList } from '@/components/StepList'
 import { RegionArt } from '@/components/RegionArt'
 import { BulletList, DetailHeader, EmptyState, FavouriteButton, NoteBox, Section, ShareButton } from '@/components/ui'
 import { tripPosition } from '@/lib/time'
@@ -47,9 +47,7 @@ export function DayPage() {
       </DetailHeader>
 
       <Section title="Program dne" hint="Každý řádek vede na konkrétní detail.">
-        <ol className="steps steps--roomy">
-          {day.items.map((item, i) => <ItemRow key={item.id} item={item} index={i + 1} />)}
-        </ol>
+        <StepList items={day.items} roomy />
       </Section>
 
       <div className="nightbar">
