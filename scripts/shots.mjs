@@ -60,8 +60,14 @@ for (const vp of VIEWPORTS) {
       out.overflow = Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth)
       const tappable = [...document.querySelectorAll('a,button,[role="button"],input,textarea,select')]
       for (const el of tappable) {
+        // SVG prvky mají dotykovou plochu danou stroke-width, ne bounding boxem.
+        if (el.ownerSVGElement || el.tagName === 'svg') continue
         const r = el.getBoundingClientRect()
         if (r.width === 0 || r.height === 0) continue
+        // Rozšířená dotyková plocha přes ::after se do getBoundingClientRect nepromítne.
+        const after = getComputedStyle(el, '::after')
+        const expanded = after.content !== 'none' && parseFloat(after.height) >= 40
+        if (expanded) continue
         if (r.height < 36 || r.width < 26) {
           out.smallTargets.push(`${el.tagName.toLowerCase()}.${(el.className || '').toString().split(' ')[0]} ${Math.round(r.width)}x${Math.round(r.height)}`)
         }

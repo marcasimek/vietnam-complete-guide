@@ -99,6 +99,36 @@ export async function readStatus(contentVersion: string): Promise<OfflineStatus>
 export interface PrepareProgress { done: number; total: number; label: string }
 
 /**
+ * Ověří, že je v cache opravdu celý app shell, ne jen náhodný soubor.
+ *
+ * Workbox ukládá `index.html` pod klíčem s revizním parametrem, takže
+ * `caches.match('/vietnam-complete-guide/')` ho NENAJDE. Kontrolujeme proto
+ * obsah klíčů: potřebujeme dokument, JavaScript (v něm jsou data itineráře)
+ * a styly. Když tohle sedí, otevře se offline i detail, který nikdo nenavštívil,
+ * protože celý itinerář je součástí JS bundlu — nestahuje se za běhu.
+ */
+async function verifyShell(): Promise<{ ok: true } | { ok: false; error: string }> {
+  const keys = await caches.keys()
+  const ours = keys.filter((k) => k.startsWith('vcg-') || k.includes('workbox-precache'))
+  let html = false
+  let js = false
+  let css = false
+  for (const key of ours) {
+    const cache = await caches.open(key)
+    for (const req of await cache.keys()) {
+      const path = new URL(req.url).pathname
+      if (path.endsWith('.html') || path.endsWith('/')) html = true
+      else if (path.endsWith('.js')) js = true
+      else if (path.endsWith('.css')) css = true
+    }
+  }
+  if (!html) return { ok: false, error: 'V cache chybí stránka aplikace. Načti stránku znovu a zkus to za chvíli.' }
+  if (!js) return { ok: false, error: 'V cache chybí kód aplikace i s daty itineráře. Bez něj by offline nešel otevřít detail, který jsi předtím neotevřel.' }
+  if (!css) return { ok: false, error: 'V cache chybí styly. Aplikace by offline vypadala rozbitě — zkus přípravu znovu.' }
+  return { ok: true }
+}
+
+/**
  * Projde všechny vnitřní cesty aplikace, aby se precache opravdu naplnil
  * a aby šel otevřít i detail, který uživatel předtím nenavštívil.
  *
@@ -142,13 +172,9 @@ export async function prepareOffline(
     }
 
     onProgress({ done: 3, total: 4, label: 'Ověřuji, že se dá otevřít i nenavštívený detail…' })
-    const probe = await caches.match(shellUrl, { ignoreSearch: true })
-    if (!probe) {
-      return {
-        ok: false,
-        files,
-        error: 'App shell v cache nenašel. Bez něj by offline nešel otevřít detail, který jsi předtím neotevřel.',
-      }
+    const check = await verifyShell()
+    if (!check.ok) {
+      return { ok: false, files, error: check.error }
     }
 
     writeMeta({ lastPrepared: new Date().toISOString(), version: contentVersion, files })

@@ -91,7 +91,7 @@ export const day20260928: Day = {
   regionId: 'train',
   title: 'Sa Pa → Lào Cai → noční vlak',
   theme: 'Jeden volitelný program a přesun na kolej',
-  night: { label: 'Noční vlak Lào Cai → Hanoj', regionId: 'train', kind: 'train' },
+  night: { label: 'Noční vlak', regionId: 'train', kind: 'train' },
   dayNotes: [
     'Jeden hlavní program, ne tři. Den končí nočním vlakem a na ten se nedá přijít pozdě.',
     'Kupé je rozhodnutí: dvě skutečná dvoulůžková, nebo vykoupené celé čtyřlůžkové pro nás čtyři. Nic není koupené.',

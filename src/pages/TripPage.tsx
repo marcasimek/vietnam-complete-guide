@@ -410,6 +410,8 @@ function Offline() {
 
   return (
     <>
+      {sw.error ? <Callout tone="warn" title="Offline režim není dostupný">{sw.error}</Callout> : null}
+
       {sw.needRefresh ? (
         <Callout tone="good" title="Nová verze je připravená">
           <p>Rozepsaná poznámka se uloží průběžně, takže o nic nepřijdeš. Přechod proběhne až na tvoje potvrzení.</p>

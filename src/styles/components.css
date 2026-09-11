@@ -501,15 +501,20 @@
 .miniday__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .miniday__title {
   font-size: var(--t-sm); font-weight: 600; letter-spacing: -.012em; line-height: 1.3;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.miniday__theme { font-size: var(--t-2xs); color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.miniday__theme {
+  font-size: var(--t-2xs); color: var(--ink-3); line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
 .miniday__night {
-  flex: none; display: flex; align-items: center; gap: 4px; max-width: 96px;
+  flex: none; display: flex; align-items: center; gap: 4px; max-width: 104px;
   font-size: var(--t-2xs); color: var(--ink-3);
 }
 .miniday__night > svg { flex: none; }
 .miniday__night span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.miniday__row { align-items: flex-start; }
+.miniday__date, .miniday__night { padding-top: 1px; }
 
 @media (min-width: 1100px) {
   .overview__blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); align-items: start; }
@@ -811,3 +816,54 @@
 
 .idxrow--split { padding-right: 9px; gap: 6px; }
 .idxrow__main { flex: 1; min-width: 0; display: flex; align-items: flex-start; gap: 11px; text-decoration: none; color: inherit; }
+
+/* ==================================================================
+   Dotykové cíle
+   Inline odkazy uvnitř textu nemůžou být 44 px vysoké, aniž by rozbily
+   sazbu. Rozšiřujeme jim proto neviditelnou dotykovou plochu přes ::after.
+   ================================================================== */
+.chip--link,
+.src-inline__link,
+.src-list__head a,
+.empty__body a {
+  position: relative;
+}
+.chip--link::after,
+.src-inline__link::after,
+.src-list__head a::after,
+.empty__body a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+  /* jen dotyková plocha, nic vizuálního */
+}
+/* Sousední inline odkazy se nesmějí dotykově překrývat. */
+.src-inline { row-gap: 10px; }
+.src-list li + li { margin-top: 2px; }
+
+.chip--link { min-height: 32px; padding-top: 6px; padding-bottom: 6px; }
+.src-inline__link { min-height: 24px; }
+
+.statebtn { min-height: 38px; }
+
+/* ==================================================================
+   Širší displeje: nezkracuj texty, když je místo
+   ================================================================== */
+@media (min-width: 700px) {
+  .miniday__title,
+  .miniday__theme,
+  .miniday__night span {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    display: block;
+    -webkit-line-clamp: none;
+  }
+  .miniday__night { max-width: 160px; }
+  .miniday__row { align-items: flex-start; padding-top: 11px; padding-bottom: 11px; }
+  .miniday__date { padding-top: 1px; }
+}
