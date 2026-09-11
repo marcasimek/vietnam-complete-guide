@@ -1,0 +1,87 @@
+import type { OpenQuestion } from '@/model/types'
+
+/** Nevyřešené věci. Konkrétní další krok, ne „zjistit". */
+export const openQuestions: OpenQuestion[] = [
+  {
+    id: 'oq-hanoi-early-room',
+    title: 'Garantovaný ranní pokoj 19. 9.',
+    detail: 'Nemáme vybraný hotel ani potvrzenou variantu. „Subject to availability" není garance.',
+    nextStep: 'Napsat La Selva a Tirant konkrétní dotaz: kolik stojí předplacená noc 18./19. 9. a jestli nabízejí day-use. Vybrat podle odpovědi.',
+    relatedDayDates: ['2026-09-19'],
+  },
+  {
+    id: 'oq-loop-operator',
+    title: 'Výběr loop operátora a délky',
+    detail: 'Tři kandidáti (Strawberry, QT, YESD) a rozhodnutí 3 vs. 4 dny, private vs. skupina. Kamarádku třídenní loop unavil dlouhým sezením.',
+    nextStep: 'Poptat u všech tří: hodiny jízdy denně, reálná délka pěších bloků, dva soukromé pokoje, jazyk průvodce, co je v ceně a storno při počasí.',
+    relatedDayDates: ['2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25'],
+  },
+  {
+    id: 'oq-private-car-price',
+    title: 'Cena soukromého auta Hà Giang → Sa Pa',
+    detail: 'U žádného poskytovatele se nám nepodařilo dohledat cenu za vůz na téhle konkrétní trase.',
+    nextStep: 'Vyžádat cenu mailem u Viet Transfers a A21 Tours pro sedmimístné MPV, 26. 9., 4 osoby + 4 velké batohy.',
+    relatedDayDates: ['2026-09-26'],
+  },
+  {
+    id: 'oq-train-details',
+    title: 'Konkrétní spoj a cena nočního vlaku',
+    detail: 'Číslo spoje, odjezd, příjezd, cena a storno pro 28. 9. 2026 nejsou ověřené. Dřívější čísla (44 USD za lůžko, 226 USD za kupé Chapa) jsou historické stopy.',
+    nextStep: 'Otevřít stránku vietnamské železnice a Chapa Express, najít spoj pro 28. 9. 2026 a porovnat dvě dvoulůžková kupé proti vykoupenému čtyřlůžkovému.',
+    relatedDayDates: ['2026-09-28'],
+  },
+  {
+    id: 'oq-fansipan',
+    title: 'Provoz Fansipanu 28. 9.',
+    detail: 'Dřívější tvrzení o odstávce 21.–27. 9. a znovuotevření 28. 9. není ověřené. Kdyby byla lanovka mimo provoz, vypadne hlavní volitelný program dne.',
+    nextStep: 'Ověřit u provozovatele Sun World Fansipan Legend přímo pro 28. 9. 2026.',
+    relatedDayDates: ['2026-09-28'],
+  },
+  {
+    id: 'oq-ninhbinh-hotel',
+    title: 'Hotel s bazénem u Ninh Bình od kamarádky',
+    detail: 'Kamarádka slíbila konkrétní tip, ale jméno hotelu nemáme. Nevymýšlíme ho.',
+    nextStep: 'Zeptat se jí na jméno. Do té doby platí tři kandidáti z podkladů.',
+    relatedDayDates: ['2026-09-29', '2026-09-30', '2026-10-01'],
+  },
+  {
+    id: 'oq-climbing-catba',
+    title: 'Lezení u Cát Bà',
+    detail: 'Poskytovatel, cena ani obsah programu nejsou ověřené. Rozdíl mezi lezením s jištěním a deep-water soloingem je podstatný pro pojištění.',
+    nextStep: 'Poptat Cat Ba Ventures a Cat Ba Outdoors: co konkrétně nabízejí jako kombinovaný program s plavbou, s jakým jištěním a za kolik.',
+    relatedDayDates: ['2026-10-03'],
+  },
+  {
+    id: 'oq-coaster-weather',
+    title: 'Provoz coasteru za deště',
+    detail: 'Dráhy tohohle typu se za deště běžně zastavují, ale pro Sa Pu to nemáme potvrzené.',
+    nextStep: 'Zeptat se provozovatele nebo ubytování v Sa Pě, jak to řeší. Do té doby platí plán B: přesunout na 28. 9.',
+    relatedDayDates: ['2026-09-26'],
+  },
+  {
+    id: 'oq-stamp',
+    title: 'Razítko podle fotky — Phúc Lợi Stamp',
+    detail: 'Adresa, cena (orientačně 250 000 VND za obličej nebo zvíře) a výrobní lhůta pocházejí z jednoho screenshotu.',
+    nextStep: 'Ověřit na místě 20. 9. před zaplacením. Zadat ten den, aby šlo vyzvednout 5. 10.',
+    relatedDayDates: ['2026-09-20', '2026-10-05'],
+  },
+  {
+    id: 'oq-baggage',
+    title: 'Zavazadlový nárok u Etihadu',
+    detail: 'Zvažujeme 7 kg příruční, ale skutečný tarif ani nárok všech čtyř cestujících potvrzený nemáme.',
+    nextStep: 'Otevřít rezervaci u Etihadu a zkontrolovat nárok pro každého cestujícího zvlášť.',
+  },
+  {
+    id: 'oq-licence',
+    title: 'Řidičská oprávnění ve skupině',
+    detail: 'Podle podkladů má motocyklový řidičák jen Martin. Rozsah, mezinárodní průkaz a uznávání ve Vietnamu potvrzené nejsou.',
+    nextStep: 'Ověřit, jestli má někdo platné oprávnění skupiny A a mezinárodní řidičský průkaz. Do té doby platí, že na loopu jedeme s řidiči.',
+  },
+  {
+    id: 'oq-night-market',
+    title: 'Provoz Old Quarter Night Market 20. 9.',
+    detail: 'Noční trh běžně jezdí o víkendech; 20. 9. 2026 je neděle, takže to vychází. Potvrzené to ale nemáme.',
+    nextStep: 'Ověřit na místě nebo přes ubytování den předem.',
+    relatedDayDates: ['2026-09-20'],
+  },
+]
