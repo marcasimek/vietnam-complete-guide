@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import { getChoice, getItem, getLeg, getPlace, getService, getSources, formatDayLong } from '@/model/registry'
+import { alternativeById } from '@/data/alternatives'
 import { Icon } from '@/components/Icon'
 import { RegionArt } from '@/components/RegionArt'
 import {
-  BulletList, Callout, DetailHeader, EmptyState, FavouriteButton, LinkRow, NoteBox, Section, ShareButton, SourceLinks,
+  AlternativeCard, BulletList, Callout, DetailHeader, EmptyState, FavouriteButton, LinkRow, NoteBox, Section, ShareButton, SourceLinks,
 } from '@/components/ui'
 
 const KIND_LABEL = {
@@ -39,6 +40,7 @@ export function ItemPage() {
   const itemPlaces = (item.placeIds ?? []).map(getPlace).filter(Boolean)
   const itemServices = (item.serviceIds ?? []).map(getService).filter(Boolean)
   const sources = getSources(item.sourceIds)
+  const alts = (item.alternativeIds ?? []).map((id) => alternativeById.get(id)).filter(Boolean)
 
   return (
     <div className="page detail" data-region={day.regionId}>
@@ -128,6 +130,14 @@ export function ItemPage() {
 
       {item.caveats?.length ? (
         <Section title="Co není jisté"><BulletList items={item.caveats} icon="warning" /></Section>
+      ) : null}
+
+      {alts.length ? (
+        <Section title="Náhradní varianta" hint="Co udělat, když tenhle krok nevyjde.">
+          <div className="stack-4">
+            {alts.map((a) => a ? <AlternativeCard key={a.id} alt={a} /> : null)}
+          </div>
+        </Section>
       ) : null}
 
       {sources.length ? (

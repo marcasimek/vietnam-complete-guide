@@ -202,6 +202,25 @@ describe('referenční integrita', () => {
     for (const a of alternatives) checkSources(a.sourceIds, `alternativa ${a.id}`)
   })
 
+  it('alternativy odkazované z kroků existují a mají co nabídnout', () => {
+    const byId = new Map(alternatives.map((a) => [a.id, a]))
+    let linked = 0
+    for (const day of days) {
+      for (const item of day.items) {
+        for (const id of item.alternativeIds ?? []) {
+          const alt = byId.get(id)
+          expect(alt, `krok ${item.id}: chybí alternativa ${id}`).toBeDefined()
+          expect(alt!.condition.length, `${id}: chybí podmínka použití`).toBeGreaterThan(0)
+          expect(alt!.replaces.length, `${id}: chybí, co nahrazuje`).toBeGreaterThan(0)
+          expect(alt!.cost.length, `${id}: chybí, co to stojí`).toBeGreaterThan(0)
+          linked += 1
+        }
+      }
+    }
+    // Nestačí mít alternativy v datech — musí být vidět tam, kde se rozhoduje.
+    expect(linked, 'žádná alternativa není napojená na krok itineráře').toBeGreaterThanOrEqual(4)
+  })
+
   it('odkazy na dny v checklistu, rozpočtu a otázkách existují', () => {
     const dates = new Set(days.map((d) => d.date))
     for (const t of bookingTasks) for (const d of t.dayDates ?? []) expect(dates.has(d), `${t.id}: neznámé datum ${d}`).toBe(true)

@@ -280,6 +280,7 @@ export const day20260924: Day = {
       dayPart: 'midday',
       status: 'optional',
       placeIds: ['place-nho-que'],
+      alternativeIds: ['alt-nho-que-viewpoint'],
       condition: 'Plavba jen pokud se reálně vejde do časového plánu dne.',
       detail: [
         'Nho Quế je tyrkysová řeka na dně kaňonu Tu Sản. Dá se k ní sjet a projet se po ní lodí — nebo se na ni dívat shora z průsmyku.',

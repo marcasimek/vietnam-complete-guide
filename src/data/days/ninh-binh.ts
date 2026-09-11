@@ -133,6 +133,7 @@ export const day20260930: Day = {
       dayPart: 'early',
       status: 'main',
       placeIds: ['place-trang-an'],
+      alternativeIds: ['alt-tam-coc-boat'],
       detail: [
         'Veslice projíždějí sérií vodních jeskyní pod vápencovými věžemi a zastavují u chrámů. Jsou tři trasy, které se liší délkou a počtem jeskyní — od zhruba dvou hodin po tři a půl.',
         'Do jedné loďky se vejdou čtyři pasažéři plus veslařka. My se tedy vejdeme do jedné.',

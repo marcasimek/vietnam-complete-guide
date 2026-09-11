@@ -1,7 +1,7 @@
 import { useId, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import type { Confidence, GeoPoint, OpeningHours, Price, Source } from '@/model/types'
+import type { Alternative, Confidence, GeoPoint, OpeningHours, Price, Source } from '@/model/types'
 import { CONFIDENCE_HELP, CONFIDENCE_LABEL, formatForFour, formatPriceValue, formatUnit, toCzk } from '@/lib/money'
 import { PRECISION_HELP, PRECISION_LABEL, appleMapsUrl, mapsUrl, navigateUrl } from '@/lib/geo'
 import { Icon } from './Icon'
@@ -321,6 +321,30 @@ export function LinkRow({ to, icon, title, subtitle, meta, tone }: {
       </span>
       <Icon name="chevron-right" size={18} className="link-row__chev" />
     </Link>
+  )
+}
+
+export function AlternativeCard({ alt }: { alt: Alternative }) {
+  return (
+    <article className="altinline">
+      <h3>{alt.title}</h3>
+      <p className="small altinline__cond"><strong>Kdy: </strong>{alt.condition}</p>
+      <dl className="altcard__grid">
+        <div><dt>Nahradí</dt><dd>{alt.replaces}</dd></div>
+        <div><dt>Stojí to</dt><dd>{alt.cost}</dd></div>
+      </dl>
+      <div className="altinline__cols">
+        {alt.gains.length ? (
+          <div><p className="section-label">Získáme</p><BulletList items={alt.gains} icon="check" /></div>
+        ) : null}
+        {alt.losses.length ? (
+          <div className="proscons__col--con"><p className="section-label">Ztratíme</p><BulletList items={alt.losses} icon="warning" /></div>
+        ) : null}
+      </div>
+      {alt.detail?.length ? (
+        <div className="altcard__detail">{alt.detail.map((d) => <p key={d.slice(0, 30)} className="small">{d}</p>)}</div>
+      ) : null}
+    </article>
   )
 }
 

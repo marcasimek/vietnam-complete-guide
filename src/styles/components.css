@@ -867,3 +867,21 @@
   .miniday__row { align-items: flex-start; padding-top: 11px; padding-bottom: 11px; }
   .miniday__date { padding-top: 1px; }
 }
+
+/* --- alternativa uvnitř detailu kroku ------------------------------- */
+.altinline {
+  padding: var(--s-4); border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--amber-100), var(--surface) 60%);
+  border: 1px solid color-mix(in srgb, var(--amber) 26%, transparent);
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.altinline h3 { font-size: 1.02rem; letter-spacing: -.022em; }
+.altinline__cond { color: var(--ink-2); }
+.altinline__cols { display: flex; flex-direction: column; gap: var(--s-3); }
+.altinline .section-label { display: block; margin-bottom: 6px; }
+.altinline .altcard__detail { background: color-mix(in srgb, var(--surface) 70%, transparent); }
+
+@media (min-width: 700px) {
+  .altinline__cols { flex-direction: row; }
+  .altinline__cols > div { flex: 1; }
+}

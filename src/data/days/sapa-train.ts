@@ -160,6 +160,7 @@ export const day20260928: Day = {
       timeHint: 'podle zdrojů SP4 odjíždí ve 21:30, nutno potvrdit',
       transportLegId: 'leg-laocai-hanoi-train',
       placeIds: ['place-lao-cai-station'],
+      alternativeIds: ['alt-night-bus'],
       detail: [
         'Vlaky SP3 (Hanoj → Lào Cai) a SP4 (Lào Cai → Hanoj) provozuje vietnamská železnice. Soukromé firmy jako Chapa Express k nim připojují vlastní vozy s lepším vybavením. Kupuješ si tedy vůz, ne vlak — proto se u „stejného spoje" liší ceny i standard.',
         'Rozhodnutí je mezi dvěma soukromími dvoulůžkovými kupé a vykoupeným celým čtyřlůžkovým. Čtyřlůžkové vychází zhruba na polovinu a jsme v něm ve čtyřech sami; dvoulůžková dávají párům skutečné soukromí a obě lůžka dole.',

@@ -74,6 +74,7 @@ export const day20260926: Day = {
       timeHint: 'odpoledne, poslední jízdy do 18:00',
       placeIds: ['place-alpine-coaster-sapa'],
       condition: 'Jen když dorazíme nejpozději kolem 16:30 a neprší.',
+      alternativeIds: ['alt-coaster-2809'],
       detail: [
         'Nejdřív k tomu, co to vlastně je, protože „coaster" a „downhill autíčka" nejsou automaticky totéž.',
         'To, co je v Sa Pě, je alpine coaster: vozík jede po pevné kolejnici, je k ní připoutaný a nemůže z ní sjet. Rychlost si řídíš brzdicí pákou, mezi vozíky hlídají odstup čidla. Postavil to německý Wiegand, dráha měří zhruba 1 095 m — asi 825 m sjezdu a 250 m vleku nahoru.',
