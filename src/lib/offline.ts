@@ -219,9 +219,13 @@ export async function isServerReachable(timeoutMs = 4000): Promise<boolean> {
   }
 }
 
+const nf1 = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 1 })
+const nf0 = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 })
+
 export function formatBytes(bytes: number | null): string {
   if (bytes === null) return 'neznámo'
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} kB`
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`
+  if (bytes < 1024) return `${nf0.format(bytes)} B`
+  if (bytes < 1024 * 1024) return `${nf0.format(bytes / 1024)} kB`
+  if (bytes < 1024 * 1024 * 1024) return `${nf1.format(bytes / 1024 / 1024)} MB`
+  return `${nf1.format(bytes / 1024 / 1024 / 1024)} GB`
 }

@@ -22,6 +22,7 @@ export const day20260927: Day = {
       dayPart: 'morning',
       status: 'main',
       placeIds: ['place-muong-hoa-valley', 'place-lao-chai'],
+      serviceIds: ['svc-sapa-trek-guide'],
       detail: [
         'Většina trekových tras začíná svozem z centra Sa Py dolů do údolí, typicky k Lao Chải. Zpátky nahoru se pak jede autem — stoupat zpět po svých po celodenní chůzi nedává smysl.',
         'Průvodce z místní komunity (Sapa Sisters a podobné) je doložený kandidát. Identitu a cenu je potřeba ověřit.',
@@ -37,6 +38,7 @@ export const day20260927: Day = {
       dayPart: 'midday',
       status: 'main',
       placeIds: ['place-lao-chai', 'place-ta-van', 'place-muong-hoa-valley'],
+      serviceIds: ['svc-sapa-trek-guide'],
       detail: [
         'Klasická trasa údolím: z Lao Chải přes pole a podél řeky do Tả Van. Dá se prodloužit o další vesnice nebo zkrátit, když bude počasí nebo kondice proti.',
       ],

@@ -91,7 +91,9 @@ export const bookingTasks: BookingTask[] = [
     quantity: '4 osoby',
     dayDates: ['2026-09-27'],
     providerHint: 'Sapa Sisters nebo jiný místní průvodce — identitu a cenu ověřit.',
+    how: 'Napsat: 4 osoby, 27. 9. 2026, celodenní trek Lao Chải – Tả Van, oběd u hostitelů, svoz na start i zpět. Zeptat se na variantu za deště.',
     leadTime: '1–2 týdny předem',
+    relatedServiceIds: ['svc-sapa-trek-guide'],
     defaultStatus: 'todo',
   },
   {

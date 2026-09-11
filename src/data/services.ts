@@ -474,6 +474,45 @@ export const services: Service[] = [
     tags: ['stay', 'trek', 'rest'],
   },
 
+  {
+    id: 'svc-sapa-trek-guide',
+    kind: 'operator',
+    name: 'Průvodce na trek v údolí Mường Hoa',
+    aliases: ['Sapa Sisters', 'pruvodce Sapa', 'trek guide Sapa'],
+    regionId: 'sapa',
+    what: 'Průvodkyně z místních komunit (H’Mong, Giáy), které vodí pěší trasy údolím. Sapa Sisters je doložený kandidát z podkladů — agentura vedená přímo H’Mongkami.',
+    why: 'Trasa se dá jít i bez průvodce, ale s místní průvodkyní je z toho jiný den: vysvětlí, co se na polích děje, a dostaneš se i k obědu u někoho doma.',
+    price: [
+      {
+        currency: 'USD',
+        unit: 'per-day',
+        persons: 4,
+        note: 'Cenu za celodenní trek pro čtyři osoby jsme nedohledali. Je to otevřená položka — vyžádej si nabídku mailem a doplň ji sem.',
+        confidence: 'unverified',
+        checkedOn: '2026-09-11',
+      },
+    ],
+    geo: {
+      lat: 22.3364,
+      lng: 103.8438,
+      precision: 'area-fallback',
+      searchQuery: 'Sapa Sisters trekking office Sa Pa',
+    },
+    practical: [
+      'Do poptávky napiš: 4 osoby, 27. 9. 2026, celodenní trek Lao Chải – Tả Van, zajímá nás oběd u hostitelů a svoz zpět.',
+      'Zeptej se, jestli je v ceně doprava na start a zpět nahoru do Sa Py.',
+      'Ptej se i na variantu za deště — pěšiny v údolí jsou po dešti kluzké a část tras se zkracuje.',
+    ],
+    caveats: [
+      'Identitu agentury a cenu jsme neověřili. „Sapa Sisters" je jméno z podkladů, ne potvrzená rezervace.',
+      'V Sa Pě tě na ulici osloví spousta žen nabízejících trek. Není to totéž jako domluvená služba s pojištěním a plánem.',
+      'Délka 8–14 km je plánovací rámec. Konkrétní trasu určí průvodkyně podle počasí a kondice skupiny.',
+    ],
+    proximity: 'Centrum Sa Py.',
+    tags: ['trek', 'culture', 'activity'],
+    recommended: true,
+  },
+
   // ======================= SA PA — LEVNÉ JÍDELNY ==========================
   {
     id: 'svc-little-sapa',

@@ -39,7 +39,7 @@ const problems = []
 for (const vp of VIEWPORTS) {
   const ctx = await browser.newContext({
     viewport: { width: vp.width, height: vp.height },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: Number(process.env.DPR ?? 1),
     isMobile: vp.mobile,
     hasTouch: vp.mobile,
     locale: 'cs-CZ',
@@ -86,7 +86,17 @@ for (const vp of VIEWPORTS) {
     if (diag.clipped.length) problems.push(`[${vp.name}px ${s.id}] useknuté: ${diag.clipped.join(', ')}`)
     if (diag.smallTargets.length) problems.push(`[${vp.name}px ${s.id}] malý cíl: ${diag.smallTargets.join(', ')}`)
 
-    await page.screenshot({ path: `${OUT}/${s.id}-${vp.name}.png`, fullPage: s.full })
+    // Screenshot je pro vizuální kontrolu, ne archiv — JPEG a strop výšky,
+    // ať repozitář nenese desítky megabajtů obrázků.
+    const pageHeight = await page.evaluate(() => document.body.scrollHeight)
+    const clip = s.full && pageHeight > 4200 ? { x: 0, y: 0, width: vp.width, height: 4200 } : undefined
+    await page.screenshot({
+      path: `${OUT}/${s.id}-${vp.name}.jpg`,
+      type: 'jpeg',
+      quality: 82,
+      fullPage: s.full && !clip,
+      ...(clip ? { clip } : {}),
+    })
   }
   if (consoleErrors.length) problems.push(`[${vp.name}px] konzole: ${[...new Set(consoleErrors)].slice(0, 4).join(' | ')}`)
   await ctx.close()

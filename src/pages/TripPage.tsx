@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { bookingTasks, budgetLines, CATEGORY_LABEL, trip } from '@/data'
 import type { BudgetCategory, BudgetLine } from '@/data/budget'
-import { formatDayShort, getPlace, getService, getItem, getLeg, getDay } from '@/model/registry'
+import { formatDayLong, formatDayShort, getPlace, getService, getItem, getLeg, getDay } from '@/model/registry'
 import { useUserState } from '@/state/UserStateContext'
 import { useServiceWorker } from '@/state/useServiceWorker'
 import { buildExport, clearOwnData, importState, type BookingUserStatus, type ImportReport } from '@/lib/storage'
@@ -168,7 +168,9 @@ function Budget() {
           <p className="xsmall muted">na osobu · bez mezinárodních letenek · bez {unknown.length} položek bez ceny</p>
         </div>
         <p className="xsmall muted budgetsum__fx">
-          Přepočet podle kurzu uloženého {fx.checkedOn}: 1 USD = {usdFx.rate} CZK, 1 USD = 26 001 VND. Kurz se neaktualizuje živě.
+          Přepočet podle kurzu uloženého {formatDayLong(fx.checkedOn)} {fx.checkedOn.slice(0, 4)}:{' '}
+          1 USD = {new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 2 }).format(usdFx.rate)} Kč,{' '}
+          100 000 VND = {czk.format(100_000 * fx.rate)} Kč. Kurz se neaktualizuje živě — offline i online se počítá se stejnou uloženou hodnotou.
         </p>
       </div>
 
