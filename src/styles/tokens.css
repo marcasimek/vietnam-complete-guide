@@ -1,0 +1,169 @@
+/* ---------------------------------------------------------------
+   Design tokens — Vietnam Complete Guide
+   Světlý „papírový" podklad, jadeitová zeleň jako primární barva,
+   každá oblast cesty má vlastní akcent. Žádná duha nesouvisejících karet:
+   akcent se používá jen pro identitu oblasti a stav kroku.
+   --------------------------------------------------------------- */
+
+:root {
+  /* --- plocha --- */
+  --paper: #F7F5EF;
+  --paper-2: #FFFDF8;
+  --surface: #FFFFFF;
+  --surface-sunk: #F1EEE6;
+  --surface-alt: #FAF8F2;
+
+  /* --- text --- */
+  --ink: #15231E;
+  --ink-2: #3D4D47;
+  --ink-3: #6B7A74;
+  --ink-inv: #F7F5EF;
+
+  /* --- linky --- */
+  --line: #E4DFD3;
+  --line-strong: #D3CCBC;
+
+  /* --- primární --- */
+  --jade-900: #07352A;
+  --jade-700: #0A4A39;
+  --jade-600: #0E6B52;
+  --jade-500: #159A74;
+  --jade-200: #BFE6D7;
+  --jade-100: #E2F3EC;
+
+  /* --- doplňky (záměrně, ne náhodně) --- */
+  --coral: #E5604D;
+  --coral-100: #FCE6E1;
+  --amber: #C97A16;
+  --amber-100: #FBEDD6;
+  --lime: #6F9E22;
+  --lime-100: #ECF4DA;
+  --ocean: #1E7FB8;
+  --ocean-100: #DCEDF8;
+  --plum: #6B4EA8;
+  --plum-100: #ECE6F8;
+
+  /* --- akcenty oblastí --- */
+  --region-hanoi: #C97A16;
+  --region-ha-giang: #6B4EA8;
+  --region-ha-giang-loop: #8659C6;
+  --region-sapa: #0E8A80;
+  --region-train: #4F6383;
+  --region-ninh-binh: #3E8E4A;
+  --region-cat-ba: #1E7FB8;
+  --region-transit: #7C857F;
+
+  /* aktivní akcent — nastavuje se přes data-region na kontejneru */
+  --accent: var(--jade-600);
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, white);
+  --accent-line: color-mix(in srgb, var(--accent) 26%, white);
+  --accent-ink: color-mix(in srgb, var(--accent) 78%, #10201B);
+
+  /* --- rádiusy --- */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* --- stíny (měkké, vrstvené) --- */
+  --sh-1: 0 1px 2px rgba(21, 35, 30, .05), 0 1px 1px rgba(21, 35, 30, .03);
+  --sh-2: 0 2px 4px rgba(21, 35, 30, .05), 0 6px 14px -6px rgba(21, 35, 30, .12);
+  --sh-3: 0 4px 8px rgba(21, 35, 30, .05), 0 16px 30px -12px rgba(21, 35, 30, .18);
+  --sh-up: 0 -6px 24px -12px rgba(21, 35, 30, .25);
+
+  /* --- typografie --- */
+  --font-display: 'Bricolage Grotesque Variable', 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  --t-display: clamp(1.6rem, 1.15rem + 2vw, 2.35rem);
+  --t-h1: clamp(1.35rem, 1.1rem + 1.1vw, 1.75rem);
+  --t-h2: clamp(1.1rem, 1rem + .5vw, 1.3rem);
+  --t-h3: 1rem;
+  --t-body: 0.9688rem;
+  --t-sm: 0.875rem;
+  --t-xs: 0.8125rem;
+  --t-2xs: 0.75rem;
+
+  /* --- rozestupy --- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-7: 32px; --s-8: 40px; --s-9: 56px;
+
+  /* --- layout --- */
+  --page-x: 16px;
+  --content-max: 720px;
+  --wide-max: 1180px;
+  --navbar-h: 62px;
+  --tap: 44px;
+
+  /* --- pohyb --- */
+  --ease: cubic-bezier(.2, .7, .3, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0B1512;
+    --paper-2: #101E19;
+    --surface: #13221D;
+    --surface-sunk: #0E1A16;
+    --surface-alt: #16271F;
+
+    --ink: #ECF2EE;
+    --ink-2: #B6C5BE;
+    --ink-3: #87968F;
+    --ink-inv: #0B1512;
+
+    --line: #22352D;
+    --line-strong: #31473D;
+
+    --jade-200: #1E5847;
+    --jade-100: #143B30;
+    --jade-500: #37BC93;
+    --jade-600: #2CA57F;
+
+    --coral: #F2836F;
+    --coral-100: #3A211C;
+    --amber: #E0A34C;
+    --amber-100: #35291515;
+    --lime: #A7CD5C;
+    --lime-100: #26311A;
+    --ocean: #56AEE0;
+    --ocean-100: #142936;
+    --plum: #A186DE;
+    --plum-100: #241C36;
+
+    --region-hanoi: #E0A34C;
+    --region-ha-giang: #A186DE;
+    --region-ha-giang-loop: #B196EC;
+    --region-sapa: #35B5A8;
+    --region-train: #8AA2C6;
+    --region-ninh-binh: #6BC077;
+    --region-cat-ba: #56AEE0;
+    --region-transit: #9AA79F;
+
+    --accent-soft: color-mix(in srgb, var(--accent) 18%, #0E1A16);
+    --accent-line: color-mix(in srgb, var(--accent) 34%, #0E1A16);
+    --accent-ink: color-mix(in srgb, var(--accent) 88%, white);
+
+    --sh-1: 0 1px 2px rgba(0, 0, 0, .4);
+    --sh-2: 0 2px 4px rgba(0, 0, 0, .35), 0 8px 18px -8px rgba(0, 0, 0, .6);
+    --sh-3: 0 4px 10px rgba(0, 0, 0, .35), 0 18px 34px -14px rgba(0, 0, 0, .7);
+    --sh-up: 0 -8px 26px -14px rgba(0, 0, 0, .8);
+  }
+}
+
+/* akcent podle oblasti — nastav na jakémkoli kontejneru */
+[data-region='hanoi']         { --accent: var(--region-hanoi); }
+[data-region='ha-giang']      { --accent: var(--region-ha-giang); }
+[data-region='ha-giang-loop'] { --accent: var(--region-ha-giang-loop); }
+[data-region='sapa']          { --accent: var(--region-sapa); }
+[data-region='train']         { --accent: var(--region-train); }
+[data-region='ninh-binh']     { --accent: var(--region-ninh-binh); }
+[data-region='cat-ba']        { --accent: var(--region-cat-ba); }
+[data-region='transit']       { --accent: var(--region-transit); }
