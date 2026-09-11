@@ -26,9 +26,6 @@ const TAG_FILTERS: { id: Tag | 'all'; label: string }[] = [
   { id: 'budget', label: 'Levné' },
 ]
 
-const KIND_ICON: Record<EntityKind, IconName> = {
-  place: 'pin', service: 'bowl', transport: 'van', choice: 'swap', day: 'plan', item: 'check',
-}
 const KIND_LABEL: Record<EntityKind, string> = {
   place: 'místo', service: 'podnik', transport: 'přesun', choice: 'výběr', day: 'den', item: 'krok',
 }
@@ -245,7 +242,7 @@ function IndexRow({ entry }: { entry: IndexEntry }) {
   return (
     <li data-region={entry.regionId}>
       <Link to={entry.href} className="idxrow">
-        <span className="idxrow__icon"><Icon name={KIND_ICON[entry.kind]} size={18} /></span>
+        <span className="idxrow__icon"><Icon name={entry.icon} size={18} /></span>
         <span className="idxrow__text">
           <span className="idxrow__name">
             {entry.name}

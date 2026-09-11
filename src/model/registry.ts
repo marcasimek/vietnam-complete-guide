@@ -9,9 +9,16 @@ import { scoreMatch, tokenize } from '@/lib/search'
 /** Sjednocený typ pro rejstřík — Průvodce, vyhledávání a mapa pracují s tímhle. */
 export type EntityKind = 'place' | 'service' | 'transport' | 'choice' | 'day' | 'item'
 
+/** Ikona pro rejstřík — kategorie sama nestačí, hotel a jídelna jsou obojí „service". */
+export type IndexIcon =
+  | 'pin' | 'bed' | 'bowl' | 'glass' | 'coffee' | 'spa' | 'group' | 'ticket'
+  | 'market' | 'bicycle' | 'van' | 'swap' | 'plan' | 'mountain' | 'temple'
+  | 'cave' | 'beach' | 'wave' | 'train' | 'plane' | 'walk'
+
 export interface IndexEntry {
   id: string
   kind: EntityKind
+  icon: IndexIcon
   name: string
   localName?: string
   aliases: string[]
@@ -96,40 +103,51 @@ const placeKindLabel: Record<Place['kind'], string> = {
 export function labelForService(kind: Service['kind']): string { return serviceKindLabel[kind] }
 export function labelForPlace(kind: Place['kind']): string { return placeKindLabel[kind] }
 
+const SERVICE_ICON: Record<Service['kind'], IndexIcon> = {
+  stay: 'bed', eatery: 'bowl', bar: 'glass', cafe: 'coffee', wellness: 'spa',
+  operator: 'group', attraction: 'ticket', shop: 'market', rental: 'bicycle',
+}
+
+const PLACE_ICON: Record<Place['kind'], IndexIcon> = {
+  city: 'pin', village: 'pin', viewpoint: 'mountain', landmark: 'temple',
+  nature: 'mountain', cave: 'cave', beach: 'beach', trek: 'walk',
+  market: 'market', station: 'train', airport: 'plane', water: 'wave',
+}
+
 function buildIndex(): IndexEntry[] {
   const out: IndexEntry[] = []
 
   for (const p of placeById.values()) {
     out.push({
-      id: p.id, kind: 'place', name: p.name, localName: p.localName,
+      id: p.id, kind: 'place', icon: PLACE_ICON[p.kind], name: p.name, localName: p.localName,
       aliases: p.aliases ?? [], regionId: p.regionId, summary: p.what,
       tags: p.tags ?? [], href: `/place/${p.id}`, dayDates: daysForPlace(p.id),
     })
   }
   for (const s of serviceById.values()) {
     out.push({
-      id: s.id, kind: 'service', name: s.name, localName: s.localName,
+      id: s.id, kind: 'service', icon: SERVICE_ICON[s.kind], name: s.name, localName: s.localName,
       aliases: s.aliases ?? [], regionId: s.regionId, summary: s.what,
       tags: s.tags ?? [], href: `/service/${s.id}`, dayDates: daysForService(s.id),
     })
   }
   for (const l of transportLegById.values()) {
     out.push({
-      id: l.id, kind: 'transport', name: `${l.from} → ${l.to}`,
+      id: l.id, kind: 'transport', icon: 'van', name: `${l.from} → ${l.to}`,
       aliases: [l.from, l.to], regionId: 'transit', summary: l.summary,
       tags: ['transport'], href: `/transport/${l.id}`, dayDates: daysForLeg(l.id),
     })
   }
   for (const c of choiceGroupById.values()) {
     out.push({
-      id: c.id, kind: 'choice', name: c.title, aliases: [],
+      id: c.id, kind: 'choice', icon: 'swap', name: c.title, aliases: [],
       regionId: c.regionId, summary: c.intro, tags: [],
       href: `/choice/${c.id}`, dayDates: daysForChoice(c.id),
     })
   }
   for (const d of days) {
     out.push({
-      id: d.date, kind: 'day', name: `${formatDayShort(d.date)} — ${d.title}`,
+      id: d.date, kind: 'day', icon: 'plan', name: `${formatDayShort(d.date)} — ${d.title}`,
       aliases: [d.title, d.theme], regionId: d.regionId, summary: d.theme,
       tags: [], href: `/day/${d.date}`, dayDates: [d.date],
     })
