@@ -131,7 +131,7 @@ export function PlanPage() {
                             <span className="miniday__theme">{d.theme}</span>
                           </span>
                           <span className="miniday__night">
-                            <Icon name={d.night?.kind === 'train' ? 'train' : d.night ? 'bed' : 'plane'} size={15} />
+                            <Icon name={d.night?.kind === 'train' ? 'train' : d.night?.kind === 'bus' ? 'bus' : d.night ? 'bed' : 'plane'} size={15} />
                             <span>{d.night ? d.night.label : 'odlet'}</span>
                           </span>
                         </button>
@@ -203,7 +203,7 @@ function FocusDay({ day, isToday }: { day: Day; isToday: boolean }) {
       </div>
 
       <div className="daycard__foot">
-        <Icon name={day.night?.kind === 'train' ? 'train' : day.night ? 'bed' : 'plane'} size={16} />
+        <Icon name={day.night?.kind === 'train' ? 'train' : day.night?.kind === 'bus' ? 'bus' : day.night ? 'bed' : 'plane'} size={16} />
         {day.night ? <span>Noc: <strong>{day.night.label}</strong></span> : <span>Bez noci ve Vietnamu — večer letíme domů</span>}
       </div>
     </article>

@@ -72,7 +72,7 @@
 
 ### Offline a izolace (`tests/e2e/offline.spec.ts`)
 
-8. **Připravit offline → vypnout síť → otevřít dosud nenavštívený obsah.** Balíček se připraví a ověří, stav ukáže počet souborů, velikost, verzi i datum. Po `setOffline(true)` a reloadu se otevře **den 3. 10., detail Hang Múa, noční vlak, rejstřík i schematická mapa — nic z toho nebylo předtím navštívené.**
+8. **Připravit offline → vypnout síť → otevřít dosud nenavštívený obsah.** Balíček se připraví a ověří, stav ukáže počet souborů, velikost, verzi i datum. Po `setOffline(true)` a reloadu se otevře **den 3. 10., detail Hang Múa, přímý noční bus, rejstřík i schematická mapa — nic z toho nebylo předtím navštívené.**
 9. **Selhání mapy.** Zablokované dlaždice OSM nezamknou aplikaci; zbytek stránky zůstane proklikatelný.
 10. **Izolace úložiště.** Čistý profil nevidí data prvního profilu (žádný předstíraný cloud sync). Cizí `localStorage` klíče (`jina-appka:b0`, `b1`) i cizí cache **přežijí** aktualizaci i přípravu balíčku. Nepřebíráme cizí klíče jako svoje rezervace.
 11. **Smazání balíčku** odstraní jen cache s prefixem `vcg-`, cizí nechá být.

@@ -61,7 +61,7 @@ export const choiceGroups: ChoiceGroup[] = [
     regionId: 'sapa',
     serviceIds: ['svc-sapa-centre-hotel', 'svc-eco-palms-house', 'svc-sapa-eco-bungalows'],
     decisionNotes: [
-      'Centrum vyhrává na večerním programu (hotpot, bar, koupel pěšky) a na ranním odjezdu 28. 9. na vlak.',
+      'Centrum vyhrává na večerním programu (hotpot, bar, koupel pěšky) a na večerním odjezdu 28. 9. na autobus.',
       'Údolí vyhrává na klidu, bazénu a na tom, že 27. 9. se vyráží na trek rovnou od domu.',
       'Kompromis, který dává smysl: centrum na obě noci, a bazén/klid dohnat až v Tam Cốc, kde na to máme tři noci.',
       'Dokud není hotel vybraný, nikde v aplikaci nepíšeme vzdálenost „od našeho hotelu" — jen od centra Sa Py.',
@@ -112,7 +112,7 @@ export const choiceGroups: ChoiceGroup[] = [
     id: 'choice-ninhbinh-stay',
     title: 'Kde v Tam Cốc spíme',
     intro:
-      'Tři noci na jednom místě, dva pokoje. Tenhle blok je záměrně odpočinkový — po loopu a nočním vlaku. Bazén je pracovní priorita, ne luxus.',
+      'Tři noci na jednom místě, dva pokoje. Tenhle blok je záměrně odpočinkový — po loopu a noci v autobuse. Bazén je pracovní priorita, ne luxus.',
     mode: 'pick-one',
     regionId: 'ninh-binh',
     serviceIds: ['svc-tam-coc-horizon', 'svc-trang-an-retreat', 'svc-le-clos-du-fil'],

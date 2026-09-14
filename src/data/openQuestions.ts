@@ -24,10 +24,10 @@ export const openQuestions: OpenQuestion[] = [
     relatedDayDates: ['2026-09-26'],
   },
   {
-    id: 'oq-train-details',
-    title: 'Konkrétní spoj a cena nočního vlaku',
-    detail: 'Číslo spoje, odjezd, příjezd, cena a storno pro 28. 9. 2026 nejsou ověřené. Dřívější čísla (44 USD za lůžko, 226 USD za kupé Chapa) jsou historické stopy.',
-    nextStep: 'Otevřít stránku vietnamské železnice a Chapa Express, najít spoj pro 28. 9. 2026 a porovnat dvě dvoulůžková kupé proti vykoupenému čtyřlůžkovému.',
+    id: 'oq-direct-bus-details',
+    title: 'Který dopravce jede až do Tam Cốc',
+    detail: 'Podle zdrojů vozí cestující ze Sa Py až do Tam Cốc jen The Long Travel a Grouptour; ostatní končí v centru Ninh Bình. Konkrétní spoj, odjezd, cenu kabiny a storno pro 28. 9. 2026 nemáme ověřené.',
+    nextStep: 'Otevřít 12Go nebo Vexere pro 28. 9. 2026, vybrat spoj s cílovou zastávkou Tam Cốc a porovnat dvě dvoulůžkové kabiny proti čtyřem běžným lehátkům.',
     relatedDayDates: ['2026-09-28'],
   },
   {

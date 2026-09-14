@@ -142,7 +142,7 @@ export function MapPage() {
             selectedId={selected}
             onSelectNode={onNode}
             onSelectSegment={onSegment}
-            caption="Hlavní zastávky cesty. Hanoj je jeden bod, i když se do ní vracíme třikrát — pořadí ukazují šipky."
+            caption="Hlavní zastávky cesty. Hanoj je jeden bod, i když v ní spíme na začátku i na konci — pořadí ukazují šipky."
           />
           <Section title="Hà Giang Loop" hint="Čtyřdenní okruh má vlastní schéma — v celkové mapě by se body slily.">
             <SchematicMap

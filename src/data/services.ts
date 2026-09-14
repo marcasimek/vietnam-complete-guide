@@ -467,7 +467,7 @@ export const services: Service[] = [
     ],
     caveats: [
       'Aktuální cenu za dvoulůžkový pokoj se nám nepodařilo dohledat — je to otevřená položka, ne údaj k odhadu.',
-      'Nejhorší varianta pro večerní bar a pro ranní odjezd na vlak 28. 9.',
+      'Nejhorší varianta pro večerní bar a pro večerní odjezd autobusu 28. 9.',
     ],
     proximity: 'Tả Van, cca 9–10 km od centra Sa Py.',
     sourceIds: ['src-ta-sapa-eco-bungalows'],
@@ -921,7 +921,7 @@ export const services: Service[] = [
     aliases: ['Tam Coc Horizon'],
     regionId: 'ninh-binh',
     what: 'Bungalovy mezi poli u Tam Cốc s bazénem s výhledem na vápencové věže, zahradou a restaurací. Kola pro hosty.',
-    why: 'Bazén je pro tenhle blok pracovní priorita — tři noci na jednom místě po loopu a nočním vlaku. A kola v ceně ušetří den nájmu.',
+    why: 'Bazén je pro tenhle blok pracovní priorita — tři noci na jednom místě po loopu a noci v autobuse. A kola v ceně ušetří den nájmu.',
     geo: {
       lat: 20.2192,
       lng: 105.9375,

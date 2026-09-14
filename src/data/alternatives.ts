@@ -100,7 +100,7 @@ export const alternatives: Alternative[] = [
     gains: ['Nemusíme se po celodenním přejezdu nikam hnát.', 'Ráno bývá jasněji než odpoledne.'],
     losses: ['Ten den pak nezbude čas na Fansipan ani canyoning — vybírá se jedno.'],
     regionId: 'sapa',
-    detail: ['Večer 28. 9. jedeme na vlak, takže program musí skončit s rezervou.'],
+    detail: ['Večer 28. 9. jedeme na noční autobus, takže program musí skončit s rezervou.'],
   },
   {
     id: 'alt-nho-que-viewpoint',
@@ -114,15 +114,27 @@ export const alternatives: Alternative[] = [
     detail: ['Vyhlídka shora je plnohodnotná varianta, ne náhražka z nouze. Přijet do Du Già za tmy je horší.'],
   },
   {
-    id: 'alt-night-bus',
-    title: 'Noční autobus místo vlaku',
-    condition: 'Když vlak 28./29. 9. nepojede nebo nebude volno.',
-    replaces: 'Noční vlak Lào Cai → Hanoj.',
-    cost: 'Odpadá transfer na nádraží v Lào Cai — bus jede přímo ze Sa Py.',
-    gains: ['Jezdí častěji než vlak.', 'Levnější.', 'Bez přestupu v Lào Cai.'],
-    losses: ['Podstatně horší spaní.', 'Zážitek z nočního vlaku.'],
-    regionId: 'train',
-    detail: ['U všech náhrad je potřeba přebookovat návazný transfer do Tam Cốc na 29. 9.'],
+    id: 'alt-night-train-via-hanoi',
+    title: 'Noční vlak přes Hanoj místo přímého busu',
+    condition: 'Když na 28. 9. nebude volný přímý spoj do Tam Cốc, nebo když někdo neunese osm hodin na silnici a chce koleje.',
+    replaces: 'Přímý noční autobus Sa Pa → Tam Cốc.',
+    cost: 'Jeden úsek se rozpadne na tři: transfer do Lào Cai (cca 35 km), noční vlak SP4 do Hanoje a ráno návazný přejezd 100 km do Tam Cốc. Den 29. 9. přijde o dopoledne.',
+    gains: [
+      'Spí se na kolejích, ne na serpentinách. Vlak je na spaní klidnější než autobus.',
+      'Vlaky SP3/SP4 jezdí denně a jsou zavedené.',
+      'Je to noc navíc bez placeného hotelu, stejně jako u busu.',
+    ],
+    losses: [
+      'Dva přestupy s batohy navíc.',
+      'Podstatně dráž: dvě dvoulůžková kupé stojí přes 400 USD, dvě kabiny v autobuse zhruba 84 USD.',
+      'Ranní přejezd z Hanoje ukrojí z odpočinkového půldne v Tam Cốc.',
+    ],
+    regionId: 'night-transfer',
+    detail: [
+      'Obě části téhle varianty jsou v aplikaci pořád popsané se všemi variantami a cenami — transfer Sa Pa → Lào Cai, noční vlak Lào Cai → Hanoj a přejezd Hanoj → Tam Cốc.',
+      'Když sáhneš po téhle variantě, přebookuj i návazný transfer do Tam Cốc na ráno 29. 9.',
+    ],
+    sourceIds: ['src-sapanomad-chapa', 'src-vietnamesetrain-sp4', 'src-sapanomad-laocai-transfer'],
   },
 ]
 

@@ -94,7 +94,10 @@ describe('struktura cesty', () => {
     expect(byLabel.get('Sa Pa')).toBe(2)
     expect(byLabel.get('Tam Cốc')).toBe(3)
     expect(byLabel.get('Cát Bà')).toBe(3)
-    expect(nights.filter((d) => d.night!.kind === 'train')).toHaveLength(1)
+    // Právě jedna noc cesty se nespí v posteli, ale na přesunu — přímý noční
+    // bus Sa Pa → Tam Cốc. Vlak zůstává jako popsaná náhrada, ne jako plán.
+    expect(nights.filter((d) => d.night!.kind === 'bus' || d.night!.kind === 'train')).toHaveLength(1)
+    expect(byLabel.get('Noční autobus')).toBe(1)
   })
 
   it('poslední noc je v Hanoji, ne na ostrově', () => {
@@ -245,8 +248,11 @@ describe('referenční integrita', () => {
 
   it('každý přesun mezi oblastmi vede na skutečné dopravní varianty', () => {
     // Smyčka loopu z Hà Giangu a zpět nemá vlastní leg — má vlastní schéma.
+    // Pět mezioblastních přesunů: Hanoj → Hà Giang → Sa Pa → Tam Cốc → Cát Bà → Hanoj.
+    // Dřív jich bylo sedm; přímý noční bus Sa Pa → Tam Cốc sloučil tři úseky
+    // (transfer do Lào Cai, noční vlak, přejezd z Hanoje) do jednoho.
     const mainMoves = routeSegments.filter((s) => s.group === 'main' && s.fromNodeId !== s.toNodeId)
-    expect(mainMoves.length).toBeGreaterThanOrEqual(7)
+    expect(mainMoves.length).toBeGreaterThanOrEqual(5)
     for (const s of mainMoves) {
       expect(s.transportLegId, `${s.id}: přesun bez dopravního detailu`).toBeTruthy()
       const leg = transportLegById.get(s.transportLegId!)

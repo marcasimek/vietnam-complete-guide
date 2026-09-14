@@ -2,7 +2,7 @@
 
 Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`, `npm test` a kódem.
 
-**Poslední aktualizace:** 11. 9. 2026
+**Poslední aktualizace:** 14. 9. 2026
 **Větev:** `claude/vietnam-pwa-implementation-8xuy9s`
 
 ---
@@ -13,7 +13,7 @@ Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`,
 npm install
 npm run dev                        # vývoj
 npm run build && npm run preview   # http://localhost:4173/vietnam-complete-guide/
-npm test                           # 66 datových a unit testů
+npm test                           # 67 datových a unit testů
 npx playwright test                # 24 E2E testů (mobil + desktop)
 node scripts/shots.mjs             # screenshoty 390/768/1440 px + diagnostika
 ```
@@ -42,7 +42,7 @@ Plán (vybraný den v plné podobě + kompaktní přehled cesty, pás 18 dnů, �
 
 **Obsah — celý itinerář**
 18 pobytových dnů, 17 nocí (ověřeno testem). 26. 9. je referenční den podle zadání.
-**9 dopravních úseků** s variantami, časem ode dveří ke dveřím, nástupem/výstupem, kapacitou pro čtyři se zavazadly a plánem, když to nevyjde: letiště ⇄ Hanoj, Hanoj → Hà Giang, Hà Giang → Sa Pa, Sa Pa → Lào Cai, noční vlak, Hanoj → Tam Cốc, Ninh Bình → Cát Bà, Cát Bà → Hanoj.
+**10 dopravních úseků** s variantami, časem ode dveří ke dveřím, nástupem/výstupem, kapacitou pro čtyři se zavazadly a plánem, když to nevyjde: letiště ⇄ Hanoj, Hanoj → Hà Giang, Hà Giang → Sa Pa, **Sa Pa → Tam Cốc (přímý noční bus)**, Ninh Bình → Cát Bà, Cát Bà → Hanoj. Úseky Sa Pa → Lào Cai, noční vlak a Hanoj → Tam Cốc zůstávají popsané jako náhradní cesta (`alt-night-train-via-hanoi`), ne jako plán.
 **Místa a podniky ve všech oblastech** — Hanoj, Hà Giang, loop, Sa Pa, Ninh Bình, Cát Bà.
 Praktický průvodce (metoda ověřování, vstup, lety, peníze, SIM, pojištění, zdraví, bezpečnost, pravidla, balení), rozpočet s poctivě označenými položkami bez ceny, 4 náhradní varianty napojené přímo na kroky.
 
@@ -54,6 +54,26 @@ Praktický průvodce (metoda ověřování, vstup, lety, peníze, SIM, pojiště
 `README.md`, `docs/TEST-REPORT.md`, `docs/LICENSES.md`, `docs/screenshots/` (39 obrázků, bez nálezů).
 
 ---
+
+## Změna trasy 14. 9. 2026 — noční vlak nahrazen přímým busem
+
+Na přání zadavatele: místo řetězce **transfer do Lào Cai → noční vlak SP4 → ráno přejezd z Hanoje** jedeme **jedním přímým nočním autobusem Sa Pa → Tam Cốc**.
+
+Co se tím v datech změnilo:
+
+- Nový úsek `leg-sapa-ninhbinh` se čtyřmi variantami (kabinový noční bus = doporučeno, běžná lehátka, denní spoj, soukromé auto) a šesti novými zdroji.
+- Den 28. 9. přepsán (`src/data/days/sapa-nightbus.ts`, dřív `sapa-train.ts`): odpadly kroky „transfer na nádraží Lào Cai" a „noční vlak", přibyl jeden krok s nočním busem.
+- Den 29. 9. přepsán: místo příjezdu vlaku do Hanoje, snídaně u nádraží a návazného přejezdu je **ranní příjezd rovnou do Tam Cốc**. Den tím získal celé dopoledne.
+- Oblast `train` přejmenována na `night-transfer` („Noční přejezd"), včetně vlastní grafiky (noční silnice místo kolejí) a barvy `--region-night`. `night.kind` má nově hodnotu `'bus'`.
+- Schéma trasy: uzel Lào Cai zrušen, tři úseky sloučeny do jednoho `rs-sapa-tamcoc`. Hlavních mezioblastních přesunů je teď pět místo sedmi.
+- Rozpočet: `bd-sapa-laocai`, `bd-night-train` a `bd-hanoi-tamcoc` nahradila jedna položka `bd-sapa-tamcoc-bus` (14–31 USD/os. proti dřívějším zhruba 230–560 USD za čtyři).
+- Rezervace: tři úkoly nahradil jeden `bk-sapa-tamcoc-bus`.
+- Plán B `planb-no-direct-bus` a alternativa `alt-night-train-via-hanoi` drží původní vlakovou variantu kompletně popsanou pro případ, že přímý spoj nepojede.
+
+**Co je potřeba ověřit:** podle zdrojů vozí až do Tam Cốc jen The Long Travel a Grouptour — ostatní dopravci končí v centru Ninh Bình. Vedeno jako otevřená otázka `oq-direct-bus-details`.
+
+**Navazující úkol:** ubytování v Tam Cốc na 29. 9. musí vědět, že dorazíme kolem páté ráno. Brzký check-in nebo aspoň úschova zavazadel.
+
 
 ## Co zbývá
 

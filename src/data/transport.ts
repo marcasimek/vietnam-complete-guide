@@ -686,6 +686,214 @@ export const transportLegs: TransportLeg[] = [
     sourceIds: ['src-goodmorning-ninhbinh-catba'],
   },
   {
+    id: 'leg-sapa-ninhbinh',
+    from: 'Sa Pa',
+    to: 'Tam Cốc (Ninh Bình)',
+    fromPlaceId: 'place-sapa-town',
+    toPlaceId: 'place-tam-coc',
+    date: '2026-09-28',
+    summary:
+      'Přímý noční spoj ze Sa Py až do Tam Cốc. Přes 400 km jedním vozem — bez transferu na nádraží v Lào Cai, bez přestupu v Hanoji a bez návazného přejezdu druhý den ráno.',
+    practical: [
+      'HLAVNÍ VÝHODA: je to JEDEN úsek místo tří. Dřívější varianta byla transfer do Lào Cai, noční vlak a ráno další dvě hodiny z Hanoje do Tam Cốc. Tady se nastoupí v Sa Pě a vystoupí se v Tam Cốc.',
+      'POZOR NA CÍLOVOU STANICI: většina dopravců na téhle trase končí v centru Ninh Bình, ne v Tam Cốc. Podle zdrojů vozí cestující až do Tam Cốc jen The Long Travel a Grouptour. U ostatních počítej s dalšími 7 km taxíkem.',
+      'Podle zdrojů se u nočních spojů dá zůstat ve voze do 05:30. To je důležité — ubytování v Tam Cốc nás ve čtyři ráno nepustí na pokoj.',
+      'Prvních zhruba devadesát minut vede silnice serpentinami z hor dolů. Kdo špatně snáší zatáčky, ať si vezme něco na cestu a lehne si co nejdřív.',
+      'Uváděný rozsah jízdy 5 h 20 min – 9 h 50 min je široký. Reálně počítej s osmi až devíti hodinami a spodní hranici ignoruj.',
+    ],
+    options: [
+      {
+        id: 'opt-sapa-nb-cabin',
+        mode: 'bus',
+        label: 'Kabinový noční autobus, dvě dvoulůžkové kabiny (doporučeno)',
+        operator:
+          'Spoje jezdí pod jmény jako The Long Travel, Grouptour nebo HK Bus Lines; kabinové vozy se prodávají i pod značkami Royal Cabin a VIP Cabin.',
+        reseller: 'A21 Tours, Viet Transfers, 12Go Asia nebo přímo recepce ubytování v Sa Pě.',
+        doorToDoor: {
+          minHours: 8,
+          maxHours: 9.5,
+          note: 'Od nástupu v Sa Pě po vystoupení v Tam Cốc. Horní hranice počítá s tím, že se ve voze zůstane do 05:30.',
+          confidence: 'published',
+        },
+        ridingTime: { minHours: 8, maxHours: 8.5 },
+        price: [
+          {
+            currency: 'USD',
+            min: 21,
+            max: 31,
+            unit: 'per-person',
+            persons: 1,
+            note: 'Dvoulůžková kabina vychází kolem 42 USD, tedy zhruba 21 USD na osobu. Jednolůžková kolem 31 USD. Pro dva páry jsou dvě dvoulůžkové kabiny přesně to, co potřebujeme — zhruba 84 USD za všechny čtyři. Jiný prodejce uvádí nástupní cenu 25 USD na osobu.',
+            confidence: 'published',
+            sourceIds: ['src-sapanomad-cabin-ninhbinh', 'src-a21-cabin-sapa-ninhbinh'],
+            checkedOn: '2026-09-14',
+            includes: ['lehátko v kabině se závěsem', 'deka', 'voda', 'zásuvka', 'wifi a klimatizace podle dopravce'],
+            excludes: ['jídlo cestou', 'taxi, pokud spoj končí v Ninh Bình místo v Tam Cốc'],
+          },
+        ],
+        capacityNote:
+          'Dvě dvoulůžkové kabiny pokryjí čtyři lidi a každý pár má vlastní zavřený prostor — to je proti vlaku hlavní zlepšení, tam se stejné soukromí platilo dvojnásobkem. Velké batohy jdou do kufru pod podlahou, do kabiny se vejde jen příruční taška.',
+        pickup: {
+          description:
+            'Autobusové nádraží v Sa Pě u The Long Travel a Ha Sơn; Grouptour odjíždí zhruba 350 m od své kanceláře. Většina prodejců nabízí svoz od ubytování v centru — potvrď si to v rezervaci, ne až na místě.',
+        },
+        dropoff: {
+          description:
+            'U kanceláře dopravce v Tam Cốc, pokud jedeme s The Long Travel nebo Grouptour. U ostatních dopravců centrum Ninh Bình a zbylých 7 km taxíkem.',
+        },
+        schedule: {
+          summary:
+            'Večerní odjezdy se uvádějí kolem 19:30, 21:00, 21:30 a 22:00. Pro nás dává smysl ten nejpozdější, ať je den v Sa Pě celý — s odjezdem ve 21:30 jsme v Tam Cốc kolem šesté ráno.',
+          confidence: 'published',
+          sourceIds: ['src-a21-cabin-sapa-ninhbinh', 'src-sapanomad-cabin-ninhbinh'],
+        },
+        availability: 'unknown',
+        bookingLeadTime: 'Kabin je ve voze málo. Rezervovat 2–3 týdny předem, dvě vedle sebe se jinak neseženou.',
+        bookingUrl: 'https://12go.asia/en/travel/sapa/ninh-binh',
+        pros: [
+          'Jeden spoj místo tří úseků — odpadá transfer do Lào Cai i ranní přejezd z Hanoje.',
+          'Každý pár má vlastní kabinu, a to za zlomek ceny dvou dvoulůžkových kupé ve vlaku.',
+          'Ráno jsme rovnou v Tam Cốc, takže 29. 9. zbývá celý den místo půlky.',
+          'Ušetří jednu placenou noc.',
+        ],
+        cons: [
+          'Silnice, ne koleje. Prvních devadesát minut jsou serpentiny a spí se na nich hůř než ve vlaku.',
+          'Příjezd kolem páté ráno je brzy i s možností zůstat ve voze do 05:30.',
+          'Do Tam Cốc dojedou jen někteří dopravci — u špatně vybraného spoje přibude taxi.',
+        ],
+        sourceIds: [
+          'src-sapanomad-cabin-ninhbinh',
+          'src-a21-cabin-sapa-ninhbinh',
+          'src-viettransfers-sapa-ninhbinh',
+          'src-geckoroutes-sapa-ninhbinh',
+        ],
+        recommended: true,
+      },
+      {
+        id: 'opt-sapa-nb-sleeper',
+        mode: 'bus',
+        label: 'Běžný lehátkový noční autobus',
+        operator: 'The Long Travel nebo Grouptour (oba jedou až do Tam Cốc), případně Ha Sơn a HK Bus Lines do centra Ninh Bình.',
+        reseller: '12Go Asia, Vexere nebo Baolau.',
+        doorToDoor: {
+          minHours: 8,
+          maxHours: 10,
+          note: 'Zdroje uvádějí rozsah 5 h 20 min – 9 h 50 min. Spodní hranice je nereálná, počítej s horní.',
+          confidence: 'published',
+        },
+        price: [
+          {
+            currency: 'VND',
+            min: 345_000,
+            max: 500_000,
+            unit: 'per-person',
+            persons: 1,
+            note: 'Nejlevnější jízdenka se uvádí kolem 370 000 VND. Pro čtyři tedy zhruba 1 400 000 – 2 000 000 VND, což je pod polovinou kabinové varianty.',
+            confidence: 'published',
+            sourceIds: ['src-geckoroutes-sapa-ninhbinh', 'src-12go-sapa-ninhbinh'],
+            checkedOn: '2026-09-14',
+            excludes: ['jídlo cestou', 'taxi z Ninh Bình do Tam Cốc, pokud spoj nejede dál'],
+          },
+        ],
+        capacityNote:
+          'Dvoupatrový lehátkový vůz, 24 až 34 míst podle dopravce. Čtyři lehátka nejsou problém, ale jsou to otevřená lůžka v jednom prostoru — žádné soukromí pro páry. Velké batohy do kufru.',
+        pickup: { description: 'Autobusové nádraží v Sa Pě, u Grouptouru sběrné místo kousek od kanceláře.' },
+        dropoff: { description: 'Tam Cốc u The Long Travel a Grouptouru, jinak centrum Ninh Bình.' },
+        schedule: {
+          summary: 'Noční odjezdy se uvádějí zhruba mezi 19:00 a 20:00.',
+          confidence: 'published',
+          sourceIds: ['src-geckoroutes-sapa-ninhbinh'],
+        },
+        availability: 'unknown',
+        bookingLeadTime: 'Pár dní předem stačí, míst je víc než u kabin.',
+        pros: ['Výrazně levnější než kabiny.', 'Stejný jeden úsek ze Sa Py až do Tam Cốc.'],
+        cons: [
+          'Otevřená lehátka, žádné soukromí.',
+          'Na serpentinách se na nich drží hůř než v kabině se závěsem.',
+        ],
+        sourceIds: ['src-geckoroutes-sapa-ninhbinh', 'src-12go-sapa-ninhbinh'],
+      },
+      {
+        id: 'opt-sapa-nb-day',
+        mode: 'bus',
+        label: 'Denní spoj 29. 9. ráno (mění tvar dne)',
+        operator: 'Stejní dopravci, ranní odjezdy.',
+        doorToDoor: { minHours: 8, maxHours: 10, note: 'Odjezd kolem 7:00, příjezd odpoledne.', confidence: 'published' },
+        price: [
+          {
+            currency: 'VND',
+            min: 345_000,
+            max: 500_000,
+            unit: 'per-person',
+            persons: 1,
+            note: 'Stejná cenová hladina jako noční lehátkový spoj.',
+            confidence: 'published',
+            sourceIds: ['src-fullmoon-sapa-ninhbinh-day', 'src-geckoroutes-sapa-ninhbinh'],
+            checkedOn: '2026-09-14',
+          },
+        ],
+        capacityNote: 'Stejné vozy jako v noci, jen se v nich sedí a nespí. Zavazadla do kufru.',
+        pickup: { description: 'Autobusové nádraží v Sa Pě, odjezdy se uvádějí mezi 6:30 a 8:00.' },
+        dropoff: { description: 'Tam Cốc nebo centrum Ninh Bình podle dopravce.' },
+        schedule: {
+          summary: 'Ranní odjezdy 6:30–8:00, uvádí se i odpolední kolem 16:30. Cestou se staví zhruba po dvou hodinách.',
+          confidence: 'published',
+          sourceIds: ['src-fullmoon-sapa-ninhbinh-day', 'src-geckoroutes-sapa-ninhbinh'],
+        },
+        availability: 'unknown',
+        pros: [
+          'Spí se v posteli, ne ve voze.',
+          'Cestou je vidět krajina.',
+        ],
+        cons: [
+          'Stojí noc navíc v Sa Pě a celý den 29. 9. — odpočinkový půlden v Tam Cốc padá.',
+          'Osm hodin vsedě není o moc lepší než osm hodin vleže.',
+        ],
+        sourceIds: ['src-fullmoon-sapa-ninhbinh-day', 'src-geckoroutes-sapa-ninhbinh'],
+      },
+      {
+        id: 'opt-sapa-nb-private',
+        mode: 'car',
+        label: 'Soukromé auto pro čtyři',
+        operator: 'Viet Transfers, A21 Tours nebo ubytování v Sa Pě.',
+        doorToDoor: { minHours: 7, maxHours: 8.5, note: 'Bez sbírání dalších cestujících, zastávky podle nás.', confidence: 'estimate' },
+        price: [
+          {
+            currency: 'USD',
+            unit: 'per-vehicle',
+            persons: 4,
+            note: 'Cenu za vůz na téhle konkrétní trase se nepodařilo dohledat. Je to otevřená položka — vyžádej si ji u dvou poskytovatelů. Pro srovnání: na kratší trase Hanoj → Sa Pa se veřejně uvádí 135 USD za SUV.',
+            confidence: 'unverified',
+            sourceIds: ['src-viettransfers-sapa-ninhbinh'],
+            checkedOn: '2026-09-14',
+          },
+        ],
+        capacityNote: 'Vyžádej sedmimístné auto — čtyři lidé a čtyři velké batohy se do sedanu nevejdou.',
+        pickup: { description: 'Od dveří ubytování v Sa Pě v čase, který si určíme.' },
+        dropoff: { description: 'Přímo u ubytování v Tam Cốc.' },
+        schedule: { summary: 'Odjezd si volíme sami.', confidence: 'traveller-plan' },
+        availability: 'unknown',
+        pros: ['Ode dveří ke dveřím.', 'Dá se zastavit, kde chceme.'],
+        cons: ['Nejdražší varianta a cenu nemáme ověřenou.', 'Osm hodin vsedě v autě.'],
+        sourceIds: ['src-viettransfers-sapa-ninhbinh'],
+      },
+    ],
+    fallback: [
+      'Když nebudou volné kabiny: běžný lehátkový spoj u The Long Travel nebo Grouptouru. Stejná trasa, horší spaní.',
+      'Když nepojede žádný přímý spoj: zpátky na původní variantu — transfer do Lào Cai a noční vlak SP4 do Hanoje, ráno návazný přejezd do Tam Cốc. Obě části jsou v aplikaci pořád popsané.',
+      'Když spoj skončí v centru Ninh Bình místo v Tam Cốc: taxi je zhruba 7 km, počítej s ním v rozpočtu i v čase.',
+      'Když dorazíme ve čtyři ráno a ve voze se zůstat nedá: v Tam Cốc se dá počkat v kavárně u hlavní silnice. Proto je u ubytování na 29. 9. potřeba domluvit brzký check-in nebo aspoň úschovu zavazadel.',
+    ],
+    sourceIds: [
+      'src-geckoroutes-sapa-ninhbinh',
+      'src-12go-sapa-ninhbinh',
+      'src-a21-cabin-sapa-ninhbinh',
+      'src-sapanomad-cabin-ninhbinh',
+      'src-viettransfers-sapa-ninhbinh',
+      'src-fullmoon-sapa-ninhbinh-day',
+    ],
+  },
+  {
     id: 'leg-sapa-laocai',
     from: 'Sa Pa',
     to: 'Nádraží Lào Cai',
@@ -693,7 +901,7 @@ export const transportLegs: TransportLeg[] = [
     toPlaceId: 'place-lao-cai-station',
     date: '2026-09-28',
     summary:
-      '32–35 km z hor dolů k nádraží, hodina až hodina a půl podle provozu. Krátký úsek, na kterém ale visí celá noc — vlak nepočká.',
+      'NÁHRADNÍ CESTA, ne hlavní plán. Sa Pa → Tam Cốc jedeme přímým nočním busem; tenhle úsek platí jen tehdy, když sáhneme po variantě s nočním vlakem. 32–35 km z hor dolů k nádraží, hodina až hodina a půl podle provozu.',
     options: [
       {
         id: 'opt-sapa-laocai-private',
@@ -777,7 +985,7 @@ export const transportLegs: TransportLeg[] = [
     toPlaceId: 'place-hanoi',
     date: '2026-09-28',
     summary:
-      'Noční vlak z hor zpátky do Hanoje. Jedna z mála nocí, které se nedají nahradit hotelem na místě — a jediná noc cesty, kterou strávíme na kolejích.',
+      'NÁHRADNÍ CESTA, ne hlavní plán. Původní řešení přesunu ze Sa Py na jih: noční vlak do Hanoje a ráno další přejezd do Tam Cốc. Nahradil ho přímý noční bus — tohle zůstává popsané pro případ, že přímý spoj nepojede nebo nebude volno.',
     practical: [
       'JAK TO FUNGUJE: vlaky SP3 (Hanoj → Lào Cai) a SP4 (Lào Cai → Hanoj) provozuje vietnamská železnice. Soukromé firmy jako Chapa Express k nim připojují vlastní vozy s lepším vybavením. Proto se u „stejného vlaku" liší ceny i standard — kupuješ si vůz, ne vlak.',
       'Podle zdrojů odjíždí SP4 z Lào Cai ve 21:30 a přijíždí do Hanoje v 05:30. Pro 28. 9. 2026 to musíš potvrdit — časy se mění.',
@@ -912,7 +1120,7 @@ export const transportLegs: TransportLeg[] = [
     toPlaceId: 'place-tam-coc',
     date: '2026-09-29',
     summary:
-      '100 km na jih po dálnici, jízda 2–2,5 hodiny. Jedeme hned po noci ve vlaku, takže nejdůležitější není rychlost, ale to, aby se na spoj nemuselo běžet.',
+      'NÁHRADNÍ CESTA, ne hlavní plán. Navazuje na noční vlak do Hanoje. V hlavním plánu nás přímý bus ze Sa Py vysadí rovnou v Tam Cốc a tenhle úsek odpadá. Z Hanoje je to 100 km na jih po dálnici.',
     options: [
       {
         id: 'opt-hanoi-tamcoc-limousine',
