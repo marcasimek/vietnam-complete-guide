@@ -517,6 +517,21 @@ export const sources: Source[] = [
   },
   // --- co nám řekl přímo poskytovatel -------------------------------------
   {
+    id: 'src-strawberry-hagiang-sapa-schedule',
+    title: 'strawberryhagiangloop.com — jízdní řád a ceny Hà Giang ⇄ Sa Pa',
+    url: 'https://strawberryhagiangloop.com/',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: [
+      'tři úrovně na trase Hà Giang ⇄ Sa Pa: Royal Cabin Sleeping Bus, Hotel Sleeping Bus, Limousine',
+      'Hotel Sleeping Bus a Limousine za 300 000 VND na osobu',
+      'ranní odjezd z Hà Giangu do Sa Py v 7:30',
+    ],
+    note: 'Screenshot tabulky z webu, částečně zakrytý ikonami chatu — přesný čas případného večerního spoje a cena Royal Cabin nejsou čitelné celé. Nutno ověřit přímo.',
+  },
+  // --- co nám řekl přímo poskytovatel -------------------------------------
+  {
     id: 'src-strawberry-whatsapp-140926',
     title: 'Strawberry Ha Giang Loop — odpověď na WhatsApp (Daiquiri, tým Strawberry)',
     publisher: 'Strawberry Ha Giang Loop',

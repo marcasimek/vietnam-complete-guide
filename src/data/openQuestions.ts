@@ -16,10 +16,10 @@ export const openQuestions: OpenQuestion[] = [
     nextStep: 'Doptat se na WhatsAppu: výše zálohy, způsob platby, storno při dešti nebo sesuvu, a jestli je první noc v ceně. Teprve pak platit.',
   },
   {
-    id: 'oq-private-car-price',
-    title: 'Cena soukromého auta Hà Giang → Sa Pa',
-    detail: 'U žádného poskytovatele se nám nepodařilo dohledat cenu za vůz na téhle konkrétní trase.',
-    nextStep: 'Vyžádat cenu mailem u Viet Transfers a A21 Tours pro sedmimístné MPV, 26. 9., 4 osoby + 4 velké batohy.',
+    id: 'oq-strawberry-bus-schedule',
+    title: 'Má bus Hà Giang → Sa Pa i večerní spoj?',
+    detail: 'Strawberry má na webu Hà Giang → Sa Pa za 300 000 VND/os. (Hotel Sleeping Bus / Limousine), ale čitelný je jen ranní odjezd 7:30. Pokud existuje i pozdní večerní spoj 25. 9., mohl by nahradit nocleh v Hà Giangu tu noc. Cena soukromého auta na téhle trase se u žádného poskytovatele nepodařilo dohledat.',
+    nextStep: 'Zeptat se přímo Strawberry: existuje večerní/noční odjezd z Hà Giangu do Sa Py 25. 9.? Pokud ne, potvrdit aspoň přesný bod nástupu/výstupu a kapacitu na 4 batohy pro ranní spoj.',
     relatedDayDates: ['2026-09-26'],
   },
   {

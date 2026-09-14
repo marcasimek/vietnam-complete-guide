@@ -158,10 +158,10 @@ export const budgetLines: BudgetLine[] = [
     id: 'bd-hagiang-sapa',
     category: 'transport',
     label: 'Hà Giang → Sa Pa',
-    note: 'Sdílený limousine. Soukromé auto by bylo dražší, cenu nemáme.',
-    min: 270_000, max: 500_000, currency: 'VND', basis: 'per-person',
+    note: 'Strawberry nabízí Hotel Sleeping Bus / Limousine za 300 000 VND na osobu — levnější než sdílený limousine od jiných prodejců (270–500 tis.). Odjezd 7:30 podle webu; nepotvrzeno, jestli je i večerní spoj.',
+    min: 300_000, max: 300_000, currency: 'VND', basis: 'per-person',
     confidence: 'published',
-    sourceIds: ['src-bookaway-hg-sapa', 'src-redbus-hg-sapa'],
+    sourceIds: ['src-strawberry-hagiang-sapa-schedule'],
     dayDates: ['2026-09-26'],
   },
   {
