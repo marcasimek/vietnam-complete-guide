@@ -80,6 +80,8 @@ export type SourceKind =
   | 'community'
   | 'map'
   | 'traveller'
+  /** Co nám poskytovatel sdělil přímo — mail, WhatsApp, telefon. Není to web. */
+  | 'direct-quote'
 
 export interface Source {
   id: string

@@ -199,6 +199,53 @@ export const transportLegs: TransportLeg[] = [
       'Zhruba 300 km na sever. Trasa je velmi frekventovaná — denně jezdí desítky spojů. Jedeme DENNÍM spojem, ne nočním: druhý den ráno začíná loop a po noci v autobuse to nemá smysl.',
     options: [
       {
+        id: 'opt-hanoi-hg-strawberry',
+        mode: 'van',
+        label: 'Limousine od loop operátora, 9:00 → 16:00 (doporučeno)',
+        operator: 'Strawberry Ha Giang Loop prodává transfer přímo v balíčku loopu.',
+        doorToDoor: {
+          minHours: 7,
+          maxHours: 7,
+          note: 'Odjezd 9:00, příjezd 16:00 podle toho, co nám Strawberry napsali pro náš termín.',
+          confidence: 'verified',
+        },
+        ridingTime: { minHours: 6, maxHours: 7 },
+        price: [
+          {
+            currency: 'VND',
+            amount: 350_000,
+            unit: 'per-person',
+            persons: 1,
+            note: 'Limousine v rezervačním formuláři Strawberry. Pro čtyři 1 400 000 VND. Je to levnější než samostatně kupovaný spoj na téže trase.',
+            confidence: 'verified',
+            sourceIds: ['src-strawberry-booking-form'],
+            checkedOn: '2026-09-14',
+          },
+        ],
+        capacityNote:
+          'Objednává se rovnou na čtyři osoby v rezervaci loopu, takže kapacita je řešená předem. Velké batohy jedou s námi a na základně v Hà Giangu zůstávají po dobu loopu.',
+        pickup: { description: 'Svoz po Hanoji domlouvá operátor. Konkrétní místo a čas si nech písemně potvrdit — v rezervaci to uvedené není.' },
+        dropoff: { description: 'Přímo na základně Strawberry v Hà Giangu, kde ten večer probíhá briefing a kde spíme.' },
+        schedule: {
+          summary: 'Odjezd 9:00, příjezd 16:00. Potvrzeno přímo operátorem pro 21. 9. 2026.',
+          confidence: 'verified',
+          sourceIds: ['src-strawberry-whatsapp-140926'],
+        },
+        availability: 'likely',
+        bookingLeadTime: 'Součást rezervace loopu — řeší se zároveň s ní.',
+        pros: [
+          'Vysadí nás rovnou na základně, kde večer probíhá briefing. Žádný přesun po městě s batohy.',
+          'Levnější než samostatná jízdenka na téže trase.',
+          'Příjezd v 16:00 nechá večer volný přesně tak, jak plán potřebuje.',
+        ],
+        cons: [
+          'Váže dopravu na operátora — když se rozhodneme pro jiného, padá s ním.',
+          'Místo a čas svozu po Hanoji zatím nemáme písemně.',
+        ],
+        sourceIds: ['src-strawberry-whatsapp-140926', 'src-strawberry-booking-form'],
+        recommended: true,
+      },
+      {
         id: 'opt-hanoi-hg-limousine',
         mode: 'van',
         label: 'Denní limousine minivan',
@@ -235,9 +282,11 @@ export const transportLegs: TransportLeg[] = [
           'Přijedeme odpoledne, takže večer je čas na briefing.',
           'Často se dá pořídit v balíčku s loopem.',
         ],
-        cons: ['Nejdražší z autobusových variant.', 'Sedmihodinová jízda je i tak dlouhá.'],
+        cons: [
+          'Dráž než tentýž spoj koupený přes loop operátora (450–600 tis. VND proti 350 tis.).',
+          'Vysadí podle dopravce, ne nutně na základně operátora.',
+        ],
         sourceIds: ['src-sapanomad-hanoi-hagiang', 'src-looptrails-hagiang-bus'],
-        recommended: true,
       },
       {
         id: 'opt-hanoi-hg-cabin',

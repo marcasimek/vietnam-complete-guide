@@ -10,11 +10,10 @@ export const openQuestions: OpenQuestion[] = [
     relatedDayDates: ['2026-09-19'],
   },
   {
-    id: 'oq-loop-operator',
-    title: 'Výběr loop operátora a délky',
-    detail: 'Tři kandidáti (Strawberry, QT, YESD) a rozhodnutí 3 vs. 4 dny, private vs. skupina. Kamarádku třídenní loop unavil dlouhým sezením.',
-    nextStep: 'Poptat u všech tří: hodiny jízdy denně, reálná délka pěších bloků, dva soukromé pokoje (nejsou samozřejmost!), jazyk průvodce, co je v ceně včetně povolení do pohraniční oblasti, a storno při počasí. Orientační hladina je 212–297 USD na osobu za 4 dny.',
-    relatedDayDates: ['2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25'],
+    id: 'oq-strawberry-deposit',
+    title: 'Doplatek a storno u Strawberry',
+    detail: 'Nabídka i podmínky jsou domluvené (6 300 000 VND/os., dva soukromé pokoje, bus 9:00 → 16:00, noc po loopu 300 000 VND/pokoj), ale nic není zaplacené. Nevíme, jakou chtějí zálohu, jak se platí zbytek a jaké je storno při počasí. Není potvrzené, jestli je noc z 21. na 22. 9. v ceně balíčku.',
+    nextStep: 'Doptat se na WhatsAppu: výše zálohy, způsob platby, storno při dešti nebo sesuvu, a jestli je první noc v ceně. Teprve pak platit.',
   },
   {
     id: 'oq-private-car-price',

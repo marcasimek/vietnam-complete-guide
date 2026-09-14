@@ -2,7 +2,7 @@
 
 Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`, `npm test` a kódem.
 
-**Poslední aktualizace:** 14. 9. 2026
+**Poslední aktualizace:** 14. 9. 2026 (2× — změna trasy + nabídka Strawberry)
 **Větev:** `claude/vietnam-pwa-implementation-8xuy9s`
 
 ---
@@ -13,7 +13,7 @@ Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`,
 npm install
 npm run dev                        # vývoj
 npm run build && npm run preview   # http://localhost:4173/vietnam-complete-guide/
-npm test                           # 67 datových a unit testů
+npm test                           # 68 datových a unit testů
 npx playwright test                # 24 E2E testů (mobil + desktop)
 node scripts/shots.mjs             # screenshoty 390/768/1440 px + diagnostika
 ```
@@ -73,6 +73,30 @@ Co se tím v datech změnilo:
 **Co je potřeba ověřit:** podle zdrojů vozí až do Tam Cốc jen The Long Travel a Grouptour — ostatní dopravci končí v centru Ninh Bình. Vedeno jako otevřená otázka `oq-direct-bus-details`.
 
 **Navazující úkol:** ubytování v Tam Cốc na 29. 9. musí vědět, že dorazíme kolem páté ráno. Brzký check-in nebo aspoň úschova zavazadel.
+
+
+## Nabídka Strawberry — první ověřená data cesty (14. 9. 2026)
+
+Zadavatel poslal poptávku přes formulář Strawberry a dopsal si se s nimi na WhatsAppu. **Tohle jsou první údaje celé cesty, které nepocházejí z rešerše, ale přímo od poskytovatele.**
+
+Co je potvrzené:
+
+| Co | Kolik | Zdroj |
+|---|---|---|
+| Private easy rider 4D/3N | 6 300 000 VND / os. (25 200 000 za čtyři) | rezervační formulář Strawberry |
+| Limousine Hanoj → Hà Giang, 9:00 → 16:00 | 350 000 VND / os. (1 400 000 za čtyři) | formulář + WhatsApp |
+| Noc po loopu 25./26. 9. na základně | 300 000 VND / pokoj (600 000 za dva) | WhatsApp |
+| Dva soukromé pokoje před loopem i na loopu | ano | WhatsApp |
+
+Kvůli tomu vznikl **nový druh zdroje `direct-quote`** (co nám poskytovatel řekl přímo — mail, WhatsApp, telefon; není to web) a přepsal se test na stupeň `verified`:
+
+- dřív: žádná cena nesmí být `verified`, protože sběr dat byl jen vyhledávání
+- teď: `verified` smí nést jen cena, která cituje zdroj druhu `direct-quote`, `operator` nebo `traveller`, a musí mít datum kontroly
+- přibyla pojistka, že `verified` zůstane pod 20 % všech cen, aby se stupeň nezačal rozlévat na rešerši
+
+Dál se změnilo: rozpočtová položka loopu je z odhadu 212–297 USD konkrétních 6 300 000 VND; `bd-hagiang-2` se rozpadla na `bd-hagiang-night-21` (bez ceny, možná v balíčku) a `bd-hagiang-night-25` (600 000 VND, účtuje se zvlášť); v úseku Hanoj → Hà Giang je nová doporučená varianta `opt-hanoi-hg-strawberry`; den 21. 9. má konkrétní časy 9:00 → 16:00.
+
+**Co zbývá u Strawberry:** výše zálohy, způsob platby, storno při počasí, a jestli je noc z 21. na 22. 9. v ceně balíčku. Vedeno jako `oq-strawberry-deposit`. **Neodpověděli na dotaz na transfer Hà Giang → Sa Pa na 26. 9.** — zeptat se znovu.
 
 
 ## Co zbývá

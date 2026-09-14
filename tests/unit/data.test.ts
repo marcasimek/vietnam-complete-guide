@@ -14,7 +14,7 @@ import { alternatives } from '@/data/alternatives'
 import { openQuestions } from '@/data/openQuestions'
 import { guideCards } from '@/data/guide'
 import { routeNodes, routeSegments } from '@/data/route'
-import type { Price } from '@/model/types'
+import type { Price, SourceKind } from '@/model/types'
 
 // ---------------------------------------------------------------------------
 // Schémata
@@ -295,11 +295,30 @@ describe('ceny a jistota', () => {
     }
   })
 
-  it('netvrdí „ověřeno" tam, kde zdroj nebyl otevřen', () => {
-    // Metoda sběru dat (jen vyhledávání) nedovoluje stupeň `verified`.
+  it('„ověřeno" smí stát jen na tom, co nám poskytovatel řekl přímo', () => {
+    // Metoda sběru dat z Prahy byla jen vyhledávání, takže z průvodce ani
+    // z prodejní platformy `verified` vzniknout nemůže. Smí ho nést jedině
+    // cena, kterou nám dal sám poskytovatel (nabídka na jeho vlastním
+    // formuláři, mail, WhatsApp) nebo kterou má z první ruky cestující.
+    const FIRST_HAND: SourceKind[] = ['direct-quote', 'operator', 'traveller']
     for (const { where, price } of collectPrices()) {
-      expect(price.confidence, `${where}: příliš silné tvrzení`).not.toBe('verified')
+      if (price.confidence !== 'verified') continue
+      const cited = (price.sourceIds ?? []).map((id) => sourceById.get(id))
+      expect(cited.length, `${where}: „ověřeno" bez zdroje`).toBeGreaterThan(0)
+      expect(
+        cited.some((src) => src && FIRST_HAND.includes(src.kind)),
+        `${where}: „ověřeno" se opírá jen o rešerši, ne o poskytovatele`,
+      ).toBe(true)
+      expect(price.checkedOn, `${where}: „ověřeno" bez data kontroly`).toBeTruthy()
     }
+  })
+
+  it('naprostá většina cen zůstává pod stupněm „ověřeno"', () => {
+    // Pojistka proti tomu, aby se `verified` začalo rozlévat na údaje
+    // z rešerše. Ověřené smí být jen to, co jsme si opravdu vyžádali.
+    const prices = collectPrices()
+    const verified = prices.filter((p) => p.price.confidence === 'verified')
+    expect(verified.length / prices.length).toBeLessThan(0.2)
   })
 
   it('ceny s uvedeným zdrojem mají i datum kontroly', () => {

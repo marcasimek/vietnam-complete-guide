@@ -6,9 +6,14 @@ import type { Source } from '@/model/types'
  * POCTIVOST METODY: v prostředí, kde tahle data vznikala, byl přístup na web
  * omezen na vyhledávání — jednotlivé stránky nešlo otevřít přímo. Údaje níže
  * tedy pocházejí z výsledků vyhledávání nad uvedenými URL, ne z otevřené stránky.
- * Proto je u většiny cen a provozních údajů `confidence: 'published'` nebo níž
- * a u žádného není `'verified'`, pokud to není údaj od samotných cestujících.
- * Před cestou je potřeba otevřít odkaz a potvrdit. Viz karta „Jak ověřujeme".
+ * Proto je u většiny cen a provozních údajů `confidence: 'published'` nebo níž.
+ *
+ * Stupeň `'verified'` smí nést jedině údaj, který nám dal PŘÍMO poskytovatel
+ * (jeho vlastní formulář, mail, WhatsApp — druh zdroje `direct-quote`
+ * nebo `operator`) nebo který má z první ruky cestující (`traveller`).
+ * Hlídá to test „ověřeno smí stát jen na tom, co nám poskytovatel řekl přímo".
+ * U ostatního je potřeba před cestou otevřít odkaz a potvrdit.
+ * Viz karta „Jak ověřujeme".
  */
 export const sources: Source[] = [
   // --- doprava Hà Giang → Sa Pa -------------------------------------------
@@ -509,6 +514,34 @@ export const sources: Source[] = [
     kind: 'operator',
     checkedOn: '2026-09-11',
     supports: ['autobus najíždí přímo na trajekt, nepřestupuje se', 'v ceně mýto, trajekt a svoz'],
+  },
+  // --- co nám řekl přímo poskytovatel -------------------------------------
+  {
+    id: 'src-strawberry-whatsapp-140926',
+    title: 'Strawberry Ha Giang Loop — odpověď na WhatsApp (Daiquiri, tým Strawberry)',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'direct-quote',
+    checkedOn: '2026-09-14',
+    supports: [
+      'dva soukromé pokoje před loopem i během loopu jsou možné',
+      'denní autobus Hanoj → Hà Giang s odjezdem v 9:00 a příjezdem v 16:00',
+      'noc po loopu u nich na základně za 300 000 VND za pokoj a noc',
+    ],
+    note: 'Není to web, ale konverzace. Platí to, co nám napsali pro náš termín — ne obecný ceník. Nic zatím není zaplacené.',
+  },
+  {
+    id: 'src-strawberry-booking-form',
+    title: 'Strawberry Ha Giang Loop — rezervační formulář s vyčíslenou nabídkou',
+    url: 'https://strawberryhagiangloop.com/',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: [
+      'Private Motorbike Tour Easy Rider 4D/3N za 6 300 000 VND na osobu',
+      'limousine Hanoj → Hà Giang za 350 000 VND na osobu',
+      'souhrn pro 4 osoby: 25 200 000 + 1 400 000 = 26 600 000 VND',
+    ],
+    note: 'Ceník samotného operátora s vyčísleným souhrnem pro náš termín, ne přeprodejce.',
   },
   // --- přímý autobus Sa Pa → Ninh Bình / Tam Cốc ---------------------------
   {
