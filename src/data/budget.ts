@@ -73,16 +73,6 @@ export const budgetLines: BudgetLine[] = [
     dayDates: ['2026-09-21'],
   },
   {
-    id: 'bd-hagiang-night-25',
-    category: 'stay',
-    label: 'Hà Giang — noc 25./26. 9., 2 pokoje',
-    note: 'Noc po loopu na základně Strawberry, 300 000 VND za pokoj. Pro dva pokoje 600 000 VND. Není v balíčku — účtuje se zvlášť.',
-    min: 600_000, max: 600_000, currency: 'VND', basis: 'total',
-    confidence: 'verified',
-    sourceIds: ['src-strawberry-whatsapp-140926'],
-    dayDates: ['2026-09-25'],
-  },
-  {
     id: 'bd-loop-nights',
     category: 'stay',
     label: 'Homestaye na loopu — 3 noci (22.–24. 9.)',
@@ -157,8 +147,8 @@ export const budgetLines: BudgetLine[] = [
   {
     id: 'bd-hagiang-sapa',
     category: 'transport',
-    label: 'Hà Giang → Sa Pa',
-    note: 'Strawberry nabízí Hotel Sleeping Bus / Limousine za 300 000 VND na osobu — levnější než sdílený limousine od jiných prodejců (270–500 tis.). Odjezd 7:30 podle webu; nepotvrzeno, jestli je i večerní spoj.',
+    label: 'Hà Giang → Sa Pa (noční bus)',
+    note: 'POTVRZENO Strawberry 16. 9.: noční bus odjíždí 18:00, v Sa Pě 23:00. Nahrazuje noc v Hà Giangu po loopu (dřív 600 000 VND za 2 pokoje) — ta odpadá, spí se rovnou v Sa Pě.',
     min: 300_000, max: 300_000, currency: 'VND', basis: 'per-person',
     confidence: 'published',
     sourceIds: ['src-strawberry-hagiang-sapa-schedule'],

@@ -56,19 +56,21 @@ export const choiceGroups: ChoiceGroup[] = [
     id: 'choice-sapa-stay',
     title: 'Kde v Sa Pě spíme',
     intro:
-      'Dvě noci, dva dvoulůžkové pokoje (26. a 27. 9.). Rozhodnutí není o hvězdičkách, ale o tom, jestli chceme večer chodit pěšky, nebo mít ráno terasu nad poli.',
+      'Tři noci, dva dvoulůžkové pokoje (25.–27. 9.) — check-in proběhne až kolem 23:00, hned po nočním busu z Hà Giangu. Rozhodnutí není o hvězdičkách, ale o tom, jestli chceme večer chodit pěšky, nebo mít ráno terasu nad poli.',
     mode: 'pick-one',
     regionId: 'sapa',
     serviceIds: ['svc-sapa-centre-hotel', 'svc-eco-palms-house', 'svc-sapa-eco-bungalows'],
     decisionNotes: [
+      'Pozdní příjezd (kolem 23:00) je hlavní proměnná: ubytování musí vědět dopředu, že dorazíme pozdě večer, a mít otevřenou recepci nebo domluvený pozdní check-in.',
       'Centrum vyhrává na večerním programu (hotpot, bar, koupel pěšky) a na večerním odjezdu 28. 9. na autobus.',
-      'Údolí vyhrává na klidu, bazénu a na tom, že 27. 9. se vyráží na trek rovnou od domu.',
-      'Kompromis, který dává smysl: centrum na obě noci, a bazén/klid dohnat až v Tam Cốc, kde na to máme tři noci.',
+      'Údolí vyhrává na klidu, bazénu a na tom, že 27. 9. se vyráží na trek rovnou od domu — ale pozdní check-in dál od centra je rizikovější.',
+      'Kompromis, který dává smysl: centrum na všechny tři noci, a bazén/klid dohnat až v Tam Cốc, kde na to máme tři noci.',
       'Dokud není hotel vybraný, nikde v aplikaci nepíšeme vzdálenost „od našeho hotelu" — jen od centra Sa Py.',
     ],
     openQuestions: [
       'U Sapa Eco Bungalows nemáme dohledanou cenu za dvoulůžkový pokoj.',
-      'Žádná z cen není potvrzená dostupností pro 26.–28. 9. 2026.',
+      'Žádná z cen není potvrzená dostupností pro 25.–28. 9. 2026.',
+      'Zvládne recepce pozdní check-in kolem 23:00? Potvrdit při rezervaci.',
     ],
   },
   {

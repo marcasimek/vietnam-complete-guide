@@ -558,6 +558,19 @@ export const sources: Source[] = [
     ],
     note: 'Ceník samotného operátora s vyčísleným souhrnem pro náš termín, ne přeprodejce.',
   },
+  {
+    id: 'src-strawberry-whatsapp-160916',
+    title: 'Strawberry Ha Giang Loop — odpověď na WhatsApp (noční bus a platba)',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'direct-quote',
+    checkedOn: '2026-09-16',
+    supports: [
+      'noční bus Hà Giang → Sa Pa odjíždí v 18:00 a přijíždí do Sa Py ve 23:00',
+      'bus Hanoj → Hà Giang lze zarezervovat s odjezdem v 9:00',
+      'platba preferovaná v hotovosti ve VND',
+    ],
+    note: 'Konverzace na WhatsAppu, ne web. Platí to, co napsali pro náš termín. Přesný nástupní bod v Hà Giangu a celková cena zatím chybí — vyžádáno.',
+  },
   // --- přímý autobus Sa Pa → Ninh Bình / Tam Cốc ---------------------------
   {
     id: 'src-geckoroutes-sapa-ninhbinh',

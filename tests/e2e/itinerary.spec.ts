@@ -4,26 +4,26 @@ import { expect, test } from '@playwright/test'
  * Scénáře 1–4 ze zadání §14: mobilní průchod referenčním dnem a osobní stav.
  */
 
-test('1 — přehled → 26. 9. → transfer → varianty → nástup → navigace', async ({ page }) => {
+test('1 — přehled → 25. 9. → noční bus → varianty → nástup → navigace', async ({ page }) => {
   await page.goto('#/plan')
   await expect(page.getByRole('heading', { name: 'Sever Vietnamu' })).toBeVisible()
 
   // Výběr dne v pásu
-  await page.getByRole('tab', { name: /26\. 9\./ }).click()
-  await expect(page.locator('.daycard--focus .daycard__title')).toHaveText('Hà Giang → Sa Pa')
+  await page.getByRole('tab', { name: /25\. 9\./ }).click()
+  await expect(page.locator('.daycard--focus .daycard__title')).toHaveText('Loop, den 4: Du Già → Hà Giang')
 
-  // Klik na řádek transferu
-  await page.getByRole('link', { name: /Ranní přímý transfer do Sa Pa/ }).click()
-  await expect(page).toHaveURL(/#\/item\/item-20260926-transfer/)
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Ranní přímý transfer')
+  // Klik na řádek nočního busu
+  await page.getByRole('link', { name: /Noční bus Hà Giang → Sa Pa/ }).click()
+  await expect(page).toHaveURL(/#\/item\/item-20260925-night-bus/)
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Noční bus')
 
   // Dál na dopravní varianty
   await page.getByRole('link', { name: /Otevřít dopravní varianty|Hà Giang → Sa Pa/ }).first().click()
   await expect(page).toHaveURL(/#\/transport\/leg-hagiang-sapa/)
 
   // Doporučená varianta s cenou, jednotkou a stupněm jistoty
-  await expect(page.getByText('doporučeno')).toBeVisible()
-  await expect(page.locator('.price__value').filter({ hasText: /270\s?000\s*–\s*500\s?000 VND/ })).toBeVisible()
+  await expect(page.locator('.optcard--main .chip--jade')).toHaveText('doporučeno')
+  await expect(page.locator('.price__value').filter({ hasText: /300\s?000 VND/ })).toBeVisible()
   await expect(page.getByText('za osobu').first()).toBeVisible()
   await expect(page.getByText('zveřejněný ceník').first()).toBeVisible()
 
@@ -32,14 +32,14 @@ test('1 — přehled → 26. 9. → transfer → varianty → nástup → naviga
   await expect(page.getByText('Výstup', { exact: true }).first()).toBeVisible()
 
   // Rezervační odkaz vede ven a otevírá se v novém panelu
-  const booking = page.getByRole('link', { name: /Porovnat a rezervovat/ })
+  const booking = page.getByRole('link', { name: /Porovnat a rezervovat/ }).first()
   await expect(booking).toHaveAttribute('target', '_blank')
   await expect(booking).toHaveAttribute('rel', /noopener/)
 })
 
-test('2 — zpět → check-in a oběd → hotely → skutečná jídelna → mapa', async ({ page }) => {
+test('2 — zpět → klidné dopoledne → hotely → skutečná jídelna → mapa', async ({ page }) => {
   await page.goto('#/item/item-20260926-checkin-lunch')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Check-in a oběd')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Klidné dopoledne a oběd')
 
   // Dva propojené výběry
   await expect(page.getByRole('link', { name: /Kde v Sa Pě spíme/ })).toBeVisible()
@@ -120,7 +120,7 @@ test('deep link a tlačítko zpět obnoví správný kontext', async ({ page }) 
   await expect(page).toHaveURL(/#\/item\/item-20260926-coaster/)
   await page.goBack()
   await expect(page).toHaveURL(/#\/day\/2026-09-26/)
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Hà Giang → Sa Pa')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Sa Pa: coaster a první den v horách')
 })
 
 test('neznámé ID ukáže užitečný fallback, ne prázdnou obrazovku', async ({ page }) => {

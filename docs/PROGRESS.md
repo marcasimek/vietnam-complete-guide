@@ -2,7 +2,7 @@
 
 Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`, `npm test` a kódem.
 
-**Poslední aktualizace:** 14. 9. 2026 (2× — změna trasy + nabídka Strawberry)
+**Poslední aktualizace:** 16. 9. 2026 — potvrzený noční bus Hà Giang → Sa Pa
 **Větev:** `claude/vietnam-pwa-implementation-8xuy9s`
 
 ---
@@ -13,8 +13,8 @@ Pracovní stav projektu. Čti ho na začátku každé session spolu s `git log`,
 npm install
 npm run dev                        # vývoj
 npm run build && npm run preview   # http://localhost:4173/vietnam-complete-guide/
-npm test                           # 68 datových a unit testů
-npx playwright test                # 24 E2E testů (mobil + desktop)
+npm test                           # 69 datových a unit testů
+npx playwright test                # 28 E2E testů (mobil + desktop)
 node scripts/shots.mjs             # screenshoty 390/768/1440 px + diagnostika
 ```
 
@@ -96,8 +96,21 @@ Kvůli tomu vznikl **nový druh zdroje `direct-quote`** (co nám poskytovatel ř
 
 Dál se změnilo: rozpočtová položka loopu je z odhadu 212–297 USD konkrétních 6 300 000 VND; `bd-hagiang-2` se rozpadla na `bd-hagiang-night-21` (bez ceny, možná v balíčku) a `bd-hagiang-night-25` (600 000 VND, účtuje se zvlášť); v úseku Hanoj → Hà Giang je nová doporučená varianta `opt-hanoi-hg-strawberry`; den 21. 9. má konkrétní časy 9:00 → 16:00.
 
-**Co zbývá u Strawberry:** výše zálohy, způsob platby, storno při počasí, a jestli je noc z 21. na 22. 9. v ceně balíčku. Vedeno jako `oq-strawberry-deposit`. **Neodpověděli na dotaz na transfer Hà Giang → Sa Pa na 26. 9.** — zeptat se znovu.
+**Co zbývalo u Strawberry k 14. 9.:** výše zálohy, storno při počasí, jestli je noc z 21. na 22. 9. v ceně balíčku, a transfer Hà Giang → Sa Pa — na ten předtím neodpověděli.
 
+## Potvrzený noční bus Hà Giang → Sa Pa (16. 9. 2026)
+
+Strawberry na WhatsAppu přímo potvrdilo: **noční bus Hà Giang → Sa Pa odjíždí v 18:00 a je v Sa Pě ve 23:00.** Nahrazuje to dřívější plán (nocleh v Hà Giangu po loopu + ranní přejezd 26. 9.) — místo toho se po loopu jede rovnou do Sa Py ještě týž večer.
+
+Co se tím v datech změnilo:
+
+- Den 25. 9. (`ha-giang.ts`) končí novým krokem `item-20260925-night-bus` (transport, 18:00 → 23:00) místo dřívějšího nočního v Hà Giangu; `night` pole dne je teď `{ label: 'Sa Pa', ... }`.
+- Den 26. 9. přišel o krok transferu (`item-20260926-transfer` zrušen) — check-in proběhl už předešlý večer. Zbylé tři kroky se přenumerovaly, den přejmenován na „Sa Pa: coaster a první den v horách".
+- `leg-hagiang-sapa`: doporučená varianta `opt-hg-sapa-strawberry-bus` má teď potvrzený rozvrh (`doorToDoor`/`schedule` confidence `verified`), ostatní varianty (limousine, soukromé auto, přes Lào Cai) zůstávají jako popsaná náhrada pro ranní přejezd 26. 9.
+- Route/mapa: uzel Hà Giang má 1 noc (dřív 2), Sa Pa 3 noci (dřív 2) — segment `rs-hagiang-sapa` se přesunul na 25. 9. a je typu `bus`.
+- Rozpočet/rezervace: `bd-hagiang-night-25` (600 000 VND za noc po loopu) zrušena — ta noc už není potřeba. `bk-hagiang-base` a `bk-transfer-sapa` přepsané na nový rozvrh.
+- Nové otevřené otázky: `oq-hanoi-pickup-point` (přesná adresa nástupu v Hanoji 21. 9.) a `oq-strawberry-total-price` (jeden vyčíslený souhrn za všechno). Obě poslané Strawberry, odpověď zatím nedorazila.
+- 69 unit testů (přidán blok pro noční bus 25. 9.), 28 E2E testů, build a vizuální kontrola bez nálezů.
 
 ## Co zbývá
 
@@ -119,7 +132,7 @@ Dál se změnilo: rozpočtová položka loopu je z odhadu 212–297 USD konkrét
 
 Data vznikla v prostředí, kde byl web dostupný **jen přes vyhledávání** — jednotlivé stránky nešlo otevřít (`WebFetch` i přímý `curl` blokuje egress proxy). Údaje pocházejí z výsledků vyhledávání nad uvedenými URL, ne z otevřené stránky.
 
-Důsledek v datech: **žádná cena nemá stupeň `verified`** a test to vynucuje (`tests/unit/data.test.ts` → „netvrdí ověřeno tam, kde zdroj nebyl otevřen"). U každé ceny je klikací odkaz, aby to šlo potvrdit. V aplikaci je to vysvětlené v kartě „Jak jsme tohle ověřovali" (Průvodce → Praktické).
+Důsledek v datech: **`verified` smí nést jen údaj, který nám dal přímo poskytovatel** (WhatsApp, mail, jeho vlastní formulář — zdroj druhu `direct-quote` nebo `operator`) nebo cestující z první ruky, a test to vynucuje (`tests/unit/data.test.ts` → „ověřeno smí stát jen na tom, co nám poskytovatel řekl přímo") i pojistkou, že `verified` zůstane pod 20 % všech cen. Od 14.–16. 9. 2026 takhle přibylo pár konkrétních cen a časů od Strawberry (loop, transfer, noční bus) — u všeho ostatního je klikací odkaz, aby to šlo potvrdit. V aplikaci je to vysvětlené v kartě „Jak jsme tohle ověřovali" (Průvodce → Praktické).
 
 Kdyby další session měla plný přístup na web: nejcennější je otevřít zdroje u cen a povýšit je na `verified`, doplnit zbývající čtyři ceny a najít ověřené piny.
 

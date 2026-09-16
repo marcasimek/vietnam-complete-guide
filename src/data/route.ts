@@ -51,15 +51,15 @@ export const routeNodes: RouteNode[] = [
   },
   {
     id: 'rn-hagiang', label: 'Hà Giang', regionId: 'ha-giang', group: 'main',
-    lat: 22.8233, lng: 104.9836, order: 2, nights: 2,
-    note: 'Základna před loopem a po něm. Tady zůstávají velké batohy.',
-    dayDates: ['2026-09-21', '2026-09-25'], labelPos: 'top',
+    lat: 22.8233, lng: 104.9836, order: 2, nights: 1,
+    note: 'Základna před loopem. Batohy tu zůstávají do 25. 9. — noc po loopu se už nespí tady, ale v Sa Pě.',
+    dayDates: ['2026-09-21'], labelPos: 'top',
   },
   {
     id: 'rn-sapa', label: 'Sa Pa', regionId: 'sapa', group: 'main',
-    lat: 22.3364, lng: 103.8438, order: 3, nights: 2,
-    note: 'Coaster, trek v údolí Mường Hoa. Večer 28. 9. odsud odjíždí přímý noční bus.',
-    dayDates: ['2026-09-26', '2026-09-27', '2026-09-28'], labelPos: 'bottom',
+    lat: 22.3364, lng: 103.8438, order: 3, nights: 3,
+    note: 'Noční bus z Hà Giangu 25. 9. (18:00–23:00) sem přiváží ještě týž večer. Coaster, trek v údolí Mường Hoa. Večer 28. 9. odsud odjíždí přímý noční bus dál.',
+    dayDates: ['2026-09-25', '2026-09-26', '2026-09-27', '2026-09-28'], labelPos: 'bottom',
   },
   {
     id: 'rn-tamcoc', label: 'Tam Cốc', regionId: 'ninh-binh', group: 'main',
@@ -115,7 +115,7 @@ export const routeNodes: RouteNode[] = [
 export const routeSegments: RouteSegment[] = [
   { id: 'rs-hanoi-hagiang', group: 'main', fromNodeId: 'rn-hanoi', toNodeId: 'rn-hagiang', mode: 'van', label: 'Denní minivan, cca 6–8 h', date: '2026-09-21', transportLegId: 'leg-hanoi-hagiang', itemId: 'item-20260921-transfer' },
   { id: 'rs-hagiang-loop', group: 'main', fromNodeId: 'rn-hagiang', toNodeId: 'rn-hagiang', mode: 'motorbike', label: 'Loop, 4 dny — viz schéma okruhu níž', date: '2026-09-22', itemId: 'item-20260922-depart' },
-  { id: 'rs-hagiang-sapa', group: 'main', fromNodeId: 'rn-hagiang', toNodeId: 'rn-sapa', mode: 'van', label: 'Přímý transfer, 6,5–8 h', date: '2026-09-26', transportLegId: 'leg-hagiang-sapa', itemId: 'item-20260926-transfer' },
+  { id: 'rs-hagiang-sapa', group: 'main', fromNodeId: 'rn-hagiang', toNodeId: 'rn-sapa', mode: 'bus', label: 'Noční bus, 18:00 → 23:00', date: '2026-09-25', transportLegId: 'leg-hagiang-sapa', itemId: 'item-20260925-night-bus' },
   { id: 'rs-sapa-tamcoc', group: 'main', fromNodeId: 'rn-sapa', toNodeId: 'rn-tamcoc', mode: 'bus', label: 'Přímý noční bus, 8–9 h', date: '2026-09-28', transportLegId: 'leg-sapa-ninhbinh', itemId: 'item-20260928-night-bus' },
   { id: 'rs-tamcoc-catba', group: 'main', fromNodeId: 'rn-tamcoc', toNodeId: 'rn-catba', mode: 'ferry', label: 'Bus + trajekt, cca 4,5–6 h', date: '2026-10-02', transportLegId: 'leg-ninhbinh-catba', itemId: 'item-20261002-transfer' },
   { id: 'rs-catba-hanoi', group: 'main', fromNodeId: 'rn-catba', toNodeId: 'rn-hanoi', mode: 'ferry', label: 'Loď + silnice, cca 4–5,5 h', date: '2026-10-05', transportLegId: 'leg-catba-hanoi', itemId: 'item-20261005-return' },

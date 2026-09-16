@@ -331,9 +331,10 @@ export const day20260925: Day = {
   regionId: 'ha-giang',
   title: 'Loop, den 4: Du Già → Hà Giang',
   theme: 'Doklepat okruh a regenerovat',
-  night: { label: 'Hà Giang', regionId: 'ha-giang', kind: 'hotel' },
+  night: { label: 'Sa Pa', regionId: 'sapa', kind: 'hotel' },
   dayNotes: [
-    'Po loopu neplánuj hned noční autobus. Zítra nás čeká celodenní přejezd do Sa Py.',
+    'POTVRZENO Strawberry (16. 9. 2026): noční bus Hà Giang → Sa Pa odjíždí v 18:00 a je v Sa Pě ve 23:00. Nahrazuje nocleh v Hà Giangu — tuhle noc už spíme v Sa Pě.',
+    'Mezi návratem z loopu a odjezdem busu je jen pár hodin. Sprcha, jídlo a balení musí být hotové do 17:30 — večer se nerozvolňuje.',
   ],
   items: [
     {
@@ -376,24 +377,49 @@ export const day20260925: Day = {
       placeIds: ['place-ha-giang-town'],
       detail: [
         'Návrat na základnu, kde od 22. 9. leží velké batohy.',
-        'Zkontroluj obsah hned, ne až ráno. Zítra v sedm třicet odjíždí transfer do Sa Py.',
+        'Zkontroluj obsah hned, ne až ráno. Ve 18:00 odjíždí noční bus do Sa Py — na dodatečnou kontrolu není čas.',
       ],
       tags: ['transport'],
     },
     {
       id: 'item-20260925-recover',
       kind: 'rest',
-      title: 'Sprcha, večeře, regenerace',
-      subtitle: 'Zítra se jede celý den',
+      title: 'Rychlá sprcha a večeře před odjezdem',
+      subtitle: 'Hodiny do 18:00, ne rozvolněný večer',
       order: 4,
-      dayPart: 'evening',
+      dayPart: 'afternoon',
       status: 'main',
       placeIds: ['place-ha-giang-town'],
       detail: [
-        'Poslední večer v Hà Giangu. Po čtyřech dnech na motorce je sprcha a pořádné jídlo priorita.',
-        'Po loopu neplánujeme noční autobus. Zítra nás čeká celodenní přejezd do Sa Py a to je dost.',
+        'Po čtyřech dnech na motorce je sprcha a jídlo priorita — ale tentokrát na hodiny, ne na celý večer.',
+        'Poslední jídlo v Hà Giangu ber jako rychlé. Oslava konce loopu může počkat na Sa Pu, kam dorazíme ještě dnes.',
       ],
       tags: ['rest', 'food'],
+    },
+    {
+      id: 'item-20260925-night-bus',
+      kind: 'transport',
+      title: 'Noční bus Hà Giang → Sa Pa',
+      subtitle: 'Odjezd 18:00, příjezd do Sa Py 23:00 · potvrzeno Strawberry',
+      order: 5,
+      dayPart: 'evening',
+      status: 'main',
+      timeHint: '18:00 → 23:00, potvrzeno 16. 9. 2026',
+      transportLegId: 'leg-hagiang-sapa',
+      choiceGroupIds: ['choice-sapa-stay'],
+      detail: [
+        'Strawberry na WhatsAppu přímo potvrdilo: noční bus z Hà Giangu do Sa Py odjíždí v 18:00 a je na místě ve 23:00 — pět hodin, ne celá noc na cestě.',
+        'Nahrazuje to dřívější plán (nocleh v Hà Giangu + ranní přejezd 26. 9.). Místo toho spíme rovnou v Sa Pě a 26. 9. máme celý den volný, žádný přesun.',
+      ],
+      practical: [
+        'Check-in v ubytování v Sa Pě proběhne až kolem 23:00 — ubytování musí vědět, že dorazíme pozdě večer.',
+        'Přesný bod nástupu v Hà Giangu ještě nemáme. Vyžádat spolu s celkovou cenou celé rezervace.',
+      ],
+      caveats: [
+        'Kapacita na čtyři velké batohy po loopu není potvrzená — dotázat se při definitivní rezervaci.',
+      ],
+      sourceIds: ['src-strawberry-whatsapp-160916'],
+      tags: ['transport'],
     },
   ],
 }

@@ -364,9 +364,9 @@ export const transportLegs: TransportLeg[] = [
     to: 'Sa Pa',
     fromPlaceId: 'place-ha-giang-town',
     toPlaceId: 'place-sapa-town',
-    date: '2026-09-26',
+    date: '2026-09-25',
     summary:
-      'Přímý přejezd mezi dvěma horskými oblastmi, zhruba 250–300 km po silnicích přes Lào Cai. Jedeme ráno, abychom v Sa Pě byli s dostatečnou rezervou na odpolední program.',
+      'Přímý přejezd mezi dvěma horskými oblastmi, zhruba 250–300 km po silnicích přes Lào Cai. V plánu jedeme nočním busem Strawberry hned po loopu (18:00–23:00, potvrzeno 16. 9. 2026) — ostatní varianty níž popisují ranní přejezd 26. 9., kdyby noční bus nevyšel.',
     options: [
       {
         id: 'opt-hg-sapa-limousine',
@@ -429,13 +429,13 @@ export const transportLegs: TransportLeg[] = [
       {
         id: 'opt-hg-sapa-strawberry-bus',
         mode: 'bus',
-        label: 'Hotel Sleeping Bus / Limousine od Strawberry (doporučeno)',
+        label: 'Noční bus od Strawberry, 18:00 → 23:00 (doporučeno)',
         operator: 'Strawberry Ha Giang Loop — stejná síť, která vozí loop i transfer Hanoj → Hà Giang.',
         doorToDoor: {
-          minHours: 6,
-          maxHours: 8,
-          note: 'Odjezd z Hà Giangu v 7:30 podle jízdního řádu na webu. Přesný příjezd do Sa Py nepotvrzený.',
-          confidence: 'published',
+          minHours: 5,
+          maxHours: 5,
+          note: 'Odjezd z Hà Giangu v 18:00, příjezd do Sa Py ve 23:00 — potvrzeno přímo Strawberry na WhatsAppu 16. 9. 2026.',
+          confidence: 'verified',
         },
         price: [
           {
@@ -450,26 +450,26 @@ export const transportLegs: TransportLeg[] = [
           },
         ],
         capacityNote: 'Nepotvrzeno pro čtyři s velkými batohy po loopu — dotázat se při rezervaci stejně jako u limousine.',
-        pickup: { description: 'Podle webu z Hà Giangu, pravděpodobně od základny Strawberry — potvrdit přesné místo.' },
+        pickup: { description: 'Z Hà Giangu, pravděpodobně od základny Strawberry — přesné místo ještě chybí, vyžádáno spolu s celkovou cenou.' },
         dropoff: { description: 'Sa Pa, přesné místo výstupu nepotvrzené.' },
         schedule: {
-          summary: 'Na webu čitelný odjezd v 7:30 z Hà Giangu. Není jasné, jestli existuje i pozdější večerní spoj téhož dne — tu část tabulky zakrývaly ikony chatu ve screenshotu.',
-          confidence: 'published',
-          sourceIds: ['src-strawberry-hagiang-sapa-schedule'],
+          summary: 'POTVRZENO Strawberry na WhatsAppu 16. 9. 2026: odjezd z Hà Giangu v 18:00, příjezd do Sa Py ve 23:00.',
+          confidence: 'verified',
+          sourceIds: ['src-strawberry-whatsapp-160916'],
         },
         availability: 'unknown',
         bookingLeadTime: 'Řešit spolu s rezervací loopu u Strawberry.',
+        bookingUrl: 'https://strawberryhagiangloop.com/',
         pros: [
+          'POTVRZENO 16. 9. 2026 na WhatsAppu: noční bus odjíždí v 18:00 a je v Sa Pě ve 23:00 — nahrazuje nocleh v Hà Giangu po loopu.',
           'Levnější než samostatně kupovaný limousine na téže trase.',
           'Stejná síť jako loop — jedna komunikace, jeden operátor.',
-          'Pokud by existoval i večerní spoj, mohl by nahradit nocleh v Hà Giangu 25./26. 9. Nutno potvrdit.',
         ],
         cons: [
-          'Čitelný odjezd 7:30 vypadá jako ranní spoj, ne noční — pak nenahrazuje nocleh, jen přejezd.',
           'Kapacita na 4 velké batohy nepotvrzená.',
-          'Přesný bod nástupu a výstupu chybí.',
+          'Přesný bod nástupu v Hà Giangu a bod výstupu v Sa Pě zatím chybí.',
         ],
-        sourceIds: ['src-strawberry-hagiang-sapa-schedule'],
+        sourceIds: ['src-strawberry-hagiang-sapa-schedule', 'src-strawberry-whatsapp-160916'],
         recommended: true,
       },
       {

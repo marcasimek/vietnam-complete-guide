@@ -94,10 +94,10 @@ export const alternatives: Alternative[] = [
   {
     id: 'alt-coaster-2809',
     title: 'Coaster přesunout na ráno 28. 9.',
-    condition: 'Když 26. 9. dorazíme po 16:30, nebo prší a dráha stojí.',
+    condition: 'Když 26. 9. celé odpoledne prší a dráha stojí.',
     replaces: 'Alpine Coaster 26. 9. odpoledne.',
     cost: 'Nic. 28. 9. má jen jeden volitelný hlavní program a coaster otevírá v 9:00.',
-    gains: ['Nemusíme se po celodenním přejezdu nikam hnát.', 'Ráno bývá jasněji než odpoledne.'],
+    gains: ['Ráno bývá jasněji než odpoledne.'],
     losses: ['Ten den pak nezbude čas na Fansipan ani canyoning — vybírá se jedno.'],
     regionId: 'sapa',
     detail: ['Večer 28. 9. jedeme na noční autobus, takže program musí skončit s rezervou.'],
