@@ -788,7 +788,7 @@
 .smap__line { stroke: var(--ink-3); stroke-width: 2; opacity: .55; fill: none; color: var(--ink-3); }
 .smap__hit { stroke: transparent; stroke-width: 18; cursor: pointer; fill: none; }
 .smap__seg--on .smap__line { stroke: var(--jade-600); color: var(--jade-600); opacity: 1; stroke-width: 2.6; }
-.smap__seg[data-mode='train'] .smap__line { stroke: var(--region-train); color: var(--region-train); }
+.smap__seg[data-mode='train'] .smap__line { stroke: var(--region-night); color: var(--region-night); }
 .smap__seg[data-mode='ferry'] .smap__line, .smap__seg[data-mode='boat'] .smap__line { stroke: var(--region-cat-ba); color: var(--region-cat-ba); }
 .smap__seg[data-mode='motorbike'] .smap__line { stroke: var(--region-ha-giang-loop); color: var(--region-ha-giang-loop); }
 

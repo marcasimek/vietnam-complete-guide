@@ -50,8 +50,8 @@ test('5 + 6 — připravit offline, vypnout síť a otevřít dosud nenavštíve
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Hang Múa')
   await expect(page.locator('.price__value').first()).toContainText('VND')
 
-  await page.goto('#/transport/leg-laocai-hanoi-train')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Lào Cai → Hanoj')
+  await page.goto('#/transport/leg-sapa-ninhbinh')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Sa Pa → Tam Cốc')
   await expect(page.locator('.optcard--main .chip--jade')).toHaveText('doporučeno')
 
   await page.goto('#/guide')

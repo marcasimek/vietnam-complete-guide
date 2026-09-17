@@ -51,7 +51,7 @@ export function DayPage() {
       </Section>
 
       <div className="nightbar">
-        <Icon name={day.night?.kind === 'train' ? 'train' : day.night ? 'bed' : 'plane'} size={19} />
+        <Icon name={day.night?.kind === 'train' ? 'train' : day.night?.kind === 'bus' ? 'bus' : day.night ? 'bed' : 'plane'} size={19} />
         <div>
           <p className="section-label">Noc</p>
           <p>{day.night ? day.night.label : 'Žádná noc ve Vietnamu — večer odlétáme'}</p>

@@ -30,9 +30,13 @@ const VIEWPORTS = [
 
 const SCREENS = [
   { id: 'plan', hash: '#/plan', full: true },
+  { id: 'day-0925', hash: '#/day/2026-09-25', full: true },
   { id: 'day-0926', hash: '#/day/2026-09-26', full: true },
-  { id: 'item-transfer', hash: '#/item/item-20260926-transfer', full: true },
+  { id: 'night-bus', hash: '#/item/item-20260925-night-bus', full: true },
   { id: 'transport', hash: '#/transport/leg-hagiang-sapa', full: true },
+  { id: 'transport-nightbus', hash: '#/transport/leg-sapa-ninhbinh', full: true },
+  { id: 'day-0928', hash: '#/day/2026-09-28', full: true },
+  { id: 'day-0929', hash: '#/day/2026-09-29', full: true },
   { id: 'choice-stay', hash: '#/choice/choice-sapa-stay', full: true },
   { id: 'choice-evening', hash: '#/choice/choice-sapa-evening', full: true },
   { id: 'item-coaster', hash: '#/item/item-20260926-coaster', full: true },

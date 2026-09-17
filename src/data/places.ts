@@ -308,7 +308,7 @@ export const places: Place[] = [
     aliases: ['Tam Coc', 'Tam Cốc'],
     regionId: 'ninh-binh',
     what: 'Vesnice u řeky Ngô Đồng mezi vápencovými věžemi. Turistická základna Ninh Bình — ubytování, jídelny a půjčovny kol podél jedné hlavní ulice.',
-    whyHere: 'Naše základna na tři noci, 29. 9. – 2. 10. Po loopu a nočním vlaku je to záměrně odpočinkový blok.',
+    whyHere: 'Naše základna na tři noci, 29. 9. – 2. 10. Přímý noční bus ze Sa Py nás sem vysadí brzy ráno 29. 9. Po loopu a noci na cestě je to záměrně odpočinkový blok.',
     geo: { lat: 20.2192, lng: 105.9375, precision: 'area-centroid', searchQuery: 'Tam Cốc, Ninh Bình' },
     practical: [
       'Všechno podstatné je podél jedné ulice k přístavišti — pěšky nebo na kole.',
@@ -673,9 +673,9 @@ export const places: Place[] = [
     name: 'Nádraží Lào Cai',
     localName: 'Ga Lào Cai',
     aliases: ['Lao Cai', 'Lào Cai', 'Lao Cai station', 'nadrazi Lao Cai'],
-    regionId: 'train',
+    regionId: 'night-transfer',
     what: 'Koncové nádraží trati z Hanoje, kousek od čínské hranice. Odsud jezdí noční vlaky zpátky do Hanoje.',
-    whyHere: 'Večer 28. 9. odsud odjíždíme nočním vlakem. Ze Sa Py je to 32–35 km dolů z kopce.',
+    whyHere: 'V plánu už tudy nejedeme — Sa Pa → Tam Cốc jedeme přímým nočním busem. Nádraží zůstává popsané jako náhradní cesta přes noční vlak do Hanoje. Ze Sa Py je to 32–35 km dolů z kopce.',
     geo: { lat: 22.4966, lng: 103.9718, precision: 'approximate', searchQuery: 'Ga Lào Cai railway station' },
     practical: [
       'Před nádražím jsou jídelny a obchody — dá se tam počkat, když dorazíme s rezervou.',

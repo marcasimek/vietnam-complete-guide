@@ -85,18 +85,22 @@ const ART: Record<RegionId, ReactElement> = {
       </g>
     </g>
   ),
-  // Vlak — koleje a kopce
-  train: (
+  // Noční přejezd — silnice ze serpentin dolů, přerušovaná dělicí čára a hvězdy
+  'night-transfer': (
     <g>
-      <path d="M0 120V76l54-26 52 30 50-24 58 30 54-26 62 30 70-20v30z" {...L1} />
-      <path d="M0 120V96l70-14 62 12 60-10 66 14 62-10 80 8v24z" {...L2} />
-      <g {...LINE} strokeWidth="2.6" opacity="0.55">
-        <path d="M0 108h400M0 116h400" />
-      </g>
       <g {...L3}>
-        {Array.from({ length: 17 }, (_, i) => (
-          <rect key={i} x={i * 24 + 4} y="104" width="5" height="16" rx="1.5" />
+        {[
+          [34, 22], [78, 14], [132, 26], [186, 12], [238, 24], [292, 16], [348, 28],
+          [58, 36], [164, 38], [268, 34], [326, 42],
+        ].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r={i % 3 === 0 ? 2.4 : 1.6} />
         ))}
+      </g>
+      <path d="M0 120V78l54-26 52 30 50-24 58 30 54-26 62 30 70-20v28z" {...L1} />
+      <path d="M0 120V98l70-14 62 12 60-10 66 14 62-10 80 8v22z" {...L2} />
+      <path d="M0 120v-16c60-8 110 10 170 4s118-16 230-6v18z" {...L2} />
+      <g {...LINE} strokeWidth="2.4" opacity="0.5" strokeDasharray="14 12">
+        <path d="M0 112c60-8 110 10 170 4s118-16 230-6" />
       </g>
     </g>
   ),

@@ -80,6 +80,8 @@ export type SourceKind =
   | 'community'
   | 'map'
   | 'traveller'
+  /** Co nám poskytovatel sdělil přímo — mail, WhatsApp, telefon. Není to web. */
+  | 'direct-quote'
 
 export interface Source {
   id: string
@@ -130,7 +132,7 @@ export type RegionId =
   | 'ha-giang'
   | 'ha-giang-loop'
   | 'sapa'
-  | 'train'
+  | 'night-transfer'
   | 'ninh-binh'
   | 'cat-ba'
   | 'transit'
@@ -362,7 +364,7 @@ export interface Day {
   /** "Přesun + lehký adrenalin" */
   theme: string
   /** Kde spíme tuhle noc. `null` = noc ve vlaku/nikde. */
-  night: { label: string; regionId: RegionId; kind: 'hotel' | 'homestay' | 'train' | 'none' } | null
+  night: { label: string; regionId: RegionId; kind: 'hotel' | 'homestay' | 'train' | 'bus' | 'none' } | null
   items: ItineraryItem[]
   /** Poznámka k celému dni — tempo, rezervy, na co pozor. */
   dayNotes?: string[]

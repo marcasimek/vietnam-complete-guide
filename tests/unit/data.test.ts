@@ -14,7 +14,7 @@ import { alternatives } from '@/data/alternatives'
 import { openQuestions } from '@/data/openQuestions'
 import { guideCards } from '@/data/guide'
 import { routeNodes, routeSegments } from '@/data/route'
-import type { Price } from '@/model/types'
+import type { Price, SourceKind } from '@/model/types'
 
 // ---------------------------------------------------------------------------
 // Schémata
@@ -87,14 +87,20 @@ describe('struktura cesty', () => {
     const byLabel = new Map<string, number>()
     for (const d of nights) byLabel.set(d.night!.label, (byLabel.get(d.night!.label) ?? 0) + 1)
     expect(byLabel.get('Hanoj')).toBe(3)
-    expect(byLabel.get('Hà Giang')).toBe(2)
+    expect(byLabel.get('Hà Giang')).toBe(1)
     expect(byLabel.get('Yên Minh')).toBe(1)
     expect(byLabel.get('Đồng Văn')).toBe(1)
     expect(byLabel.get('Du Già')).toBe(1)
-    expect(byLabel.get('Sa Pa')).toBe(2)
+    // Noc po loopu (25./26. 9.) se od 16. 9. 2026 nespí v Hà Giangu, ale
+    // v Sa Pě — noční bus Strawberry (18:00 → 23:00) tam doveze ještě týž
+    // večer. Sa Pa má proto 3 noci (25., 26., 27. 9.), Hà Giang jen 1 (21. 9.).
+    expect(byLabel.get('Sa Pa')).toBe(3)
     expect(byLabel.get('Tam Cốc')).toBe(3)
     expect(byLabel.get('Cát Bà')).toBe(3)
-    expect(nights.filter((d) => d.night!.kind === 'train')).toHaveLength(1)
+    // Právě jedna noc cesty se nespí v posteli, ale na přesunu — přímý noční
+    // bus Sa Pa → Tam Cốc. Vlak zůstává jako popsaná náhrada, ne jako plán.
+    expect(nights.filter((d) => d.night!.kind === 'bus' || d.night!.kind === 'train')).toHaveLength(1)
+    expect(byLabel.get('Noční autobus')).toBe(1)
   })
 
   it('poslední noc je v Hanoji, ne na ostrově', () => {
@@ -245,8 +251,11 @@ describe('referenční integrita', () => {
 
   it('každý přesun mezi oblastmi vede na skutečné dopravní varianty', () => {
     // Smyčka loopu z Hà Giangu a zpět nemá vlastní leg — má vlastní schéma.
+    // Pět mezioblastních přesunů: Hanoj → Hà Giang → Sa Pa → Tam Cốc → Cát Bà → Hanoj.
+    // Dřív jich bylo sedm; přímý noční bus Sa Pa → Tam Cốc sloučil tři úseky
+    // (transfer do Lào Cai, noční vlak, přejezd z Hanoje) do jednoho.
     const mainMoves = routeSegments.filter((s) => s.group === 'main' && s.fromNodeId !== s.toNodeId)
-    expect(mainMoves.length).toBeGreaterThanOrEqual(7)
+    expect(mainMoves.length).toBeGreaterThanOrEqual(5)
     for (const s of mainMoves) {
       expect(s.transportLegId, `${s.id}: přesun bez dopravního detailu`).toBeTruthy()
       const leg = transportLegById.get(s.transportLegId!)
@@ -289,11 +298,30 @@ describe('ceny a jistota', () => {
     }
   })
 
-  it('netvrdí „ověřeno" tam, kde zdroj nebyl otevřen', () => {
-    // Metoda sběru dat (jen vyhledávání) nedovoluje stupeň `verified`.
+  it('„ověřeno" smí stát jen na tom, co nám poskytovatel řekl přímo', () => {
+    // Metoda sběru dat z Prahy byla jen vyhledávání, takže z průvodce ani
+    // z prodejní platformy `verified` vzniknout nemůže. Smí ho nést jedině
+    // cena, kterou nám dal sám poskytovatel (nabídka na jeho vlastním
+    // formuláři, mail, WhatsApp) nebo kterou má z první ruky cestující.
+    const FIRST_HAND: SourceKind[] = ['direct-quote', 'operator', 'traveller']
     for (const { where, price } of collectPrices()) {
-      expect(price.confidence, `${where}: příliš silné tvrzení`).not.toBe('verified')
+      if (price.confidence !== 'verified') continue
+      const cited = (price.sourceIds ?? []).map((id) => sourceById.get(id))
+      expect(cited.length, `${where}: „ověřeno" bez zdroje`).toBeGreaterThan(0)
+      expect(
+        cited.some((src) => src && FIRST_HAND.includes(src.kind)),
+        `${where}: „ověřeno" se opírá jen o rešerši, ne o poskytovatele`,
+      ).toBe(true)
+      expect(price.checkedOn, `${where}: „ověřeno" bez data kontroly`).toBeTruthy()
     }
+  })
+
+  it('naprostá většina cen zůstává pod stupněm „ověřeno"', () => {
+    // Pojistka proti tomu, aby se `verified` začalo rozlévat na údaje
+    // z rešerše. Ověřené smí být jen to, co jsme si opravdu vyžádali.
+    const prices = collectPrices()
+    const verified = prices.filter((p) => p.price.confidence === 'verified')
+    expect(verified.length / prices.length).toBeLessThan(0.2)
   })
 
   it('ceny s uvedeným zdrojem mají i datum kontroly', () => {
@@ -383,21 +411,19 @@ describe('zdroje a geografie', () => {
   })
 })
 
-describe('referenční den 26. 9.', () => {
-  const day = days.find((d) => d.date === '2026-09-26')!
+describe('noční bus 25. 9. — nahrazuje nocleh v Hà Giangu', () => {
+  const day25 = days.find((d) => d.date === '2026-09-25')!
 
-  it('existuje a má čtyři klikací kroky ve správném pořadí', () => {
-    expect(day).toBeDefined()
-    expect(day.items.map((i) => i.title)).toEqual([
-      'Ranní přímý transfer do Sa Pa',
-      'Check-in a oběd',
-      'Alpine Coaster / downhill autíčka',
-      'Večer: hotpot, bar nebo bylinková koupel',
-    ])
+  it('poslední den loopu končí nočním busem do Sa Py, ne noclehem v Hà Giangu', () => {
+    expect(day25.night).toEqual({ label: 'Sa Pa', regionId: 'sapa', kind: 'hotel' })
+    const busItem = day25.items.find((i) => i.id === 'item-20260925-night-bus')!
+    expect(busItem).toBeDefined()
+    expect(busItem.transportLegId).toBe('leg-hagiang-sapa')
   })
 
-  it('transfer má doporučenou variantu, alternativy a plán při zrušení', () => {
-    const leg = transportLegById.get(day.items[0].transportLegId!)!
+  it('má doporučenou variantu, alternativy a plán při zrušení', () => {
+    const day = day25
+    const leg = transportLegById.get(day.items.find((i) => i.id === 'item-20260925-night-bus')!.transportLegId!)!
     expect(leg.options.length).toBeGreaterThanOrEqual(2)
     expect(leg.options.filter((o) => o.recommended)).toHaveLength(1)
     expect(leg.fallback?.length).toBeGreaterThan(0)
@@ -408,9 +434,22 @@ describe('referenční den 26. 9.', () => {
       expect(o.dropoff, `${o.id}: chybí výstup`).toBeDefined()
     }
   })
+})
 
-  it('check-in a oběd vede na ubytování i na levné jídelny', () => {
-    const groups = day.items[1].choiceGroupIds!.map((id) => choiceGroupById.get(id)!)
+describe('referenční den 26. 9.', () => {
+  const day = days.find((d) => d.date === '2026-09-26')!
+
+  it('existuje a má tři klikací kroky ve správném pořadí', () => {
+    expect(day).toBeDefined()
+    expect(day.items.map((i) => i.title)).toEqual([
+      'Klidné dopoledne a oběd',
+      'Alpine Coaster / downhill autíčka',
+      'Večer: hotpot, bar nebo bylinková koupel',
+    ])
+  })
+
+  it('klidné dopoledne vede na ubytování i na levné jídelny', () => {
+    const groups = day.items[0].choiceGroupIds!.map((id) => choiceGroupById.get(id)!)
     expect(groups).toHaveLength(2)
     const stay = groups.find((g) => g.id === 'choice-sapa-stay')!
     const food = groups.find((g) => g.id === 'choice-sapa-arrival-lunch')!
@@ -430,7 +469,7 @@ describe('referenční den 26. 9.', () => {
   it('coaster je jedna entita s aliasy a vysvětleným rozdílem oproti autíčkům', () => {
     const place = placeById.get('place-alpine-coaster-sapa')!
     expect(place.aliases).toContain('downhill autíčka')
-    const detail = (days.find((d) => d.date === '2026-09-26')!.items[2].detail ?? []).join(' ')
+    const detail = (days.find((d) => d.date === '2026-09-26')!.items[1].detail ?? []).join(' ')
     expect(detail).toMatch(/kolejnic/i)
     expect(detail).toMatch(/bezkolejov/i)
     expect(place.price?.[0].currency).toBe('VND')
@@ -438,7 +477,7 @@ describe('referenční den 26. 9.', () => {
   })
 
   it('večerní varianty jsou „nebo", ne povinnost', () => {
-    const group = choiceGroupById.get(day.items[3].choiceGroupIds![0])!
+    const group = choiceGroupById.get(day.items[2].choiceGroupIds![0])!
     expect(group.mode).toBe('or')
     expect(group.serviceIds.length).toBeGreaterThanOrEqual(3)
   })

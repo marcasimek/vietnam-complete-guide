@@ -48,7 +48,7 @@
   --region-ha-giang: #6B4EA8;
   --region-ha-giang-loop: #8659C6;
   --region-sapa: #0E8A80;
-  --region-train: #4F6383;
+  --region-night: #4F6383;
   --region-ninh-binh: #3E8E4A;
   --region-cat-ba: #1E7FB8;
   --region-transit: #7C857F;
@@ -142,7 +142,7 @@
     --region-ha-giang: #A186DE;
     --region-ha-giang-loop: #B196EC;
     --region-sapa: #35B5A8;
-    --region-train: #8AA2C6;
+    --region-night: #8AA2C6;
     --region-ninh-binh: #6BC077;
     --region-cat-ba: #56AEE0;
     --region-transit: #9AA79F;
@@ -163,7 +163,7 @@
 [data-region='ha-giang']      { --accent: var(--region-ha-giang); }
 [data-region='ha-giang-loop'] { --accent: var(--region-ha-giang-loop); }
 [data-region='sapa']          { --accent: var(--region-sapa); }
-[data-region='train']         { --accent: var(--region-train); }
+[data-region='night-transfer'] { --accent: var(--region-night); }
 [data-region='ninh-binh']     { --accent: var(--region-ninh-binh); }
 [data-region='cat-ba']        { --accent: var(--region-cat-ba); }
 [data-region='transit']       { --accent: var(--region-transit); }

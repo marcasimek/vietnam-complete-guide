@@ -35,6 +35,7 @@ export const guideCards: GuideCard[] = [
         bullets: [
           'Data vznikla 11. 9. 2026 v prostředí, kde šlo web jen prohledávat, ne otevírat jednotlivé stránky. Údaje pocházejí z výsledků vyhledávání nad uvedenými odkazy.',
           'Proto u cen a provozních dob skoro nikde nenajdeš štítek „ověřeno ve zdroji" — bylo by to tvrzení nad rámec toho, co jsme opravdu udělali.',
+          'Výjimka je to, co nám poskytovatel řekl PŘÍMO — nabídka z jeho vlastního formuláře, mail, WhatsApp. Tam štítek „ověřeno ve zdroji" stojí právem. Zatím se to týká jen nabídky Strawberry z 14. 9. 2026.',
           'Odkaz u každé ceny je tam proto, aby se dal otevřít a potvrdit. To je konkrétní další krok, ne výmluva.',
         ],
       },

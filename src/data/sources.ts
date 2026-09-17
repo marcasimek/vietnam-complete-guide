@@ -6,9 +6,14 @@ import type { Source } from '@/model/types'
  * POCTIVOST METODY: v prostředí, kde tahle data vznikala, byl přístup na web
  * omezen na vyhledávání — jednotlivé stránky nešlo otevřít přímo. Údaje níže
  * tedy pocházejí z výsledků vyhledávání nad uvedenými URL, ne z otevřené stránky.
- * Proto je u většiny cen a provozních údajů `confidence: 'published'` nebo níž
- * a u žádného není `'verified'`, pokud to není údaj od samotných cestujících.
- * Před cestou je potřeba otevřít odkaz a potvrdit. Viz karta „Jak ověřujeme".
+ * Proto je u většiny cen a provozních údajů `confidence: 'published'` nebo níž.
+ *
+ * Stupeň `'verified'` smí nést jedině údaj, který nám dal PŘÍMO poskytovatel
+ * (jeho vlastní formulář, mail, WhatsApp — druh zdroje `direct-quote`
+ * nebo `operator`) nebo který má z první ruky cestující (`traveller`).
+ * Hlídá to test „ověřeno smí stát jen na tom, co nám poskytovatel řekl přímo".
+ * U ostatního je potřeba před cestou otevřít odkaz a potvrdit.
+ * Viz karta „Jak ověřujeme".
  */
 export const sources: Source[] = [
   // --- doprava Hà Giang → Sa Pa -------------------------------------------
@@ -509,6 +514,133 @@ export const sources: Source[] = [
     kind: 'operator',
     checkedOn: '2026-09-11',
     supports: ['autobus najíždí přímo na trajekt, nepřestupuje se', 'v ceně mýto, trajekt a svoz'],
+  },
+  // --- co nám řekl přímo poskytovatel -------------------------------------
+  {
+    id: 'src-strawberry-hagiang-sapa-schedule',
+    title: 'strawberryhagiangloop.com — jízdní řád a ceny Hà Giang ⇄ Sa Pa',
+    url: 'https://strawberryhagiangloop.com/',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: [
+      'tři úrovně na trase Hà Giang ⇄ Sa Pa: Royal Cabin Sleeping Bus, Hotel Sleeping Bus, Limousine',
+      'Hotel Sleeping Bus a Limousine za 300 000 VND na osobu',
+      'ranní odjezd z Hà Giangu do Sa Py v 7:30',
+    ],
+    note: 'Screenshot tabulky z webu, částečně zakrytý ikonami chatu — přesný čas případného večerního spoje a cena Royal Cabin nejsou čitelné celé. Nutno ověřit přímo.',
+  },
+  // --- co nám řekl přímo poskytovatel -------------------------------------
+  {
+    id: 'src-strawberry-whatsapp-140926',
+    title: 'Strawberry Ha Giang Loop — odpověď na WhatsApp (Daiquiri, tým Strawberry)',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'direct-quote',
+    checkedOn: '2026-09-14',
+    supports: [
+      'dva soukromé pokoje před loopem i během loopu jsou možné',
+      'denní autobus Hanoj → Hà Giang s odjezdem v 9:00 a příjezdem v 16:00',
+      'noc po loopu u nich na základně za 300 000 VND za pokoj a noc',
+    ],
+    note: 'Není to web, ale konverzace. Platí to, co nám napsali pro náš termín — ne obecný ceník. Nic zatím není zaplacené.',
+  },
+  {
+    id: 'src-strawberry-booking-form',
+    title: 'Strawberry Ha Giang Loop — rezervační formulář s vyčíslenou nabídkou',
+    url: 'https://strawberryhagiangloop.com/',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: [
+      'Private Motorbike Tour Easy Rider 4D/3N za 6 300 000 VND na osobu',
+      'limousine Hanoj → Hà Giang za 350 000 VND na osobu',
+      'souhrn pro 4 osoby: 25 200 000 + 1 400 000 = 26 600 000 VND',
+    ],
+    note: 'Ceník samotného operátora s vyčísleným souhrnem pro náš termín, ne přeprodejce.',
+  },
+  {
+    id: 'src-strawberry-whatsapp-160916',
+    title: 'Strawberry Ha Giang Loop — odpověď na WhatsApp (noční bus a platba)',
+    publisher: 'Strawberry Ha Giang Loop',
+    kind: 'direct-quote',
+    checkedOn: '2026-09-16',
+    supports: [
+      'noční bus Hà Giang → Sa Pa odjíždí v 18:00 a přijíždí do Sa Py ve 23:00',
+      'bus Hanoj → Hà Giang lze zarezervovat s odjezdem v 9:00',
+      'platba preferovaná v hotovosti ve VND',
+    ],
+    note: 'Konverzace na WhatsAppu, ne web. Platí to, co napsali pro náš termín. Přesný nástupní bod v Hà Giangu a celková cena zatím chybí — vyžádáno.',
+  },
+  // --- přímý autobus Sa Pa → Ninh Bình / Tam Cốc ---------------------------
+  {
+    id: 'src-geckoroutes-sapa-ninhbinh',
+    title: 'Sapa to Ninh Binh — routes, prices and tips (2026)',
+    url: 'https://www.geckoroutes.com/vietnam/sapa-to-ninh-binh/',
+    publisher: 'Gecko Routes',
+    kind: 'guide',
+    checkedOn: '2026-09-14',
+    supports: [
+      'přímé autobusové spojení Sa Pa → Ninh Bình existuje',
+      'jízda se uvádí v rozsahu 5 h 20 min – 9 h 50 min',
+      'nejlevnější jízdenka kolem 370 000 VND',
+      'The Long Travel a Ha Sơn odjíždějí z autobusového nádraží v Sa Pě, Grouptour zhruba 350 m od své kanceláře',
+      'jen The Long Travel a Grouptour vozí cestující až do Tam Cốc, ostatní končí v centru Ninh Bình',
+    ],
+  },
+  {
+    id: 'src-12go-sapa-ninhbinh',
+    title: '12Go Asia — Sa Pa ⇄ Ninh Bình',
+    url: 'https://12go.asia/en/travel/sapa/ninh-binh',
+    publisher: '12Go Asia',
+    kind: 'transport-platform',
+    checkedOn: '2026-09-14',
+    supports: ['rozsah cen jízdenek', 'existence přímých spojů', 'typy vozidel a odjezdy'],
+    note: 'Prodejní platforma, ne dopravce. Skutečného dopravce je nutné zjistit u konkrétního spoje.',
+  },
+  {
+    id: 'src-a21-cabin-sapa-ninhbinh',
+    title: 'VIP cabin bus from Sapa to Ninh Binh',
+    url: 'https://a21tours.com/ticket/private-cabin-bus-sapa-ninh-binh',
+    publisher: 'A21 Tours',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: [
+      'kabinový autobus Sa Pa → Ninh Bình od 25 USD na osobu',
+      'večerní odjezdy kolem 19:30, 21:00, 21:30 a 22:00',
+      'vystupuje se u kanceláře dopravce v Tam Cốc',
+    ],
+  },
+  {
+    id: 'src-sapanomad-cabin-ninhbinh',
+    title: 'Royal Cabin sleeper bus Sapa to Ninh Binh (2026)',
+    url: 'https://sapanomad.com/cabin-bus-sapa-to-ninh-binh/',
+    publisher: 'sapanomad.com',
+    kind: 'guide',
+    checkedOn: '2026-09-14',
+    supports: [
+      'jednolůžková kabina cca 31 USD, dvoulůžková cca 42 USD za kabinu (tj. cca 21 USD na osobu)',
+      'přesun trvá zhruba 8,5 hodiny',
+      'u nočních spojů se dá zůstat ve voze do 05:30',
+      'kabiny mají závěs, zásuvku, deku, vodu, wifi a klimatizaci',
+    ],
+  },
+  {
+    id: 'src-viettransfers-sapa-ninhbinh',
+    title: 'Sapa to Ninh Binh VIP cabin bus',
+    url: 'https://viettransfers.com/transfer/sapa-ninh-binh/sapa-to-ninh-binh-vip-cabin-bus/',
+    publisher: 'Viet Transfers',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: ['druhý prodejce kabinového spoje na stejné trase', 'potvrzuje večerní odjezdy a délku kolem 8,5 h'],
+  },
+  {
+    id: 'src-fullmoon-sapa-ninhbinh-day',
+    title: 'Sa Pa to Ninh Binh by sleeper bus — 07:00 departure',
+    url: 'https://fullmoontravelasia.com/bus-sapa-to-ninh-binh-700/',
+    publisher: 'Full Moon Travel Asia',
+    kind: 'operator',
+    checkedOn: '2026-09-14',
+    supports: ['existuje i ranní denní spoj s odjezdem kolem 7:00', 'cestou se zastavuje zhruba po dvou hodinách'],
   },
   // --- vlak a Hà Giang Loop -------------------------------------------------
   {

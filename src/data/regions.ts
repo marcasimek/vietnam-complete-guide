@@ -33,11 +33,11 @@ export const regions: Region[] = [
     center: { lat: 22.3364, lng: 103.8438, precision: 'area-centroid', searchQuery: 'Sa Pa, Lào Cai, Vietnam' },
   },
   {
-    id: 'train',
-    name: 'Noční vlak',
-    blurb: 'Lào Cai → Hanoj. Jedna noc na kolejích místo hotelu.',
-    accent: 'var(--region-train)',
-    center: { lat: 22.4, lng: 103.97, precision: 'area-centroid', searchQuery: 'Lào Cai railway station' },
+    id: 'night-transfer',
+    name: 'Noční přejezd',
+    blurb: 'Sa Pa → Tam Cốc jedním spojem. Jedna noc na cestě místo hotelu.',
+    accent: 'var(--region-night)',
+    center: { lat: 21.3, lng: 105.3, precision: 'area-centroid', searchQuery: 'Sa Pa to Ninh Binh bus route' },
   },
   {
     id: 'ninh-binh',

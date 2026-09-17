@@ -10,3 +10,4 @@ blob-report/
 .vite/
 /test-results/
 dist-preview/
+*.tsbuildinfo

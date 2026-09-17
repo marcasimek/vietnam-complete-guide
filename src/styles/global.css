@@ -177,6 +177,8 @@ img, svg { max-width: 100%; }
   background: var(--surface-sunk); color: var(--ink-2);
   border: 1px solid transparent; white-space: nowrap;
 }
+/* Delší text (časový údaj u kroku) se musí zalomit, jinak přeteče stránku. */
+.chip--wrap { white-space: normal; text-align: left; }
 .chip--accent { background: var(--accent-soft); color: var(--accent-ink); }
 .chip--outline { background: transparent; border-color: var(--line-strong); color: var(--ink-2); }
 .chip--coral { background: var(--coral-100); color: color-mix(in srgb, var(--coral) 80%, var(--ink)); }

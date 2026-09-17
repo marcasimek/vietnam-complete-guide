@@ -64,7 +64,7 @@ export function ItemRow({ item, index }: { item: ItineraryItem; index: number })
           {item.subtitle ? <span className="step__sub">{item.subtitle}</span> : null}
           {(status || item.timeHint) && (
             <span className="step__meta">
-              {item.timeHint ? <span className="chip chip--outline">{item.timeHint}</span> : null}
+              {item.timeHint ? <span className="chip chip--outline chip--wrap">{item.timeHint}</span> : null}
               {status ? <span className={`chip ${item.status === 'backup' ? 'chip--amber' : 'chip--coral'}`}>{status}</span> : null}
             </span>
           )}
